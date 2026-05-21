@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     siteName:    'Tutiq',
     type:        'website',
     locale:      'en_GB',
-    images: [{ url: `/opengraph-image`, width: 1200, height: 630, alt: `Tutiq — Your Personal AI Tutor` }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Tutiq — Your Personal AI Tutor' }],
   },
   twitter: {
     card:        'summary_large_image',
     title:       'Tutiq — Your Personal AI Tutor',
     description: 'Get instant homework help and personalised tutoring from AI. Works for all subjects and ages.',
-    images:      [`https://tutiq.app/opengraph-image`],
+    images:      ['https://tutiq.app/og.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 }
