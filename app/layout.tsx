@@ -15,28 +15,29 @@ import FeedbackWidget from '@/components/FeedbackWidget'
 import CookieConsent from "../components/CookieConsent";
 import Footer from "../components/Footer";
 import StickyFooterCTA from "../components/StickyFooterCTA";
+import SchemaOrg from '@/components/SchemaOrg'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
-  title:        'Tutiq — Your Personal AI Tutor',
-  description:  'Get instant homework help and personalised tutoring from AI. Works for all subjects and ages.',
+  title:        'Tutiq — Your AI Tutor That Adapts to You',
+  description:  'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
   keywords:     config.keywords,
   metadataBase: new URL('https://tutiq.app'),
   alternates:   { canonical: '/' },
   openGraph: {
-    title:       'Tutiq — Your Personal AI Tutor',
-    description: 'Get instant homework help and personalised tutoring from AI. Works for all subjects and ages.',
+    title:       'Tutiq — Your AI Tutor That Adapts to You',
+    description: 'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
     url:         'https://tutiq.app',
     siteName:    'Tutiq',
     type:        'website',
     locale:      'en_GB',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Tutiq — Your Personal AI Tutor' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Tutiq — Your AI Tutor That Adapts to You' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Tutiq — Your Personal AI Tutor',
-    description: 'Get instant homework help and personalised tutoring from AI. Works for all subjects and ages.',
+    title:       'Tutiq — Your AI Tutor That Adapts to You',
+    description: 'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
     images:      ['https://tutiq.app/og.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
@@ -94,43 +95,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer siteName={config.name} />
       <CookieConsent />
         <StickyFooterCTA />
-        {/* JSON-LD structured data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify([
-            {
-              '@context': 'https://schema.org',
-              '@type': 'SoftwareApplication',
-              name: 'Tutiq',
-              applicationCategory: 'EducationalApplication',
-              operatingSystem: 'Web',
-              offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-              description: 'Get instant homework help and personalised tutoring from AI. Works for all subjects and ages.',
-              url: 'https://tutiq.app',
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: 'Is Tutiq free to use?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'Yes — Tutiq offers a free tier with 10 tutoring sessions per day. No credit card required to start.' },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'How does Tutiq work?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'Ask any question across any school subject and Tutiq\'s AI tutor gives you a clear, step-by-step explanation adapted to your age and level. It covers maths, science, English, history, and more.' },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'What makes Tutiq different from other homework help apps?',
-                  acceptedAnswer: { '@type': 'Answer', text: 'Tutiq adapts its explanations to the student\'s age and curriculum level — from primary school through to university — and builds a personalised learning path to fill gaps in understanding.' },
-                },
-              ],
-            },
-          ])}}
-        />
+        {/* JSON-LD structured data — driven from siteConfig.faq */}
+        <SchemaOrg />
         <Script async src="http://31.97.56.148:3100/script.js" data-website-id="7ef81f7e-0740-4833-a017-5fe761072d37" strategy="afterInteractive" />
       </body>
     </html>

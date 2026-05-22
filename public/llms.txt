@@ -1,22 +1,39 @@
-# Tutiq
-> AI personal tutor for students K-12 to university. Get instant homework help and personalised explanations for any subject.
+# Tutiq — Your AI Tutor That Adapts to You
+> https://tutiq.app
 
-## What this site does
-Tutiq is an AI-powered personal tutor that helps students from primary school through to university. Ask any question across any subject — maths, science, English, history — and get a clear, personalised explanation at exactly the right level. The AI adapts its language and depth to your age and understanding.
+Tutiq is a free AI-powered personal tutor at tutiq.app. It generates personalised step-by-step explanations for any subject — Maths, Science, English, History, Geography, Coding, Languages, Interview Prep and more — adapting language and difficulty to the learner's age and level.
 
-## Who it's for
-Students aged 6 to 22, parents supporting homework, and lifelong learners. Works for K-12 schoolwork, GCSE, A-level, university coursework, and beyond.
+## Free Tier
+- 3 tutoring sessions per day
+- No sign-up or credit card required
+- 3 subjects included
 
-## Key features
-- Instant AI explanations across all subjects
-- Age-adaptive tutoring — adjusts to your level
-- Step-by-step homework help
-- Practice questions and quizzes
-- Study path builder — AI creates a personalised learning plan
-- Progress tracking across topics
+## Pro Plan ($8/month)
+- Unlimited sessions
+- All subjects unlocked
+- Progress tracking
+- PDF study guides
+- Mock exam mode
+- Priority AI responses
 
-## Pricing
-Free tier available with 10 tutoring sessions per day. Pro plan from $5.99/month for unlimited sessions.
+## Who It's For
+- GCSE students (Year 9-11) — AQA, Edexcel, OCR aligned
+- 11+ Prep students (Age 9-11) — CEM and GL Assessment formats
+- Adults and graduates — interview prep (FAANG, NHS, Law)
+- Anyone wanting to learn any topic
 
-## Contact
-https://tutiq.app
+## How It Works
+1. Pick a subject and tell us your age and level
+2. Tutiq AI builds a personalised step-by-step learning path
+3. Study bite-sized explanations with a quiz after each topic
+
+## Key Features
+- Adaptive difficulty — explanations match your age and level automatically
+- Quiz after every topic — cement what you've learned
+- Instant answers — no waiting, 24/7 availability
+- Works on any device — no download required
+
+## Technology
+- Built with Next.js 15 and Tailwind CSS
+- AI: Groq -> Gemini -> Anthropic fallback chain
+- Domain: tutiq.app

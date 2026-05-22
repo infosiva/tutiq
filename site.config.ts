@@ -1,84 +1,158 @@
-/**
- * site.config.ts — Tutiq site-wide content config
- * All landing page text lives here — no hardcoded JSX strings.
- */
+// site.config.ts — THE ONLY FILE TO EDIT to rebrand or reconfigure this site
+// All sections, copy, FAQ, pricing, and layout variants are driven from here.
 
-export const siteConfig = {
-  siteName: 'Tutiq',
-  domain: 'tutiq.app',
-  tagline: 'Your Personal AI Tutor',
-  headline: 'Get instant homework help from your personal AI tutor',
-  subheadline: 'Personalised tutoring for every subject and age. No account needed — 3 free sessions to start.',
-  ctaPrimary: 'Start Learning Free',
-  ctaSecondary: 'See Pricing',
+export type HeroVariant = 'split' | 'centered' | 'minimal'
 
-  seo: {
-    title: 'Tutiq — Your Personal AI Tutor',
-    description: 'Get instant homework help and personalised tutoring from AI. Works for all subjects and ages.',
-    ogImage: '/og-tutiq.png',
+export interface SiteConfig {
+  siteName: string
+  domain: string
+  themeColor: string
+  heroBadge: string
+  headline: string[]
+  subheadline: string
+  ctaPrimary: { text: string; href: string }
+  ctaSecondary: { text: string; href: string }
+  freeTier: {
+    pills: string[]
+    gateHeadline: string
+    gateSubtext: string
+    gateCtaText: string
+    gateCtaHref: string
+    gateSecondaryText: string
+  }
+  socialProof: {
+    marqueeItems: string[]
+    stat?: string
+  }
+  howItWorks: Array<{ step: number; icon: string; title: string; desc: string }>
+  features: Array<{ icon: string; title: string; desc: string; size?: 'large' | 'wide' | 'medium' }>
+  pricing: {
+    free: { name: string; price: string; period: string; features: Array<{ text: string; included: boolean }>; cta: { text: string; href: string } }
+    pro:  { name: string; price: string; period: string; badge?: string; features: Array<{ text: string; included: boolean }>; cta: { text: string; href: string } }
+  }
+  faq: Array<{ q: string; a: string }>
+  finalCta: { headline: string; subtext: string; ctaText: string; ctaHref: string }
+  layout: { heroVariant: HeroVariant; sectionOrder: string[]; hideSections: string[] }
+  seo: { title: string; description: string; ogImage: string; llmsDescription: string }
+  nav: Array<{ label: string; href: string }>
+  chatbot: { welcomeMessage: string; botName: string; placeholder: string }
+}
+
+export const siteConfig: SiteConfig = {
+  siteName:   'Tutiq',
+  domain:     'tutiq.app',
+  themeColor: 'emerald',
+
+  heroBadge:    'tutiq · AI tutor · free to start',
+  headline:     ['Your AI tutor', 'that adapts to you.'],
+  subheadline:  'Personalised tutoring for every subject and age — start in seconds, no account needed.',
+  ctaPrimary:   { text: '🎓 Start Learning Free →', href: '/onboard' },
+  ctaSecondary: { text: '📚 See All Subjects',       href: '/#features' },
+
+  freeTier: {
+    pills:             ['🎓 3 sessions free', '📚 All subjects', '📱 Any device'],
+    gateHeadline:      "You've used your 3 free sessions!",
+    gateSubtext:       "You're making great progress. Unlock unlimited sessions to keep going.",
+    gateCtaText:       'Upgrade to Pro — $8/mo',
+    gateCtaHref:       '/pricing',
+    gateSecondaryText: 'Come back free tomorrow',
   },
 
-  nav: [
-    { label: 'Home',     href: '/' },
-    { label: 'Features', href: '/#features' },
-    { label: 'Subjects', href: '/#subjects' },
-    { label: 'Pricing',  href: '/pricing' },
-    { label: 'About',    href: '/about' },
+  socialProof: {
+    marqueeItems: [
+      '📐 Maths', '🔬 Science', '✍️ English', '📜 History',
+      '💻 Coding', '🌍 Geography', '🧪 Chemistry', '📊 Statistics',
+      '💼 Interview Prep', '🎓 GCSE', '⭐ 11+ Prep', '🌐 Languages',
+    ],
+  },
+
+  howItWorks: [
+    { step: 1, icon: '👤', title: 'Pick your subject', desc: 'Choose from 10+ subjects or type any topic. Tell us your age and level.' },
+    { step: 2, icon: '🗺️', title: 'AI builds your path', desc: 'Tutiq creates a personalised step-by-step plan tailored to you in seconds.' },
+    { step: 3, icon: '✅', title: 'Learn and quiz',      desc: 'Clear explanations followed by a quick quiz after each topic to cement knowledge.' },
   ],
 
   features: [
-    { icon: '🧠', title: 'Step-by-Step Explanations',  desc: 'AI breaks down any topic into clear, bite-sized steps tailored to your level.' },
-    { icon: '📚', title: 'All Subjects Covered',        desc: 'Maths, Science, English, History, Coding, Interview prep and more.' },
-    { icon: '⚡', title: 'Instant Answers',             desc: 'No waiting — get a personalised explanation in seconds, any time of day.' },
-    { icon: '🎯', title: 'Adaptive Difficulty',         desc: 'AI adjusts explanations to match your age, level and learning pace.' },
-    { icon: '📝', title: 'Quiz After Every Topic',      desc: 'Quick quiz after each lesson to cement what you learned.' },
-    { icon: '📄', title: 'Study Buddy',                 desc: 'Upload your notes and get instant flashcards, quizzes and summaries.' },
+    { icon: '🧠', title: 'Adaptive Explanations', desc: 'AI adjusts language and depth to match your age, level, and learning pace — always at your speed.', size: 'large'  },
+    { icon: '📚', title: 'All Subjects',           desc: 'Maths, Science, English, History, Coding, Interview Prep and more.',                               size: 'medium' },
+    { icon: '⚡', title: 'Instant Answers',        desc: 'No waiting — get a clear, personalised explanation in seconds, any time.',                         size: 'medium' },
+    { icon: '📱', title: 'Any Device',             desc: 'Works on phones, tablets and laptops — no download needed.',                                        size: 'medium' },
+    { icon: '🎯', title: 'Quiz After Every Topic', desc: 'Quick quiz after each lesson to make sure the knowledge sticks.',                                   size: 'wide'   },
   ],
 
-  pricing: [
-    {
-      name: 'Free',
-      price: '$0',
-      period: 'forever',
-      highlight: false,
+  pricing: {
+    free: {
+      name: 'Free', price: '$0', period: 'forever',
       features: [
-        '3 tutoring sessions / day',
-        '3 subjects available',
-        'Step-by-step explanations',
-        'Quiz after each topic',
+        { text: '3 sessions per day',        included: true  },
+        { text: '3 subjects available',       included: true  },
+        { text: 'Step-by-step explanations',  included: true  },
+        { text: 'Quiz after each topic',      included: true  },
+        { text: 'Progress tracking',          included: false },
+        { text: 'No ads',                     included: false },
       ],
-      cta: 'Start Free',
-      ctaHref: '/onboard',
+      cta: { text: 'Start Free', href: '/onboard' },
     },
-    {
-      name: 'Pro',
-      price: '$8',
-      period: '/month',
-      highlight: true,
-      badge: 'Most popular',
+    pro: {
+      name: 'Pro', price: '$8', period: '/month', badge: 'Popular',
       features: [
-        'Unlimited sessions',
-        'All subjects unlocked',
-        'Progress tracking',
-        'PDF study guides',
-        'Mock exam mode',
-        'Priority AI responses',
+        { text: 'Unlimited sessions',         included: true },
+        { text: 'All subjects unlocked',      included: true },
+        { text: 'Progress tracking',          included: true },
+        { text: 'PDF study guides',           included: true },
+        { text: 'Mock exam mode',             included: true },
+        { text: 'Priority AI responses',      included: true },
       ],
-      cta: 'Upgrade to Pro',
-      ctaHref: '/pricing',
+      cta: { text: 'Upgrade to Pro', href: '/pricing' },
     },
+  },
+
+  faq: [
+    { q: 'Is Tutiq free to use?',
+      a: 'Yes — Tutiq is free to start. You get 3 tutoring sessions every day with no credit card or account required.' },
+    { q: 'How does Tutiq adapt to my level?',
+      a: 'Tutiq uses AI to adjust its explanations based on your age, subject level, and learning pace. Younger learners get simpler language; advanced students get deeper explanations with more nuance.' },
+    { q: 'What subjects does Tutiq cover?',
+      a: 'Tutiq covers Maths, Science, English, History, Geography, Coding, Languages, Interview Prep, and more. If you can name a topic, Tutiq can teach it.' },
+    { q: 'Does Tutiq work on phones and tablets?',
+      a: 'Yes — Tutiq works on any device with a browser. No download or app required.' },
+    { q: 'What does Pro include?',
+      a: 'Pro unlocks unlimited sessions, all subjects, progress tracking, PDF study guides, mock exam mode, and priority AI responses for $8/month.' },
   ],
 
-  trustPills: [
-    '✓ No account needed',
-    '✓ 3 free sessions',
-    '✓ All subjects',
-    '✓ All ages',
+  finalCta: {
+    headline: 'Ready for your first lesson?',
+    subtext:  'Start free. No account. Adapts to you.',
+    ctaText:  '🎓 Start Learning Free →',
+    ctaHref:  '/onboard',
+  },
+
+  layout: {
+    heroVariant:  'split',
+    sectionOrder: ['hero', 'marquee', 'howItWorks', 'features', 'pricing', 'faq', 'finalCta'],
+    hideSections: [],
+  },
+
+  seo: {
+    title:          'Tutiq — Your AI Tutor That Adapts to You',
+    description:    'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
+    ogImage:        '/og.png',
+    llmsDescription: 'Tutiq is a free AI-powered personal tutor at tutiq.app. It generates personalised step-by-step explanations for any subject — Maths, Science, English, Coding, Interview Prep and more — adapting language and difficulty to the learner\'s age and level. Free tier: 3 sessions per day, no account required. Pro: unlimited sessions, all subjects, progress tracking, PDF study guides, mock exam mode.',
+  },
+
+  nav: [
+    { label: 'Home',         href: '/' },
+    { label: 'Features',     href: '/#features' },
+    { label: 'How it works', href: '/#how-it-works' },
+    { label: 'Pricing',      href: '/#pricing' },
+    { label: 'About',        href: '/about' },
   ],
 
   chatbot: {
     welcomeMessage: 'Hi! What subject would you like help with today?',
-    botName: 'Tutiq AI',
-    placeholder: 'Ask me anything…',
+    botName:        'Tutiq AI',
+    placeholder:    'Ask me anything…',
   },
-} as const
+}
+
+export default siteConfig

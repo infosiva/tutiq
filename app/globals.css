@@ -161,3 +161,40 @@ pre {
 @media (max-width: 768px) {
   html, body { overflow-x: hidden !important; }
 }
+
+/* ── Marquee — CSS-only infinite scroll ─────────────────── */
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* ── Badge glow ─────────────────────────────────────────── */
+.badge-glow {
+  box-shadow: 0 0 12px rgba(16,185,129,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ── CTA pulse glow ─────────────────────────────────────── */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(16,185,129,0.3), 0 0 60px rgba(16,185,129,0.1); }
+  50%       { box-shadow: 0 0 40px rgba(16,185,129,0.6), 0 0 80px rgba(16,185,129,0.25); }
+}
+.cta-pulse { animation: ctaPulse 3s ease-in-out infinite; }
+
+/* ── shimmer-slide (ShimmerButton) ─────────────────────── */
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+.animate-shimmer-slide { animation: shimmer-slide var(--speed, 3s) ease-in-out infinite alternate; }
+
