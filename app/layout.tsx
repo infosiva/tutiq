@@ -99,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StickyFooterCTA />
         {/* JSON-LD structured data — driven from siteConfig.faq */}
         <SchemaOrg />
-        <Script async src="http://31.97.56.148:3100/script.js" data-website-id="7ef81f7e-0740-4833-a017-5fe761072d37" strategy="afterInteractive" />
+        <Script defer data-domain="tutiq.app" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
       </body>
     </html>
   )
