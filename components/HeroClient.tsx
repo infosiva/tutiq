@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { STAGGER_CONTAINER, FADE_UP, SPRING_CINEMATIC, BUTTON_PRESS, useMotionVariants } from '@/lib/motion'
 import { siteConfig } from '@/site.config'
+import type { ContentOverrides } from '@/lib/content'
 import { ShimmerButton } from '@/components/magicui/shimmer-button'
 import { theme, btn } from '@/lib/theme'
 import Link from 'next/link'
@@ -16,7 +17,7 @@ const SUBJECT_CHIPS = [
   { label: 'Coding',  icon: '💻', href: '/onboard?subject=coding' },
 ]
 
-export default function HeroClient() {
+export default function HeroClient({ overrides = {} }: { overrides?: ContentOverrides }) {
   const variants  = useMotionVariants(STAGGER_CONTAINER(0.06))
   const childVars = useMotionVariants(FADE_UP)
   const [hovered, setHovered] = useState<number | null>(null)
@@ -42,7 +43,7 @@ export default function HeroClient() {
         variants={childVars as Parameters<typeof motion.h1>[0]['variants']}
         className="text-4xl sm:text-5xl lg:text-[52px] font-black leading-[1.08] tracking-tight"
       >
-        <span className="block text-white">Your AI tutor</span>
+        <span className="block text-white">{overrides.headline ?? 'Your AI tutor'}</span>
         <span className="block"
           style={{
             background: 'linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%)',
@@ -59,8 +60,7 @@ export default function HeroClient() {
         variants={childVars as Parameters<typeof motion.p>[0]['variants']}
         className="text-white/55 text-base leading-relaxed max-w-md"
       >
-        Personalised learning paths. Instant explanations. Quick quizzes after every topic.
-        Adapts to your age, pace, and level — for free.
+        {overrides.subheadline ?? 'Personalised learning paths. Instant explanations. Quick quizzes after every topic. Adapts to your age, pace, and level — for free.'}
       </motion.p>
 
       {/* Subject chips — clickable */}
@@ -121,7 +121,7 @@ export default function HeroClient() {
         <motion.div {...BUTTON_PRESS} transition={SPRING_CINEMATIC}>
           <Link href={siteConfig.ctaPrimary.href}>
             <ShimmerButton background="rgba(5,150,105,1)" shimmerColor="#a7f3d0" className="px-8 py-4 text-base font-bold min-h-[52px]">
-              {siteConfig.ctaPrimary.text}
+              {overrides.cta ?? siteConfig.ctaPrimary.text}
             </ShimmerButton>
           </Link>
         </motion.div>
