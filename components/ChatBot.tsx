@@ -11,6 +11,8 @@ Help students understand concepts, break down complex topics, suggest study stra
 Adapt your language to the student's level. Be encouraging, patient, and clear.
 Keep responses concise — aim for 2-4 sentences unless a detailed explanation is needed.`
 
+const BOTTOM_OFFSET = 84
+
 interface Message {
   role: 'user' | 'assistant'
   content: string
@@ -18,6 +20,7 @@ interface Message {
 
 export default function ChatBot() {
   const [open, setOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: WELCOME },
   ])
@@ -25,6 +28,13 @@ export default function ChatBot() {
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -83,6 +93,28 @@ export default function ChatBot() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() }
   }
 
+  const panelStyle: React.CSSProperties = isMobile
+    ? {
+        position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9998,
+        height: `calc(100dvh - ${BOTTOM_OFFSET}px)`,
+        maxHeight: `calc(100dvh - ${BOTTOM_OFFSET}px)`,
+        borderRadius: '16px 16px 0 0', borderBottom: 'none',
+        background: '#080f0d', border: '1px solid rgba(16,185,129,0.25)',
+        boxShadow: '0 -8px 40px rgba(0,0,0,0.7), 0 0 40px rgba(16,185,129,0.10)',
+        display: 'flex', flexDirection: 'column', overflow: 'hidden',
+        animation: 'tutiq-slide-bottom 0.25s cubic-bezier(0.23,1,0.32,1)',
+      }
+    : {
+        position: 'fixed', bottom: BOTTOM_OFFSET + 4, right: 24, zIndex: 9998,
+        width: 360, height: 500,
+        maxHeight: `calc(100dvh - ${BOTTOM_OFFSET + 20}px)`,
+        borderRadius: 16,
+        background: '#080f0d', border: '1px solid rgba(16,185,129,0.25)',
+        boxShadow: '0 8px 40px rgba(0,0,0,0.7), 0 0 40px rgba(16,185,129,0.10)',
+        display: 'flex', flexDirection: 'column', overflow: 'hidden',
+        animation: 'tutiq-slide-up 0.22s ease-out',
+      }
+
   return (
     <>
       {/* Floating button — bottom-right */}
@@ -111,19 +143,15 @@ export default function ChatBot() {
         )}
       </button>
 
-      {/* Chat panel — bottom-right */}
       {open && (
-        <div style={{
-          position: 'fixed', bottom: 88, right: 24, zIndex: 9998,
-          width: 360, height: 500, borderRadius: 16,
-          background: '#080f0d', border: '1px solid rgba(16,185,129,0.25)',
-          boxShadow: '0 8px 40px rgba(0,0,0,0.7), 0 0 40px rgba(16,185,129,0.10)',
-          display: 'flex', flexDirection: 'column', overflow: 'hidden',
-          animation: 'tutiq-slide-up 0.22s ease-out',
-        }}>
+        <div style={panelStyle}>
           <style>{`
             @keyframes tutiq-slide-up {
               from { opacity: 0; transform: translateY(16px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes tutiq-slide-bottom {
+              from { opacity: 0; transform: translateY(100%); }
               to   { opacity: 1; transform: translateY(0); }
             }
             .tutiq-msg::-webkit-scrollbar { width: 4px; }
@@ -134,6 +162,7 @@ export default function ChatBot() {
 
           {/* Header */}
           <div style={{
+            flexShrink: 0,
             padding: '12px 16px', borderBottom: '1px solid rgba(16,185,129,0.2)',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             background: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(5,150,105,0.08) 100%)',
@@ -162,7 +191,7 @@ export default function ChatBot() {
 
           {/* Messages */}
           <div className="tutiq-msg" style={{
-            flex: 1, overflowY: 'auto', padding: '14px 14px 6px',
+            flex: 1, minHeight: 0, overflowY: 'auto', padding: '14px 14px 6px',
             display: 'flex', flexDirection: 'column', gap: 10,
           }}>
             {messages.map((m, i) => (
@@ -172,7 +201,7 @@ export default function ChatBot() {
                   borderRadius: m.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                   background: m.role === 'user' ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(16,185,129,0.08)',
                   border: m.role === 'user' ? 'none' : '1px solid rgba(16,185,129,0.2)',
-                  color: '#f0f0f0', fontSize: 13.5, lineHeight: 1.5,
+                  color: '#f0f0f0', fontSize: isMobile ? 15 : 13.5, lineHeight: 1.5,
                   wordBreak: 'break-word', whiteSpace: 'pre-wrap',
                 }}>
                   {m.content}
@@ -202,7 +231,10 @@ export default function ChatBot() {
 
           {/* Input */}
           <div style={{
-            padding: '10px 12px', borderTop: '1px solid rgba(16,185,129,0.15)',
+            flexShrink: 0,
+            padding: '10px 12px',
+            paddingBottom: isMobile ? 'max(10px, env(safe-area-inset-bottom))' : '10px',
+            borderTop: '1px solid rgba(16,185,129,0.15)',
             display: 'flex', gap: 8, alignItems: 'center',
             background: 'rgba(0,0,0,0.3)',
           }}>
@@ -216,7 +248,7 @@ export default function ChatBot() {
               style={{
                 flex: 1, background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.25)',
                 borderRadius: 10, padding: '9px 13px', color: '#f0f0f0',
-                fontSize: 13.5, outline: 'none', transition: 'border-color 0.15s',
+                fontSize: isMobile ? 16 : 13.5, outline: 'none', transition: 'border-color 0.15s',
               }}
               onFocus={e => (e.target.style.borderColor = ACCENT)}
               onBlur={e => (e.target.style.borderColor = 'rgba(16,185,129,0.25)')}
@@ -225,11 +257,11 @@ export default function ChatBot() {
               onClick={send}
               disabled={loading || !input.trim()}
               style={{
-                width: 38, height: 38, borderRadius: 10, border: 'none',
+                width: 38, height: 38, borderRadius: 10, border: 'none', flexShrink: 0,
                 background: input.trim() && !loading ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255,255,255,0.06)',
                 cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'background 0.15s', flexShrink: 0,
+                transition: 'background 0.15s',
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
