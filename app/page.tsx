@@ -11,9 +11,11 @@ import FeaturesGrid      from '@/components/FeaturesGrid'
 import PricingSection    from '@/components/PricingSection'
 import FAQSection        from '@/components/FAQSection'
 import FinalCTA          from '@/components/FinalCTA'
+import StudyModes        from '@/components/StudyModes'
 
 const SECTION_MAP: Record<string, React.ReactNode> = {
   hero:        <HeroSection />,
+  studyModes:  <StudyModes />,
   marquee:     <MarqueeBar />,
   howItWorks:  <HowItWorksSection />,
   features:    <Suspense fallback={<div className="h-96" />}><FeaturesGrid /></Suspense>,
@@ -31,7 +33,12 @@ export default async function HomePage() {
   if (flags.waitlist) ecHide.push('pricing', 'finalCta')
 
   const allHidden = [...new Set([...hideSections, ...ecHide])]
-  const visible = sectionOrder.filter(id => !allHidden.includes(id))
+  // Insert studyModes after hero in the visible section list
+  const baseVisible = sectionOrder.filter(id => !allHidden.includes(id))
+  const heroIdx = baseVisible.indexOf('hero')
+  const visible = heroIdx >= 0
+    ? [...baseVisible.slice(0, heroIdx + 1), 'studyModes', ...baseVisible.slice(heroIdx + 1)]
+    : baseVisible
 
   return (
     <div className="flex flex-col">

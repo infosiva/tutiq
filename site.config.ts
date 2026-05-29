@@ -35,7 +35,7 @@ export interface SiteConfig {
   layout: { heroVariant: HeroVariant; sectionOrder: string[]; hideSections: string[] }
   seo: { title: string; description: string; ogImage: string; llmsDescription: string }
   nav: Array<{ label: string; href: string }>
-  chatbot: { welcomeMessage: string; botName: string; placeholder: string }
+  chatbot: { welcomeMessage: string; botName: string; placeholder: string; suggestedQuestions?: string[] }
 }
 
 export const siteConfig: SiteConfig = {
@@ -44,13 +44,13 @@ export const siteConfig: SiteConfig = {
   themeColor: 'emerald',
 
   heroBadge:    'tutiq · AI tutor · free to start',
-  headline:     ['Your AI tutor', 'that adapts to you.'],
-  subheadline:  'Personalised tutoring for every subject and age — start in seconds, no account needed.',
+  headline:     ['Ace Your 11+, GCSE', '& A-Levels with AI Tutoring'],
+  subheadline:  'Personalised practice questions, instant explanations, and exam-style coaching — for every UK curriculum subject',
   ctaPrimary:   { text: '🎓 Start Learning Free →', href: '/onboard' },
   ctaSecondary: { text: '📚 See All Subjects',       href: '/#features' },
 
   freeTier: {
-    pills:             ['🎓 3 sessions free', '📚 All subjects', '📱 Any device'],
+    pills:             ['✅ No account needed', '📚 All subjects', '📱 Any device'],
     gateHeadline:      "You've used your 3 free sessions!",
     gateSubtext:       "You're making great progress. Unlock unlimited sessions to keep going.",
     gateCtaText:       'Upgrade to Pro — $8/mo',
@@ -67,17 +67,17 @@ export const siteConfig: SiteConfig = {
   },
 
   howItWorks: [
-    { step: 1, icon: '👤', title: 'Pick your subject', desc: 'Choose from 10+ subjects or type any topic. Tell us your age and level.' },
-    { step: 2, icon: '🗺️', title: 'AI builds your path', desc: 'Tutiq creates a personalised step-by-step plan tailored to you in seconds.' },
-    { step: 3, icon: '✅', title: 'Learn and quiz',      desc: 'Clear explanations followed by a quick quiz after each topic to cement knowledge.' },
+    { step: 1, icon: '🤔', title: 'Tell us where you\'re stuck', desc: 'Pick a subject or describe your problem in plain English — no forms, no setup.' },
+    { step: 2, icon: '🗺️', title: 'AI builds your learning path', desc: 'Tutiq creates a personalised step-by-step plan — only the topics you actually need.' },
+    { step: 3, icon: '🏆', title: 'Learn, quiz, earn badges', desc: 'Clear explanations, then a quick quiz to cement knowledge. Celebrate every win.' },
   ],
 
   features: [
-    { icon: '🧠', title: 'Adaptive Explanations', desc: 'AI adjusts language and depth to match your age, level, and learning pace — always at your speed.', size: 'large'  },
-    { icon: '📚', title: 'All Subjects',           desc: 'Maths, Science, English, History, Coding, Interview Prep and more.',                               size: 'medium' },
-    { icon: '⚡', title: 'Instant Answers',        desc: 'No waiting — get a clear, personalised explanation in seconds, any time.',                         size: 'medium' },
-    { icon: '📱', title: 'Any Device',             desc: 'Works on phones, tablets and laptops — no download needed.',                                        size: 'medium' },
-    { icon: '🎯', title: 'Quiz After Every Topic', desc: 'Quick quiz after each lesson to make sure the knowledge sticks.',                                   size: 'wide'   },
+    { icon: '🧠', title: 'Adapts to your level',  desc: 'AI adjusts language and depth to match your age, subject level, and pace — never too easy, never overwhelming.', size: 'large'  },
+    { icon: '🗺️', title: 'Learning paths',         desc: 'Structured topic-by-topic progression so you never wonder what to study next.',                               size: 'medium' },
+    { icon: '⚡', title: 'Instant explanations',  desc: 'Get a clear, personalised answer in seconds — any topic, any time.',                                           size: 'medium' },
+    { icon: '🎯', title: 'Quiz after every topic', desc: 'A 5-question micro-quiz after each lesson locks in what you just learned.',                                    size: 'wide'   },
+    { icon: '🔁', title: 'Spaced repetition',     desc: 'Tutiq brings back topics you found tricky at the right moment — proven memory technique.',                     size: 'medium' },
   ],
 
   pricing: {
@@ -134,10 +134,10 @@ export const siteConfig: SiteConfig = {
   },
 
   seo: {
-    title:          'Tutiq — Your AI Tutor That Adapts to You',
-    description:    'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
+    title:          'Tutiq — AI Tutoring for 11+, GCSE & A-Level | UK Students',
+    description:    'Free AI tutor for UK students. Practice 11-Plus, GCSE and A-Level questions with instant feedback. Maths, English, Sciences and more.',
     ogImage:        '/og.png',
-    llmsDescription: 'Tutiq is a free AI-powered personal tutor at tutiq.app. It generates personalised step-by-step explanations for any subject — Maths, Science, English, Coding, Interview Prep and more — adapting language and difficulty to the learner\'s age and level. Free tier: 3 sessions per day, no account required. Pro: unlimited sessions, all subjects, progress tracking, PDF study guides, mock exam mode.',
+    llmsDescription: 'Tutiq is a free AI-powered personal tutor at tutiq.app focused on UK exams — 11+, GCSE, and A-Level. It generates personalised step-by-step explanations and exam-style practice questions for Maths, English, Sciences, History, Geography and more. Adapts language and difficulty to the learner\'s exam level and board (AQA/Edexcel/OCR). Free tier: 3 sessions per day, no account required. Pro: unlimited sessions, all subjects, progress tracking, PDF study guides, mock exam mode.',
   },
 
   nav: [
@@ -149,9 +149,16 @@ export const siteConfig: SiteConfig = {
   ],
 
   chatbot: {
-    welcomeMessage: 'Hi! What subject would you like help with today?',
+    welcomeMessage: '👋 Hi! I\'m your AI tutor. Which exam are you preparing for — 11+, GCSE, or A-Level? Tell me your subject and I\'ll get you started.',
     botName:        'Tutiq AI',
-    placeholder:    'Ask me anything…',
+    placeholder:    'e.g. "GCSE Maths quadratic equations"…',
+    suggestedQuestions: [
+      'Help me with GCSE Maths quadratics',
+      'Explain A-Level Biology cell division',
+      '11+ verbal reasoning practice',
+      'GCSE English literature essay tips',
+      'A-Level Chemistry bonding',
+    ],
   },
 }
 

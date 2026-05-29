@@ -1,26 +1,25 @@
 'use client'
-// components/HeroClient.tsx — tutiq hero: progress-focused, subject chips, onboarding hook
+// components/HeroClient.tsx — tutiq hero: UK exam focus with ExamSelector
 import { motion } from 'framer-motion'
 import { STAGGER_CONTAINER, FADE_UP, SPRING_CINEMATIC, BUTTON_PRESS, useMotionVariants } from '@/lib/motion'
 import { siteConfig } from '@/site.config'
 import type { ContentOverrides } from '@/lib/content'
 import { ShimmerButton } from '@/components/magicui/shimmer-button'
-import { theme, btn } from '@/lib/theme'
+import { btn } from '@/lib/theme'
 import Link from 'next/link'
-import { useState } from 'react'
-
-const SUBJECT_CHIPS = [
-  { label: 'Math',    icon: '📐', href: '/onboard?subject=maths' },
-  { label: 'Science', icon: '🔬', href: '/onboard?subject=science' },
-  { label: 'English', icon: '✍️', href: '/onboard?subject=english' },
-  { label: 'History', icon: '🏛️', href: '/onboard?subject=history' },
-  { label: 'Coding',  icon: '💻', href: '/onboard?subject=coding' },
-]
+import { useRouter } from 'next/navigation'
+import ExamSelector from '@/components/ExamSelector'
 
 export default function HeroClient({ overrides = {} }: { overrides?: ContentOverrides }) {
   const variants  = useMotionVariants(STAGGER_CONTAINER(0.06))
   const childVars = useMotionVariants(FADE_UP)
-  const [hovered, setHovered] = useState<number | null>(null)
+  const router = useRouter()
+
+  function handleExamSelect(exam: string, subject: string) {
+    const prompt = `I'm preparing for ${exam} ${subject}. Help me get started.`
+    try { sessionStorage.setItem('tutiq_starter_prompt', prompt) } catch { /* ignore */ }
+    router.push(`/onboard?exam=${encodeURIComponent(exam)}&subject=${encodeURIComponent(subject)}`)
+  }
 
   return (
     <motion.div
@@ -63,33 +62,15 @@ export default function HeroClient({ overrides = {} }: { overrides?: ContentOver
         {overrides.subheadline ?? 'Personalised learning paths. Instant explanations. Quick quizzes after every topic. Adapts to your age, pace, and level — for free.'}
       </motion.p>
 
-      {/* Subject chips — clickable */}
+      {/* Exam selector — 11+, GCSE, A-Level + subject + topic chips */}
       <motion.div
         variants={childVars as Parameters<typeof motion.div>[0]['variants']}
-        className="flex flex-wrap gap-2"
         id="subjects"
       >
-        <span className="text-xs text-white/35 self-center font-medium mr-1">Pick a subject:</span>
-        {SUBJECT_CHIPS.map((chip, i) => (
-          <Link key={chip.label} href={chip.href}>
-            <motion.span
-              onHoverStart={() => setHovered(i)}
-              onHoverEnd={() => setHovered(null)}
-              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full cursor-pointer transition-all duration-200"
-              style={
-                hovered === i
-                  ? { background: 'rgba(16,185,129,0.22)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.45)', transform: 'scale(1.06)' }
-                  : { background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.65)', border: '1px solid rgba(255,255,255,0.09)' }
-              }
-            >
-              <span>{chip.icon}</span>
-              {chip.label}
-            </motion.span>
-          </Link>
-        ))}
+        <ExamSelector onSelect={handleExamSelect} />
       </motion.div>
 
-      {/* Onboarding hook — "where are you struggling?" */}
+      {/* Onboarding hook */}
       <motion.div
         variants={childVars as Parameters<typeof motion.div>[0]['variants']}
         className="rounded-xl border px-4 py-3 flex items-center gap-3"
@@ -98,17 +79,17 @@ export default function HeroClient({ overrides = {} }: { overrides?: ContentOver
           borderColor: 'rgba(16,185,129,0.20)',
         }}
       >
-        <span className="text-xl shrink-0">🤔</span>
+        <span className="text-xl shrink-0">🎓</span>
         <div className="flex-1 min-w-0">
           <p className="text-xs text-white/60 leading-snug">
-            <span className="text-emerald-300 font-bold">Where are you struggling?</span>{' '}
-            Tell Tutiq in one line and get a personalised plan in seconds.
+            <span className="text-emerald-300 font-bold">Preparing for an exam?</span>{' '}
+            Select your level and subject above — or just describe your topic and I&apos;ll get you started.
           </p>
         </div>
         <Link href="/onboard"
           className="shrink-0 text-[10px] font-bold rounded-lg px-3 py-1.5 transition-all hover:brightness-110 active:scale-95"
           style={{ background: 'rgba(16,185,129,0.25)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.35)' }}>
-          Try it →
+          Start →
         </Link>
       </motion.div>
 

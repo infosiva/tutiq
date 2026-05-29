@@ -22,24 +22,24 @@ import SchemaOrg from '@/components/SchemaOrg'
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
-  title:        'Tutiq — Your AI Tutor That Adapts to You',
-  description:  'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
+  title:        'Tutiq — AI Tutoring for 11+, GCSE & A-Level | UK Students',
+  description:  'Free AI tutor for UK students. Practice 11-Plus, GCSE and A-Level questions with instant feedback. Maths, English, Sciences and more.',
   keywords:     config.keywords,
   metadataBase: new URL('https://tutiq.app'),
   alternates:   { canonical: '/' },
   openGraph: {
-    title:       'Tutiq — Your AI Tutor That Adapts to You',
-    description: 'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
+    title:       'Tutiq — AI Tutoring for 11+, GCSE & A-Level | UK Students',
+    description: 'Free AI tutor for UK students. Practice 11-Plus, GCSE and A-Level questions with instant feedback. Maths, English, Sciences and more.',
     url:         'https://tutiq.app',
     siteName:    'Tutiq',
     type:        'website',
     locale:      'en_GB',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Tutiq — Your AI Tutor That Adapts to You' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Tutiq — AI Tutoring for 11+, GCSE & A-Level' }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Tutiq — Your AI Tutor That Adapts to You',
-    description: 'Personalised AI tutoring for every subject and age. Step-by-step explanations, instant answers, quiz after every topic. Free to start.',
+    title:       'Tutiq — AI Tutoring for 11+, GCSE & A-Level | UK Students',
+    description: 'Free AI tutor for UK students. Practice 11-Plus, GCSE and A-Level questions with instant feedback. Maths, English, Sciences and more.',
     images:      ['https://tutiq.app/og.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
