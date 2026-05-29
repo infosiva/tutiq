@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react'
 import config from '@/vertical.config'
 import { useMagicAuth } from '@/lib/shared/useMagicAuth'
 import MagicAuthModal from '@/lib/shared/MagicAuthModal'
+import StreakPill from '@/components/StreakPill'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -65,7 +66,8 @@ export default function Navbar() {
           </div>
 
           {/* CTA — warm amber button or user state */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-3">
+            <StreakPill />
             {user ? (
               <>
                 <span className="text-sm text-white/60">Hi, {user.username || user.email.split('@')[0]}</span>

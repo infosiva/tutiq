@@ -9,5 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/about`,   lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${base}/terms`,   lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${base}/gcse-maths-tutor`,        lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/11-plus-preparation`,     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/a-level-biology-revision`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
   ]
 }

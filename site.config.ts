@@ -44,8 +44,8 @@ export const siteConfig: SiteConfig = {
   themeColor: 'emerald',
 
   heroBadge:    'tutiq · AI tutor · free to start',
-  headline:     ['Ace Your 11+, GCSE', '& A-Levels with AI Tutoring'],
-  subheadline:  'Personalised practice questions, instant explanations, and exam-style coaching — for every UK curriculum subject',
+  headline:     ['Your AI Tutor for 11+,', 'GCSE and A-Level — That Actually Explains'],
+  subheadline:  'Ask it anything. It teaches, tests, and adapts to your exam board — no worksheets, no waiting, no expensive tutors.',
   ctaPrimary:   { text: '🎓 Start Learning Free →', href: '/onboard' },
   ctaSecondary: { text: '📚 See All Subjects',       href: '/#features' },
 
@@ -149,7 +149,7 @@ export const siteConfig: SiteConfig = {
   ],
 
   chatbot: {
-    welcomeMessage: '👋 Hi! I\'m your AI tutor. Which exam are you preparing for — 11+, GCSE, or A-Level? Tell me your subject and I\'ll get you started.',
+    welcomeMessage: '👋 Hi! Which exam are you preparing for — 11+, GCSE, or A-Level? Tell me your subject and I\'ll start teaching you right now.',
     botName:        'Tutiq AI',
     placeholder:    'e.g. "GCSE Maths quadratic equations"…',
     suggestedQuestions: [
