@@ -33,8 +33,14 @@ export default function HeroClient({ overrides = {} }: { overrides?: ContentOver
       >
         {/* Badge */}
         <motion.div variants={childVars as Parameters<typeof motion.div>[0]['variants']}>
-          <span className="badge-glow inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest"
-            style={{ background: 'rgba(16,185,129,0.12)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
+          <span
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest"
+            style={{
+              background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255,255,255,0.09)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
+              color: 'rgba(167,243,208,0.82)',
+            }}
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             AI Tutor · Free to start
           </span>
@@ -43,17 +49,17 @@ export default function HeroClient({ overrides = {} }: { overrides?: ContentOver
         {/* Headline */}
         <motion.h1
           variants={childVars as Parameters<typeof motion.h1>[0]['variants']}
-          className="text-4xl sm:text-5xl lg:text-[52px] font-black leading-[1.08] tracking-tight"
+          className="font-black tracking-tight"
+          style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', lineHeight: 0.97 }}
         >
           <span className="block text-white">
             {overrides.headline ?? 'Your AI Tutor for 11+,'}
           </span>
           <span className="block"
             style={{
-              background: 'linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              filter: 'drop-shadow(0 0 28px rgba(16,185,129,0.40))',
+              background: 'linear-gradient(135deg, #10b981 0%, #34d399 50%, #a7f3d0 100%)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 36px rgba(16,185,129,0.50))',
             }}>
             GCSE &amp; A-Level — That Actually Explains
           </span>
