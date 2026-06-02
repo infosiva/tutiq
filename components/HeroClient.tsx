@@ -50,7 +50,7 @@ export default function HeroClient({ overrides = {} }: { overrides?: ContentOver
         <motion.h1
           variants={childVars as Parameters<typeof motion.h1>[0]['variants']}
           className="font-black tracking-tight"
-          style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', lineHeight: 0.97 }}
+          style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', lineHeight: 1.0 }}
         >
           <span className="block text-white">
             {overrides.headline ?? 'Your AI Tutor for 11+,'}
