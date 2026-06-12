@@ -13,27 +13,8 @@ export default async function HeroSection() {
 
   return (
     <section className="relative px-4 sm:px-6 pt-6 pb-10 max-w-6xl mx-auto">
-      <div className={`grid grid-cols-1 ${
-        isSplit    ? 'lg:grid-cols-2 gap-8 lg:gap-12 items-center' :
-        isCentered ? 'max-w-3xl mx-auto text-center' :
-                     'max-w-xl'
-      }`}>
-        {/* LEFT: HeroClient renders badge, H1, pills, CTAs — always first in DOM */}
-        <div className="order-1">
-          <HeroClient overrides={overrides} />
-        </div>
-
-        {/* RIGHT: tutoring session demo — below copy on mobile, alongside on desktop */}
-        {!isCentered && (
-          <div className="order-2 lg:pl-4 mt-6 lg:mt-0">
-            <Suspense fallback={
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] h-56 animate-pulse" />
-            }>
-              <HeroDemo />
-            </Suspense>
-          </div>
-        )}
-      </div>
+      {/* HeroClient owns the split layout internally (flex-row with ConversationDemo on desktop) */}
+      <HeroClient overrides={overrides} />
     </section>
   )
 }
