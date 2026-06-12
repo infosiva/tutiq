@@ -96,8 +96,8 @@ export default function ChatBot() {
   const panelStyle: React.CSSProperties = isMobile
     ? {
         position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9998,
-        height: `calc(100dvh - ${BOTTOM_OFFSET}px)`,
-        maxHeight: `calc(100dvh - ${BOTTOM_OFFSET}px)`,
+        height: 'min(420px, calc(100dvh - 120px))',
+        maxHeight: 'min(420px, calc(100dvh - 120px))',
         borderRadius: '16px 16px 0 0', borderBottom: 'none',
         background: '#080f0d', border: '1px solid rgba(16,185,129,0.25)',
         boxShadow: '0 -8px 40px rgba(0,0,0,0.7), 0 0 40px rgba(16,185,129,0.10)',
