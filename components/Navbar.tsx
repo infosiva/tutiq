@@ -27,9 +27,18 @@ export default function Navbar() {
         style={{ background: 'rgba(15,14,12,0.80)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-          {/* Logo — warm editorial: book emoji + brand + subtitle */}
+          {/* Logo — open-book geometric mark + brand + subtitle */}
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="text-xl leading-none">📖</span>
+            <span
+              className="flex items-center justify-center w-7 h-7 rounded-lg shrink-0"
+              style={{ background: 'linear-gradient(135deg, #0c4a6e, #0284c7)' }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 6.5C10.2 5.2 7.6 4.6 5 5v12.5c2.6-0.4 5.2 0.2 7 1.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <path d="M12 6.5C13.8 5.2 16.4 4.6 19 5v12.5c-2.6-0.4-5.2 0.2-7 1.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <path d="M12 6.5V19" stroke="white" strokeWidth="1.8" strokeLinecap="round" opacity="0.6"/>
+              </svg>
+            </span>
             <div>
               <span className="font-bold text-lg text-white leading-none block tracking-tight">{config.name}</span>
               <span className="text-[10px] font-medium leading-none block" style={{ color: 'rgba(245,158,11,0.60)' }}>AI Tutor</span>
