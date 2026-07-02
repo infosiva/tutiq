@@ -160,9 +160,9 @@ export default function ExamSelector({ onSelect }: Props) {
               onClick={() => handleTopic(topic)}
               className="text-[11px] font-semibold px-3 py-1 rounded-full transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{
-                background: 'rgba(99,102,241,0.10)',
-                color: 'rgba(165,180,252,0.75)',
-                border: '1px solid rgba(99,102,241,0.20)',
+                background: 'rgba(99,102,241,0.18)',
+                color: '#c7d2fe',
+                border: '1px solid rgba(99,102,241,0.35)',
               }}
             >
               {topic}

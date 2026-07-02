@@ -27,7 +27,7 @@ export const theme = {
   textAccentBold:  `text-${c}-300`,
 
   // Badge / pill
-  badge:           `bg-${c}-500/20 text-${c}-300 border border-${c}-500/30`,
+  badge:           `bg-${c}-500/30 text-${c}-100 border border-${c}-500/40`,
 
   // Card
   card:            'bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm rounded-2xl',
