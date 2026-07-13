@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     images:      ['https://tutiq.app/og.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  other: {
+    'google-adsense-account': 'ca-pub-4237294630161176',
+  },
 }
 
 // Derive CSS custom properties from vertical theme at build time
