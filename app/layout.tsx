@@ -102,7 +102,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* JSON-LD structured data — driven from siteConfig.faq */}
         <SchemaOrg />
         <Script defer data-domain="tutiq.app" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
-        <Script defer data-site="tutiq.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
       </body>
     </html>
   )
