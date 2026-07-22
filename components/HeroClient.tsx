@@ -25,7 +25,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
   const s = SUBJECTS[idx]
 
   return (
-    <div style={{ color: 'var(--foreground)' }}>
+    <div style={{ color: '#f8fafc' }}>
       <div
         style={{
           display: 'grid',
@@ -41,7 +41,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
           <p style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>
             🎓 AI Tutoring for UK Students
           </p>
-          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: 'var(--foreground)' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: '#f8fafc' }}>
             Ace every subject.<br />
             <span style={{ color: 'var(--accent)' }}>Tutor in your pocket.</span>
           </h1>
