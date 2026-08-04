@@ -6,7 +6,6 @@ import Script from 'next/script'
 import './globals.css'
 import config from '@/vertical.config'
 import { getScrollbarColor, COLOR_MAP } from '@/lib/themeColors'
-import PageTracker from '@/components/PageTracker'
 import Navbar from '@/components/Navbar'
 import FooterExtras from '@/components/FooterExtras'
 import ChatBot from '@/components/ChatBot'
@@ -82,7 +81,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           strategy="afterInteractive"
         />
 
-        <PageTracker site='nudge' />
         <Navbar />
 
         <Providers>
