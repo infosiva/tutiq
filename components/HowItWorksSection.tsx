@@ -9,7 +9,7 @@ export default function HowItWorksSection() {
   const itemVars      = useMotionVariants(FADE_UP)
 
   return (
-    <section id="how-it-works" className="py-8 px-4 sm:px-6 max-w-5xl mx-auto border-t border-white/[0.05]">
+    <section id="how-it-works" className="py-8 px-4 sm:px-6 max-w-5xl mx-auto border-t border-black/[0.06]">
       <motion.div
         variants={containerVars as Parameters<typeof motion.div>[0]['variants']}
         initial="hidden"
@@ -17,25 +17,24 @@ export default function HowItWorksSection() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <motion.div variants={itemVars as Parameters<typeof motion.div>[0]['variants']} className="text-center mb-10">
-          <h2 className="text-2xl font-black text-white mb-2">How Tutiq works</h2>
-          <p className="text-white/40 text-sm">From stuck to confident in three steps</p>
+          <h2 className="text-2xl font-black text-slate-900 mb-2">How Tutiq works</h2>
+          <p className="text-slate-500 text-sm">From stuck to confident in three steps</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
           {/* Desktop connector */}
           <div className="hidden md:block absolute top-[2.6rem] left-[33%] right-[33%] h-px"
-            style={{ background: 'linear-gradient(90deg, rgba(16,185,129,0.25), rgba(16,185,129,0.05))' }}
+            style={{ background: 'linear-gradient(90deg, rgba(2,132,199,0.25), rgba(2,132,199,0.05))' }}
             aria-hidden="true" />
 
           {siteConfig.howItWorks.map((step, idx) => (
             <motion.div
               key={step.step}
               variants={itemVars as Parameters<typeof motion.div>[0]['variants']}
-              className="relative rounded-2xl border p-5 flex flex-col gap-3 group"
+              className="relative rounded-2xl border p-5 flex flex-col gap-3 group bg-white"
               style={{
-                background: 'rgba(255,255,255,0.025)',
-                borderColor: idx === 1 ? 'rgba(16,185,129,0.30)' : 'rgba(255,255,255,0.07)',
-                boxShadow: idx === 1 ? '0 0 32px rgba(16,185,129,0.08)' : undefined,
+                borderColor: idx === 1 ? 'rgba(2,132,199,0.35)' : 'rgba(15,23,42,0.08)',
+                boxShadow: idx === 1 ? '0 0 32px rgba(2,132,199,0.10)' : '0 1px 3px rgba(15,23,42,0.04)',
               }}
             >
               {/* Step number chip */}
@@ -44,25 +43,25 @@ export default function HowItWorksSection() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black shrink-0"
                   style={
                     idx === 1
-                      ? { background: 'rgba(16,185,129,0.20)', border: '1.5px solid rgba(16,185,129,0.45)', color: '#6ee7b7' }
-                      : { background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)', color: 'rgba(255,255,255,0.35)' }
+                      ? { background: 'rgba(2,132,199,0.12)', border: '1.5px solid rgba(2,132,199,0.45)', color: '#0284c7' }
+                      : { background: 'rgba(15,23,42,0.04)', border: '1px solid rgba(15,23,42,0.08)', color: 'rgba(15,23,42,0.35)' }
                   }
                 >
                   {step.icon}
                 </div>
                 <span className="text-3xl font-black tabular-nums leading-none"
-                  style={{ color: idx === 1 ? 'rgba(16,185,129,0.30)' : 'rgba(255,255,255,0.07)' }}>
+                  style={{ color: idx === 1 ? 'rgba(2,132,199,0.30)' : 'rgba(15,23,42,0.10)' }}>
                   {String(step.step).padStart(2, '0')}
                 </span>
               </div>
 
-              <h3 className="text-white font-bold text-sm">{step.title}</h3>
-              <p className="text-white/45 text-xs leading-relaxed">{step.desc}</p>
+              <h3 className="text-slate-900 font-bold text-sm">{step.title}</h3>
+              <p className="text-slate-500 text-xs leading-relaxed">{step.desc}</p>
 
               {/* Highlight badge for middle step */}
               {idx === 1 && (
                 <span className="absolute -top-2.5 left-4 text-[9px] font-bold px-2 py-0.5 rounded-full"
-                  style={{ background: 'rgba(16,185,129,0.85)', color: '#022c22' }}>
+                  style={{ background: '#0284c7', color: '#fff' }}>
                   AI-powered
                 </span>
               )}
@@ -74,19 +73,19 @@ export default function HowItWorksSection() {
         <motion.div
           variants={itemVars as Parameters<typeof motion.div>[0]['variants']}
           className="mt-8 rounded-xl border px-5 py-4 flex items-center gap-4"
-          style={{ background: 'rgba(16,185,129,0.06)', borderColor: 'rgba(16,185,129,0.18)' }}
+          style={{ background: 'rgba(2,132,199,0.06)', borderColor: 'rgba(2,132,199,0.20)' }}
         >
           <span className="text-2xl shrink-0">🏆</span>
           <div>
-            <p className="text-sm font-bold text-white">Small wins every session</p>
-            <p className="text-xs text-white/45 mt-0.5">
+            <p className="text-sm font-bold text-slate-900">Small wins every session</p>
+            <p className="text-xs text-slate-500 mt-0.5">
               Tutiq celebrates each concept you master — XP points, topic badges, and streak milestones keep you motivated.
             </p>
           </div>
           <div className="ml-auto flex gap-2 shrink-0">
             {['⭐', '🎯', '🔥', '📜'].map(e => (
-              <span key={e} className="w-8 h-8 rounded-lg flex items-center justify-center text-base"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)' }}>
+              <span key={e} className="w-8 h-8 rounded-lg flex items-center justify-center text-base bg-white"
+                style={{ border: '1px solid rgba(15,23,42,0.08)' }}>
                 {e}
               </span>
             ))}

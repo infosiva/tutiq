@@ -64,8 +64,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       } as React.CSSProperties}
       suppressHydrationWarning
     >
-      <body className={`${inter.variable} ${jakarta.variable} min-h-full flex flex-col text-white`}
-        style={{ background: colors.base, fontFamily: 'var(--font-body, system-ui)' }}
+      <body className={`${inter.variable} ${jakarta.variable} min-h-full flex flex-col`}
+        style={{ fontFamily: 'var(--font-body, system-ui)' }}
       >
         {/* Aurora background blobs */}
         <div className="aurora aurora-primary" aria-hidden />

@@ -11,7 +11,7 @@ export default function FinalCTA() {
   const vars = useMotionVariants(FADE_UP)
 
   return (
-    <section className="py-10 px-4 sm:px-6 border-t border-white/[0.05]">
+    <section className="py-10 px-4 sm:px-6 border-t border-black/[0.06]">
       <motion.div
         variants={vars as Parameters<typeof motion.div>[0]['variants']}
         initial="hidden"
@@ -19,16 +19,16 @@ export default function FinalCTA() {
         viewport={{ once: true, amount: 0.4 }}
         className="max-w-2xl mx-auto text-center flex flex-col items-center gap-6"
       >
-        <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
+        <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
           {siteConfig.finalCta.headline}
         </h2>
-        <p className="text-white/45 text-base">{siteConfig.finalCta.subtext}</p>
+        <p className="text-slate-500 text-base">{siteConfig.finalCta.subtext}</p>
 
         <motion.div {...BUTTON_PRESS} transition={SPRING_CINEMATIC}>
           <Link href={siteConfig.finalCta.ctaHref}>
             <ShimmerButton
-              background="rgba(5,150,105,1)"
-              shimmerColor="#a7f3d0"
+              background="rgba(2,132,199,1)"
+              shimmerColor="#bae6fd"
               className="cta-pulse px-10 py-4 text-base font-bold min-h-[56px]"
             >
               {siteConfig.finalCta.ctaText}

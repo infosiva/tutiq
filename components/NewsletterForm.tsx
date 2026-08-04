@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-export default function NewsletterForm({ accentClass = 'from-emerald-600 to-teal-500' }: { accentClass?: string }) {
+export default function NewsletterForm({ accentClass = 'from-sky-600 to-sky-500' }: { accentClass?: string }) {
   const [email, setEmail] = useState('')
   const [state, setState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
 
@@ -21,7 +21,7 @@ export default function NewsletterForm({ accentClass = 'from-emerald-600 to-teal
   }
 
   if (state === 'done') {
-    return <p className="text-sm text-white/60">You&apos;re subscribed! 🎉</p>
+    return <p className="text-sm text-slate-500">You&apos;re subscribed! 🎉</p>
   }
 
   return (
@@ -32,7 +32,7 @@ export default function NewsletterForm({ accentClass = 'from-emerald-600 to-teal
         onChange={e => setEmail(e.target.value)}
         placeholder="you@email.com"
         required
-        className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder:text-white/25 outline-none focus:border-white/20"
+        className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-black/[0.10] text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-sky-500/50"
       />
       <button
         type="submit"

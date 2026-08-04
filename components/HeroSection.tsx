@@ -4,7 +4,6 @@ import { Suspense } from 'react'
 import { siteConfig } from '@/site.config'
 import { getContentOverrides } from '@/lib/content'
 import HeroClient from './HeroClient'
-import HeroDemo from './HeroDemo'
 
 export default async function HeroSection() {
   const isSplit    = siteConfig.layout.heroVariant === 'split'
