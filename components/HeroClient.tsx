@@ -1,31 +1,65 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-const SUBJECTS = [
-  { subject: 'Mathematics', topic: 'Quadratic Equations', level: 'GCSE', q: 'Solve: x² + 5x + 6 = 0', hint: 'Factor into (x+2)(x+3)' },
-  { subject: 'English', topic: 'Shakespeare Analysis', level: 'A-Level', q: "Analyse Hamlet's soliloquy theme", hint: 'Focus on existential conflict' },
-  { subject: 'Science', topic: "Newton's Laws", level: 'GCSE', q: "State Newton's Third Law", hint: 'Every action has equal reaction' },
-  { subject: 'History', topic: 'World War II', level: 'GCSE', q: 'Why did Germany invade Poland in 1939?', hint: 'Consider the Molotov–Ribbentrop Pact' },
-]
+// Real tutoring exchanges — the chat IS the demo, not a bolted-on widget.
+// Each exchange: a real student question + the actual explanation Tutiq gives.
+const EXCHANGES = [
+  {
+    subject: 'Mathematics', level: 'GCSE',
+    q: "I don't understand quadratic equations",
+    a: "Let's break it down. For x² + 5x + 6 = 0, find two numbers that multiply to 6 and add to 5 — that's 2 and 3. So it factors to (x+2)(x+3)=0, giving x = −2 or x = −3.",
+  },
+  {
+    subject: 'English', level: 'A-Level',
+    q: "What's the theme of Hamlet's 'to be or not to be' soliloquy?",
+    a: "It's Hamlet weighing existence against non-existence — whether it's nobler to endure suffering or end it. The real tension is his fear of the unknown after death, which paralyses his action throughout the play.",
+  },
+  {
+    subject: 'Science', level: 'GCSE',
+    q: "Can you explain Newton's Third Law simply?",
+    a: 'Every action has an equal and opposite reaction. When you push on a wall, the wall pushes back on you with the same force — that\'s why you don\'t fall through it.',
+  },
+] as const
+
+const TYPE_SPEED_MS = 14
 
 export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown }) {
   const [idx, setIdx] = useState(0)
-  const [visible, setVisible] = useState(true)
-  const [showHint, setShowHint] = useState(false)
+  const [phase, setPhase] = useState<'question' | 'typing' | 'answer' | 'pause'>('question')
+  const [typed, setTyped] = useState('')
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([])
+
+  const s = EXCHANGES[idx]
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setVisible(false)
-      setShowHint(false)
-      setTimeout(() => { setIdx(i => (i + 1) % SUBJECTS.length); setVisible(true) }, 350)
-    }, 4500)
-    return () => clearInterval(t)
-  }, [])
+    timers.current.forEach(clearTimeout)
+    timers.current = []
+    setTyped('')
+    setPhase('question')
 
-  const s = SUBJECTS[idx]
+    timers.current.push(setTimeout(() => setPhase('typing'), 900))
+
+    // Type out the answer character-by-character once "typing" starts
+    const answer = EXCHANGES[idx].a
+    let i = 0
+    const startTyping = setTimeout(function tick() {
+      if (i >= answer.length) return
+      i++
+      setTyped(answer.slice(0, i))
+      timers.current.push(setTimeout(tick, TYPE_SPEED_MS))
+    }, 900 + 700)
+    timers.current.push(startTyping)
+
+    const answerDoneDelay = 900 + 700 + answer.length * TYPE_SPEED_MS
+    timers.current.push(setTimeout(() => setPhase('answer'), answerDoneDelay))
+    timers.current.push(setTimeout(() => setPhase('pause'), answerDoneDelay + 2400))
+    timers.current.push(setTimeout(() => setIdx(v => (v + 1) % EXCHANGES.length), answerDoneDelay + 3000))
+
+    return () => timers.current.forEach(clearTimeout)
+  }, [idx])
 
   return (
-    <div style={{ color: '#f8fafc' }}>
+    <div style={{ color: '#0f172a' }}>
       <div
         style={{
           display: 'grid',
@@ -41,7 +75,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
           <p style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>
             🎓 AI Tutoring for UK Students
           </p>
-          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: '#f8fafc' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 900, lineHeight: 1.15, marginBottom: 20, color: '#0f172a' }}>
             Ace every subject.<br />
             <span style={{ color: 'var(--accent)' }}>Tutor in your pocket.</span>
           </h1>
@@ -64,41 +98,68 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
           </p>
         </div>
 
-        {/* Right — animated tutor card */}
+        {/* Right — the live tutoring chat IS the demo (not a bolted-on widget) */}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={{
             background: '#fff', border: '1px solid rgba(2,132,199,0.15)',
-            borderRadius: 20, padding: 28, width: '100%', maxWidth: 420,
+            borderRadius: 20, padding: 24, width: '100%', maxWidth: 420, minHeight: 340,
             boxShadow: '0 8px 40px rgba(2,132,199,0.08)',
-            transition: 'opacity 0.35s cubic-bezier(0.23,1,0.32,1), transform 0.35s cubic-bezier(0.23,1,0.32,1)',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.98)',
+            display: 'flex', flexDirection: 'column',
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <span style={{ background: 'rgba(2,132,199,0.1)', color: 'var(--accent)', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700 }}>
-                {s.subject}
-              </span>
-              <span style={{ background: '#f0f9ff', color: '#0369a1', padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600 }}>
-                {s.level}
-              </span>
+            {/* Chat header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 14, borderBottom: '1px solid #e2e8f0' }}>
+              <span style={{
+                width: 28, height: 28, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'linear-gradient(135deg, var(--accent-2), var(--accent))', fontSize: 14,
+              }}>🎓</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Tutiq AI Tutor</span>
+              <span style={{
+                marginLeft: 'auto', fontSize: 11, fontWeight: 700, color: '#0369a1',
+                background: '#f0f9ff', border: '1px solid rgba(2,132,199,0.25)', padding: '3px 10px', borderRadius: 20,
+              }}>{s.subject} · {s.level}</span>
             </div>
-            <p style={{ fontSize: 12, color: '#64748b', marginBottom: 8, fontWeight: 600 }}>{s.topic}</p>
-            <p style={{ fontSize: 17, fontWeight: 700, color: '#0f172a', lineHeight: 1.4, marginBottom: 20 }}>{s.q}</p>
-            <button
-              onClick={() => setShowHint(h => !h)}
-              style={{
-                width: '100%', padding: '10px', borderRadius: 8,
-                border: '1.5px solid rgba(2,132,199,0.25)',
-                background: showHint ? 'rgba(2,132,199,0.06)' : 'transparent',
-                color: 'var(--accent)', fontWeight: 600, fontSize: 14, cursor: 'pointer',
-                transition: 'background 0.15s, border-color 0.15s',
-              }}
-            >
-              {showHint ? '💡 ' + s.hint : 'Show Hint →'}
-            </button>
-            <div style={{ marginTop: 16, padding: '12px', background: '#f8fafc', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 20 }}>🤖</span>
-              <span style={{ fontSize: 13, color: '#475569' }}>AI tutor ready to explain step-by-step...</span>
+
+            {/* Live conversation */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
+              {/* Student question */}
+              <div
+                key={`q-${idx}`}
+                style={{
+                  alignSelf: 'flex-end', maxWidth: '85%',
+                  background: '#f0f9ff', color: '#0f172a',
+                  padding: '10px 14px', borderRadius: '14px 14px 4px 14px',
+                  fontSize: 13.5, lineHeight: 1.5, fontWeight: 600,
+                  animation: 'heroMsgIn 0.35s cubic-bezier(0.23,1,0.32,1) both',
+                }}
+              >
+                {s.q}
+              </div>
+
+              {/* AI typing indicator */}
+              {phase === 'typing' && !typed && (
+                <div style={{ alignSelf: 'flex-start', display: 'flex', gap: 4, padding: '10px 14px', background: '#f8fafc', borderRadius: '14px 14px 14px 4px' }}>
+                  <span className="typing-dot" style={{ color: 'var(--accent)' }} />
+                  <span className="typing-dot" style={{ color: 'var(--accent)' }} />
+                  <span className="typing-dot" style={{ color: 'var(--accent)' }} />
+                </div>
+              )}
+
+              {/* AI answer — typewriter reveal */}
+              {(phase === 'typing' || phase === 'answer' || phase === 'pause') && typed && (
+                <div style={{
+                  alignSelf: 'flex-start', maxWidth: '92%',
+                  background: '#f8fafc', color: '#334155',
+                  padding: '10px 14px', borderRadius: '14px 14px 14px 4px',
+                  fontSize: 13, lineHeight: 1.6,
+                }}>
+                  {typed}
+                  {phase === 'typing' && <span style={{ opacity: 0.4 }}>▍</span>}
+                </div>
+              )}
+            </div>
+
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+              Real tutoring exchange · Try it free below
             </div>
           </div>
         </div>
@@ -117,6 +178,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
       </div>
 
       <style>{`
+        @keyframes heroMsgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 768px) {
           .tutiq-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
         }

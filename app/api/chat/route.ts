@@ -1,6 +1,7 @@
 import Groq from 'groq-sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { aiChat } from '@/lib/ai'
+import { CHAT_LIMITER } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 
@@ -24,6 +25,9 @@ function getGroq() {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = CHAT_LIMITER.check(req)
+  if (limited) return limited
+
   try {
     const body = await req.json()
     const messages: Message[] = body.messages

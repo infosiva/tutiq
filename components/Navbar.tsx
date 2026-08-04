@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="sticky top-0 z-50 backdrop-blur-md border-b border-white/[0.05]"
-        style={{ background: 'rgba(15,14,12,0.80)' }}>
+        style={{ background: 'rgba(8,29,46,0.85)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
           {/* Logo — open-book geometric mark + brand + subtitle */}
@@ -41,57 +41,57 @@ export default function Navbar() {
             </span>
             <div>
               <span className="font-bold text-lg text-white leading-none block tracking-tight">{config.name}</span>
-              <span className="text-[10px] font-medium leading-none block" style={{ color: 'rgba(245,158,11,0.60)' }}>AI Tutor</span>
+              <span className="text-[10px] font-medium leading-none block" style={{ color: 'rgba(56,189,248,0.75)' }}>AI Tutor</span>
             </div>
           </Link>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8 text-sm text-white/50">
             <Link href="/"
-              className="relative hover:text-emerald-300 transition-colors group">
+              className="relative hover:text-sky-300 transition-colors group">
               Home
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-emerald-400/70" />
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
             </Link>
             <Link href="/#features"
-              className="relative hover:text-emerald-300 transition-colors group">
+              className="relative hover:text-sky-300 transition-colors group">
               Features
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-emerald-400/70" />
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
             </Link>
             <Link href="/#subjects"
-              className="relative hover:text-emerald-300 transition-colors group">
+              className="relative hover:text-sky-300 transition-colors group">
               Subjects
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-emerald-400/70" />
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
             </Link>
             <Link href="/pricing"
-              className="relative hover:text-emerald-300 transition-colors group">
+              className="relative hover:text-sky-300 transition-colors group">
               Pricing
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-emerald-400/70" />
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
             </Link>
             <Link href="/about"
-              className="relative hover:text-emerald-300 transition-colors group">
+              className="relative hover:text-sky-300 transition-colors group">
               About
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-emerald-400/70" />
+              <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
             </Link>
           </div>
 
-          {/* CTA — warm amber button or user state */}
+          {/* CTA — accent-colored button or user state */}
           <div className="hidden md:flex items-center gap-3">
             <StreakPill />
             {user ? (
               <>
                 <span className="text-sm text-white/60">Hi, {user.username || user.email.split('@')[0]}</span>
-                <button onClick={logout} className="text-xs text-white/40 hover:text-amber-300 transition-colors border border-white/10 rounded-lg px-3 py-1.5">Sign out</button>
+                <button onClick={logout} className="text-xs text-white/40 hover:text-sky-300 transition-colors border border-white/10 rounded-lg px-3 py-1.5">Sign out</button>
               </>
             ) : !isUnder13 ? (
               <button onClick={() => setAuthOpen(true)}
                 className="rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:brightness-110 hover:scale-105"
-                style={{ background: '#f59e0b', color: '#1c1917' }}>
+                style={{ background: 'var(--accent)', color: '#fff' }}>
                 Sign in free
               </button>
             ) : null}
             <Link href="/onboard"
               className="rounded-lg px-5 py-2 text-sm font-semibold text-stone-900 transition-all hover:brightness-110 hover:scale-105"
-              style={{ background: '#f59e0b' }}>
+              style={{ background: 'var(--accent)', color: '#fff' }}>
               Start Free
             </Link>
           </div>
@@ -103,12 +103,12 @@ export default function Navbar() {
 
         {open && (
           <div className="md:hidden border-t border-white/[0.05] px-6 py-5 flex flex-col gap-4 text-sm"
-            style={{ background: 'rgba(15,14,12,0.97)' }}>
-            <Link href="/" className="text-white/70 hover:text-emerald-300 transition-colors" onClick={() => setOpen(false)}>Home</Link>
-            <Link href="/#features" className="text-white/70 hover:text-emerald-300 transition-colors" onClick={() => setOpen(false)}>Features</Link>
-            <Link href="/#subjects" className="text-white/70 hover:text-emerald-300 transition-colors" onClick={() => setOpen(false)}>Subjects</Link>
-            <Link href="/pricing" className="text-white/70 hover:text-emerald-300 transition-colors" onClick={() => setOpen(false)}>Pricing</Link>
-            <Link href="/about" className="text-white/70 hover:text-emerald-300 transition-colors" onClick={() => setOpen(false)}>About</Link>
+            style={{ background: 'rgba(8,29,46,0.97)' }}>
+            <Link href="/" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Home</Link>
+            <Link href="/#features" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Features</Link>
+            <Link href="/#subjects" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Subjects</Link>
+            <Link href="/pricing" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Pricing</Link>
+            <Link href="/about" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>About</Link>
             {user ? (
               <>
                 <span className="text-center text-white/40 text-xs">Signed in as {user.email}</span>
@@ -117,13 +117,13 @@ export default function Navbar() {
             ) : !isUnder13 ? (
               <button onClick={() => { setAuthOpen(true); setOpen(false) }}
                 className="text-center rounded-lg py-2.5 font-semibold"
-                style={{ background: '#f59e0b', color: '#1c1917' }}>
+                style={{ background: 'var(--accent)', color: '#fff' }}>
                 Sign in free
               </button>
             ) : null}
             <Link href="/onboard"
-              className="text-center rounded-lg py-2.5 font-semibold text-stone-900"
-              style={{ background: '#f59e0b' }}
+              className="text-center rounded-lg py-2.5 font-semibold"
+              style={{ background: 'var(--accent)', color: '#fff' }}
               onClick={() => setOpen(false)}>
               Start Learning Free
             </Link>
@@ -136,7 +136,7 @@ export default function Navbar() {
         onClose={() => setAuthOpen(false)}
         onSuccess={u => { onSuccess(u); setAuthOpen(false) }}
         site="tutiq"
-        accentColor="#f59e0b"
+        accentColor="#0284c7"
       />
     </>
   )
