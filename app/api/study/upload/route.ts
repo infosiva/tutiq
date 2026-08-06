@@ -11,6 +11,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { aiChat } from '@/lib/ai'
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 30
@@ -38,6 +39,8 @@ async function extractText(file: File): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
+
   try {
     const form = await req.formData()
     const file = form.get('file') as File | null
