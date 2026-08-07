@@ -64,15 +64,44 @@ function SessionRow({ session }: { session: SessionResult }) {
   )
 }
 
+const STARTER_SUBJECTS = [
+  { icon: '📐', label: 'Maths (GCSE)',      subject: 'maths-gcse',   desc: 'Algebra, number, geometry & statistics — AQA/Edexcel/OCR' },
+  { icon: '🔬', label: 'Combined Science',  subject: 'science-gcse', desc: 'Biology, Chemistry & Physics with worked exam answers' },
+  { icon: '🎯', label: '11+ Prep',          subject: 'eleven-plus',  desc: 'Verbal reasoning, non-verbal reasoning & comprehension' },
+  { icon: '💼', label: 'Job Interview',     subject: 'interview-gen',desc: 'STAR method practice with model answers' },
+]
+
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center py-20 text-center px-4">
+    <div className="flex flex-col items-center py-16 text-center px-4">
       <div className="text-5xl mb-4">🎓</div>
       <h2 className="text-white font-black text-xl mb-2">No sessions yet</h2>
-      <p className="text-white/40 text-sm mb-8 max-w-xs">Start your first tutoring session and your stats, history, and streak will appear here.</p>
-      <Link href="/onboard" className={btn.primary + ' px-8 py-4 font-bold text-base'}>
+      <p className="text-white/40 text-sm mb-8 max-w-sm">
+        Start your first tutoring session and your stats, history, and streak will appear here.
+        Tutiq adapts every explanation to your exam board and level — pick a subject below or search for anything.
+      </p>
+      <Link href="/onboard" className={btn.primary + ' px-8 py-4 font-bold text-base mb-10'}>
         🎓 Start your first session →
       </Link>
+
+      <div className="w-full max-w-2xl text-left">
+        <h3 className="text-white/50 text-xs font-bold uppercase tracking-widest mb-3">Popular starting points</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {STARTER_SUBJECTS.map(s => (
+            <Link
+              key={s.subject}
+              href={`/onboard?subject=${s.subject}`}
+              className="flex items-start gap-3 px-4 py-3 rounded-xl border border-white/[0.07] bg-white/[0.03] hover:bg-white/[0.06] hover:border-emerald-500/30 transition-colors"
+            >
+              <span className="text-xl shrink-0">{s.icon}</span>
+              <div className="min-w-0">
+                <div className="text-white text-sm font-semibold">{s.label}</div>
+                <div className="text-white/40 text-xs mt-0.5">{s.desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
@@ -95,7 +124,7 @@ export default function DashboardPage() {
 
   if (!mounted || !stats) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen" style={{ background: '#0b1120' }}>
         <div className="max-w-4xl mx-auto px-4 pt-24 pb-16 animate-pulse">
           <div className="h-8 w-48 rounded-xl bg-white/[0.06] mb-3" />
           <div className="h-4 w-64 rounded-lg bg-white/[0.04] mb-10" />
@@ -111,7 +140,7 @@ export default function DashboardPage() {
   const hasSessions = stats.totalSessions > 0
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ background: '#0b1120' }}>
       <div className="max-w-4xl mx-auto px-4 pt-24 pb-16">
 
         {/* Header */}
