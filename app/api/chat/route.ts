@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     if (groq) {
       try {
         groqStream = await groq.chat.completions.create({
-          model: 'llama-3.1-8b-instant',
+          model: 'qwen/qwen3.8-27b',
           messages: chatMessages,
           max_tokens: 300,
           temperature: 0.6,

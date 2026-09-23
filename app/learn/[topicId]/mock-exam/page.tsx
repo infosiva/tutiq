@@ -134,7 +134,7 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
     const { earned, total } = calcScore()
     const pct = Math.round((earned / total) * 100)
     return (
-      <div className="min-h-screen px-6 py-10 max-w-3xl mx-auto">
+      <div className="min-h-screen px-6 py-10 max-w-3xl mx-auto" style={{ background: '#0b1120' }}>
         <Link href={`/learn/${topicId}`} className={`${theme.textAccent} flex items-center gap-2 text-sm mb-8`}>
           <ArrowLeft size={15} /> Back to lesson
         </Link>
@@ -192,7 +192,7 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
   // ── Exam in progress ──────────────────────────────────────────
   if (started && paper) {
     return (
-      <div className="min-h-screen px-6 py-10 max-w-3xl mx-auto">
+      <div className="min-h-screen px-6 py-10 max-w-3xl mx-auto" style={{ background: '#0b1120' }}>
         {/* Header with timer */}
         <div className="flex justify-between items-center mb-8">
           <div>
@@ -252,7 +252,7 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
 
   // ── Landing ───────────────────────────────────────────────────
   return (
-    <div className="min-h-screen px-6 py-10 max-w-3xl mx-auto">
+    <div className="min-h-screen px-6 py-10 max-w-3xl mx-auto" style={{ background: '#0b1120' }}>
       <Link href={`/learn/${topicId}`} className={`${theme.textAccent} flex items-center gap-2 text-sm mb-8`}>
         <ArrowLeft size={15} /> Back to lesson
       </Link>

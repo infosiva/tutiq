@@ -194,7 +194,7 @@ export default function StudyPage() {
   ] : []
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+    <div className="max-w-3xl mx-auto px-4 py-10 space-y-8 min-h-screen" style={{ background: '#0b1120' }}>
 
       {/* Header */}
       <div className="flex items-center justify-between">

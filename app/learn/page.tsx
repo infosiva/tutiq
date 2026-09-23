@@ -122,7 +122,7 @@ export default function LearnPage() {
   const nextTopic = topics.find(t => !completed.includes(t.id))
 
   return (
-    <div className="min-h-screen px-6 py-12 max-w-6xl mx-auto">
+    <div className="min-h-screen px-6 py-12 max-w-6xl mx-auto" style={{ background: '#0b1120' }}>
 
       {/* Progress bar */}
       <div className="h-1 bg-white/[0.06] rounded-full mb-10 overflow-hidden">
