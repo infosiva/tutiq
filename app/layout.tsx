@@ -81,7 +81,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           strategy="afterInteractive"
         />
 
-        <Navbar />
+        <Navbar showStreak={flags.streak_tracker} />
 
         <Providers>
           <main className="flex-1">

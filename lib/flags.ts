@@ -6,6 +6,9 @@
 import { unstable_cache } from 'next/cache'
 
 export interface SiteFlags {
+  streak_tracker: boolean
+  parent_mode: boolean
+  voice_tutor: boolean
   pricing: boolean
   chatbot: boolean
   freemium: boolean
@@ -14,6 +17,9 @@ export interface SiteFlags {
 }
 
 const DEFAULTS: SiteFlags = {
+  streak_tracker: true,
+  parent_mode: false,
+  voice_tutor: false,
   pricing: false,
   chatbot: true,
   freemium: true,
@@ -70,3 +76,4 @@ export async function getSiteFlags(siteId: string): Promise<SiteFlags> {
   )
   return cached()
 }
+

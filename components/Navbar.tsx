@@ -7,7 +7,7 @@ import { useMagicAuth } from '@/lib/shared/useMagicAuth'
 import MagicAuthModal from '@/lib/shared/MagicAuthModal'
 import StreakPill from '@/components/StreakPill'
 
-export default function Navbar() {
+export default function Navbar({ showStreak = true }: { showStreak?: boolean }) {
   const [open, setOpen] = useState(false)
   const [authOpen, setAuthOpen] = useState(false)
   const { user, logout, onSuccess } = useMagicAuth()
@@ -76,7 +76,7 @@ export default function Navbar() {
 
           {/* CTA — accent-colored button or user state */}
           <div className="hidden md:flex items-center gap-3">
-            <StreakPill />
+            {showStreak && <StreakPill />}
             {user ? (
               <>
                 <span className="text-sm text-white/60">Hi, {user.username || user.email.split('@')[0]}</span>
