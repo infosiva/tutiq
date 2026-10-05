@@ -18,6 +18,7 @@ import Footer from "../components/Footer";
 import StickyFooterCTA from "../components/StickyFooterCTA";
 import SchemaOrg from '@/components/SchemaOrg'
 
+import { MotionProvider } from "@infosiva/shared-ui/modern";
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
@@ -85,7 +86,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
         <Providers>
           <main className="flex-1">
-            {children}
+            <MotionProvider>{children}</MotionProvider>
           </main>
         </Providers>
 

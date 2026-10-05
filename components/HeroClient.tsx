@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import { MagneticButton } from '@infosiva/shared-ui/modern'
 
 // Real tutoring exchanges — the chat IS the demo, not a bolted-on widget.
 // Each exchange: a real student question + the actual explanation Tutiq gives.
@@ -86,7 +87,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
             <a href="/tutor" style={{
               background: 'var(--accent)', color: '#fff', padding: '14px 28px',
               borderRadius: 10, fontWeight: 700, fontSize: 15, textDecoration: 'none', display: 'inline-block',
-            }}>Ask a Question Free →</a>
+            }}><MagneticButton tabIndex={-1} style={{ all: 'unset', cursor: 'pointer' }}>Ask a Question Free →</MagneticButton></a>
             <a href="#subjects" style={{
               border: '1.5px solid rgba(2,132,199,0.3)', color: 'var(--accent)',
               padding: '14px 28px', borderRadius: 10, fontWeight: 600, fontSize: 15,
