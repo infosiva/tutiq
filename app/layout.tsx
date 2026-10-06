@@ -19,6 +19,7 @@ import StickyFooterCTA from "../components/StickyFooterCTA";
 import SchemaOrg from '@/components/SchemaOrg'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
+import { loadSiteTheme, buildGa4Snippet } from '@/lib/theme-loader'
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ const colors = COLOR_MAP[config.themeColor] ?? COLOR_MAP['violet']
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const flags = await getSiteFlags('tutiq')
+  const theme = await loadSiteTheme('tutiq')
   return (
     <html
       lang="en"
@@ -65,6 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       } as React.CSSProperties}
       suppressHydrationWarning
     >
+      <head>{buildGa4Snippet(theme) && <script dangerouslySetInnerHTML={{ __html: buildGa4Snippet(theme) }} />}</head>
       <body className={`${inter.variable} ${jakarta.variable} min-h-full flex flex-col`}
         style={{ fontFamily: 'var(--font-body, system-ui)' }}
       >
