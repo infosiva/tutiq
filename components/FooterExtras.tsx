@@ -15,7 +15,7 @@ export default function FooterExtras() {
       {/* More AI Tools */}
       <div className="max-w-6xl mx-auto px-6 mb-8">
         <p className="text-slate-400 text-xs uppercase tracking-widest mb-4">More AI Tools</p>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <div className="flex flex-wrap gap-x-6 gap-y-2" style={{ display: "flex", flexWrap: "wrap", maxWidth: "100%" }}>
           {TOOLS.map((t) => (
             <a
               key={t.name}
