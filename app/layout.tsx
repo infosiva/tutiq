@@ -20,6 +20,7 @@ import SchemaOrg from '@/components/SchemaOrg'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
 import { loadSiteTheme, buildGa4Snippet } from '@/lib/theme-loader'
+import { AnimatedBg } from '@/components/AnimatedBg'
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={`${inter.variable} ${jakarta.variable} min-h-full flex flex-col`}
         style={{ fontFamily: 'var(--font-body, system-ui)' }}
       >
+        <AnimatedBg theme={theme} fallback="mesh" />
         {/* Aurora background blobs */}
         <div className="aurora aurora-primary" aria-hidden />
         <div className="aurora aurora-secondary" aria-hidden />

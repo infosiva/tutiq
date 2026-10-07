@@ -194,3 +194,6 @@ pre {
 }
 .animate-shimmer-slide { animation: shimmer-slide var(--speed, 3s) ease-in-out infinite alternate; }
 
+
+/* AnimatedBg token (follows hub/theme background) */
+:root{--bg:var(--background,#f0f9ff)}
