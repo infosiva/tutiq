@@ -68,7 +68,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       } as React.CSSProperties}
       suppressHydrationWarning
     >
-      <head>{buildGa4Snippet(theme) && <script dangerouslySetInnerHTML={{ __html: buildGa4Snippet(theme) }} />}</head>
+      <head>{buildGa4Snippet(theme) ? <script dangerouslySetInnerHTML={{ __html: buildGa4Snippet(theme) }} /> : null}</head>
       <body className={`${inter.variable} ${jakarta.variable} min-h-full flex flex-col`}
         style={{ fontFamily: 'var(--font-body, system-ui)' }}
       >
