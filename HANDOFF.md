@@ -129,3 +129,5 @@ Wake-up cron: ef94696c (session-only; re-create if gone).
 ## Progress (cron pass 4)
 - [x] app/exam/page.tsx written (pick/learn/quiz/report, tone picker, flashcards, print CSS); filtered tsc clean.
 - Resume: run dev, click-test /exam at 375+1280 (needs live model for items), then gates, commit by name, push, e2e-verify, CronDelete ef94696c, owner TODO list.
+
+## COMPLETE (2026-10-09) pushed 0d942db. Click-tested /exam locally 375+1280 (pick->learn->quiz->back, no overflow/errors). Item/mark/tutor need a live model: untested.
