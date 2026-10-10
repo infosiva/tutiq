@@ -20,6 +20,8 @@ const post = async <T,>(url: string, body: unknown): Promise<T | null> => {
   } catch { return null }
 }
 const KEY = 'tutiq-exam-v1'
+const TONE_HINT: Record<Tone, string> = { friendly: 'Warm and encouraging.', calm: 'Patient and reassuring.', playful: 'Light humour, short analogies.', strict: 'Firm and exam-focused.', concise: 'Short and to the point.' }
+const STEPS = [['Short lesson', 'Plain-English explanation with flashcards.'], ['Topic quiz', 'Check you got this topic.'], ['Mixed quiz', 'Everything you have covered so far.'], ['Mock paper', 'Timed, exam-style, marked with feedback.']]
 const btn = 'min-h-11 rounded-xl px-4 text-sm font-semibold transition-transform active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0284c7] disabled:opacity-50'
 const primary = `${btn} bg-[#0284c7] text-white hover:bg-[#0369a1]`
 const ghost = `${btn} border border-[#e2e8f0] bg-white text-[#0f172a] hover:bg-[#f0f9ff]`
@@ -43,6 +45,10 @@ export default function ExamPage() {
   const topic = subject?.topics.find(t => t.id === topicId)
   const age = stage === '11plus' ? '11' : '15'
 
+  const crumbs: { label: string; go?: () => void }[] = [{ label: 'Exam', go: () => setStep('pick') }]
+  if (subject && step !== 'pick') crumbs.push({ label: subject.title, go: () => setStep('pick') })
+  if (topic && step !== 'pick') crumbs.push({ label: topic.title, go: () => setStep('learn') })
+  if (step !== 'pick') crumbs.push({ label: { learn: 'Lesson', quiz: scope === 'mock' ? 'Mock paper' : 'Quiz', report: 'Report' }[step] ?? '' })
   return (
     <main className="mx-auto flex h-[calc(100dvh-72px)] max-w-5xl flex-col gap-3 bg-[#f0f9ff] px-4 py-3 text-[#0f172a]">
       <style>{`
@@ -55,19 +61,35 @@ export default function ExamPage() {
         .face{backface-visibility:hidden}
         @media print{.noprint{display:none!important}main{height:auto!important}}
       `}</style>
-      <header className="noprint flex items-center justify-between gap-2">
-        <h1 className="text-lg font-bold">Tutiq exam practice</h1>
-        <label className="flex items-center gap-2 text-sm text-[#64748b]">
-          Tutor tone
-          <select value={tone} onChange={e => setTone(e.target.value as Tone)} className="min-h-11 rounded-xl border border-[#e2e8f0] bg-white px-2 text-[#0f172a]">
-            {TONES.map(t => <option key={t}>{t}</option>)}
-          </select>
-        </label>
+      <header className="noprint sticky top-0 z-10 flex flex-col gap-2 rounded-2xl border border-[#e2e8f0] bg-white/85 px-3 py-2 backdrop-blur">
+        <nav aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-x-1 text-sm text-[#64748b]">
+            <li><a href="/" className="rounded px-1 py-2 hover:text-[#0369a1] focus-visible:outline-2 focus-visible:outline-[#0284c7]">Home</a></li>
+            {crumbs.map((c, i) => (
+              <li key={c.label} className="flex items-center gap-1">
+                <span aria-hidden className="text-[#cbd5e1]">/</span>
+                {c.go && i < crumbs.length - 1
+                  ? <button onClick={c.go} className="rounded px-1 py-2 hover:text-[#0369a1] focus-visible:outline-2 focus-visible:outline-[#0284c7]">{c.label}</button>
+                  : <span aria-current={i === crumbs.length - 1 ? 'page' : undefined} className="px-1 font-semibold text-[#0f172a]">{c.label}</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span id="tone-l" className="text-xs font-semibold text-[#64748b]">Tutor voice</span>
+          <div role="radiogroup" aria-labelledby="tone-l" className="flex flex-wrap gap-1 rounded-full bg-[#f0f9ff] p-1">
+            {TONES.map(t => (
+              <button key={t} role="radio" aria-checked={tone === t} onClick={() => setTone(t)}
+                className={`min-h-11 rounded-full px-3 text-sm font-semibold capitalize transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-[#0284c7] sm:min-h-9 ${tone === t ? 'bg-[#0284c7] text-white shadow-sm' : 'text-[#334155] hover:bg-white'}`}>{t}</button>
+            ))}
+          </div>
+          <span className="hidden text-xs text-[#64748b] md:inline">{TONE_HINT[tone]}</span>
+        </div>
       </header>
 
       <section key={step} className="step min-h-0 flex-1 overflow-y-auto rounded-2xl border border-[#e2e8f0] bg-white p-4">
         {step === 'pick' && (
-          <Pick stage={stage} setStage={setStage} subject={subject} setSubject={setSubject} topicId={topicId} setTopicId={setTopicId}
+          <Pick covered={covered} stage={stage} setStage={setStage} subject={subject} setSubject={setSubject} topicId={topicId} setTopicId={setTopicId}
             onGo={() => setStep('learn')} />
         )}
         {step === 'learn' && subject && topic && (
@@ -90,32 +112,62 @@ export default function ExamPage() {
   )
 }
 
-function Pick(p: { stage: ExamStage; setStage: (s: ExamStage) => void; subject: Subject | null; setSubject: (s: Subject) => void; topicId: string; setTopicId: (t: string) => void; onGo: () => void }) {
+function Pick(p: { covered: string[]; stage: ExamStage; setStage: (s: ExamStage) => void; subject: Subject | null; setSubject: (s: Subject) => void; topicId: string; setTopicId: (t: string) => void; onGo: () => void }) {
   const list = SUBJECTS.filter(s => s.stage === p.stage)
   return (
-    <div className="grid gap-4 md:grid-cols-[220px_1fr]">
-      <div className="flex flex-col gap-2">
-        <div role="tablist" className="flex gap-2">
+    <div className="grid h-full gap-4 md:grid-cols-[250px_1fr]">
+      <div className="flex flex-col gap-3">
+        <div role="tablist" className="grid grid-cols-2 gap-1 rounded-full bg-[#f0f9ff] p-1">
           {(['11plus', 'gcse'] as const).map(s => (
-            <button key={s} role="tab" aria-selected={p.stage === s} onClick={() => p.setStage(s)} className={`${p.stage === s ? primary : ghost} flex-1`}>{s === '11plus' ? '11+' : 'GCSE'}</button>
+            <button key={s} role="tab" aria-selected={p.stage === s} onClick={() => p.setStage(s)}
+              className={`min-h-11 rounded-full text-sm font-bold transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-[#0284c7] ${p.stage === s ? 'bg-gradient-to-r from-[#0284c7] to-[#0369a1] text-white shadow-sm' : 'text-[#334155] hover:bg-white'}`}>{s === '11plus' ? '11+' : 'GCSE'}</button>
           ))}
         </div>
-        <ul className="flex max-h-[40dvh] flex-col gap-1 overflow-y-auto md:max-h-none">
-          {list.map(s => (
-            <li key={s.id}><button onClick={() => { p.setSubject(s); p.setTopicId('') }} aria-pressed={p.subject?.id === s.id} className={`${btn} w-full text-left ${p.subject?.id === s.id ? 'bg-[#e0f2fe] text-[#0369a1]' : 'hover:bg-[#f0f9ff]'}`}>{s.title}</button></li>
-          ))}
+        <ul className="flex max-h-[34dvh] flex-col gap-2 overflow-y-auto md:max-h-none">
+          {list.map(s => {
+            const on = p.subject?.id === s.id
+            const done = s.topics.filter(t => p.covered.includes(t.id)).length
+            return (
+              <li key={s.id}><button onClick={() => { p.setSubject(s); p.setTopicId('') }} aria-pressed={on}
+                className={`flex min-h-14 w-full items-center justify-between gap-2 rounded-2xl border px-3 text-left transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#0284c7] ${on ? 'border-[#0284c7] bg-[#e0f2fe] shadow-sm' : 'border-[#e2e8f0] bg-white hover:-translate-y-px hover:border-[#7dd3fc]'}`}>
+                <span className="text-sm font-semibold">{s.title.replace(/^(11\+|GCSE) /, '')}</span>
+                <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#0369a1] ring-1 ring-[#bae6fd]">{done}/{s.topics.length}</span>
+              </button></li>
+            )
+          })}
         </ul>
       </div>
-      <div>
-        {!p.subject ? <p className="text-[#64748b]">Pick a subject to see its topics. Each topic: short lesson, a quick quiz, then a mixed quiz and a mock paper.</p> : (
-          <>
-            <h2 className="mb-2 font-semibold">{p.subject.title} topics</h2>
-            <ul className="grid max-h-[50dvh] gap-1 overflow-y-auto sm:grid-cols-2">
-              {p.subject.topics.map(t => (
-                <li key={t.id}><button onClick={() => p.setTopicId(t.id)} aria-pressed={p.topicId === t.id} className={`${btn} w-full text-left ${p.topicId === t.id ? 'bg-[#0284c7] text-white' : 'border border-[#e2e8f0] hover:bg-[#f0f9ff]'}`}>{t.title}</button></li>
+      <div className="flex min-h-0 flex-col">
+        {!p.subject ? (
+          <div className="flex flex-1 flex-col justify-center gap-4 rounded-2xl bg-gradient-to-br from-[#e0f2fe] via-white to-[#f0f9ff] p-5">
+            <div>
+              <h2 className="text-xl font-bold">Pick a subject to begin</h2>
+              <p className="mt-1 text-sm text-[#475569]">Every topic takes you through four steps, with a tutor in the voice you choose.</p>
+            </div>
+            <ol className="grid gap-2 sm:grid-cols-2">
+              {STEPS.map(([t, d], i) => (
+                <li key={t} className="flex gap-3 rounded-xl border border-[#e2e8f0] bg-white p-3">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#0284c7] text-sm font-bold text-white">{i + 1}</span>
+                  <span><span className="block text-sm font-semibold">{t}</span><span className="text-xs text-[#64748b]">{d}</span></span>
+                </li>
               ))}
+            </ol>
+          </div>
+        ) : (
+          <>
+            <h2 className="mb-2 text-lg font-bold">{p.subject.title} <span className="text-sm font-medium text-[#64748b]">pick a topic</span></h2>
+            <ul className="grid min-h-0 flex-1 content-start gap-2 overflow-y-auto sm:grid-cols-2">
+              {p.subject.topics.map(t => {
+                const on = p.topicId === t.id
+                return (
+                  <li key={t.id}><button onClick={() => p.setTopicId(t.id)} aria-pressed={on}
+                    className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-xl border px-3 text-left text-sm font-medium transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#0284c7] ${on ? 'border-[#0284c7] bg-[#0284c7] text-white shadow-sm' : 'border-[#e2e8f0] bg-white hover:-translate-y-px hover:border-[#7dd3fc]'}`}>
+                    {t.title}{p.covered.includes(t.id) && <span className={`shrink-0 text-xs font-semibold ${on ? 'text-white' : 'text-[#15803d]'}`}>Done</span>}
+                  </button></li>
+                )
+              })}
             </ul>
-            <button disabled={!p.topicId} onClick={p.onGo} className={`${primary} mt-3`}>Start lesson</button>
+            <button disabled={!p.topicId} onClick={p.onGo} className={`${primary} mt-3 self-start`}>Start lesson</button>
           </>
         )}
       </div>

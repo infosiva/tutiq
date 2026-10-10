@@ -46,7 +46,7 @@ export default function Navbar({ showStreak = true }: { showStreak?: boolean }) 
               Features
               <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
             </Link>
-            <Link href="/#subjects"
+            <Link href="/exam"
               className="relative hover:text-sky-300 transition-colors group">
               Subjects
               <span className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300 bg-sky-400/70" />
@@ -95,7 +95,7 @@ export default function Navbar({ showStreak = true }: { showStreak?: boolean }) 
             style={{ background: 'rgba(8,29,46,0.97)' }}>
             <Link href="/" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Home</Link>
             <Link href="/#features" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Features</Link>
-            <Link href="/#subjects" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Subjects</Link>
+            <Link href="/exam" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Subjects</Link>
             <Link href="/pricing" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Pricing</Link>
             <Link href="/about" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>About</Link>
             {user ? (
