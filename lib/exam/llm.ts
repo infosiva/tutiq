@@ -42,6 +42,6 @@ export async function examLlm(step: ExamStep, system: string, user: string, maxT
     }
   }
   // ponytail: fallback cannot pin a different model for validate; ai-core path does. Remove once the tenant key lands.
-  const r = await callAI(system, [{ role: 'user', content: user }], maxTokens, step === 'mark' ? 'best' : 'balanced')
+  const r = await callAI(system, [{ role: 'user', content: user }], maxTokens, step === 'mark' ? 'best' : 'balanced', step === 'mark' ? 'reasoning' : 'chat')
   return { text: r.text, via: 'fallback-chain', model: `${r.provider}/${r.model}` }
 }

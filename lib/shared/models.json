@@ -1,0 +1,102 @@
+{
+ "_doc": "AI model routing registry. Add a provider or task = append JSON, no code. Hub (theme_<site>.ai) overrides per site. Free tiers only unless free_only=false set by owner. Keys come from env (never here).",
+ "free_only_default": true,
+ "providers": {
+  "ollama": {
+   "free": true,
+   "local": true,
+   "env": null,
+   "note": "local, zero cost, first"
+  },
+  "freellmapi": {
+   "free": true,
+   "env": "FREELLM_KEY",
+   "base": "FREELLM_URL",
+   "note": "omni router on VPS over groq/google/nvidia/openrouter free keys"
+  },
+  "groq": {
+   "free": true,
+   "env": "GROQ_API_KEY"
+  },
+  "gemini": {
+   "free": true,
+   "env": "GEMINI_API_KEY"
+  },
+  "cerebras": {
+   "free": true,
+   "env": "CEREBRAS_API_KEY"
+  },
+  "nvidia": {
+   "free": true,
+   "env": "NVIDIA_API_KEY"
+  },
+  "openrouter": {
+   "free": true,
+   "env": "OPENROUTER_API_KEY",
+   "note": ":free models only"
+  },
+  "kimi": {
+   "free": false,
+   "env": "KIMI_API_KEY"
+  },
+  "openai": {
+   "free": false,
+   "env": "OPENAI_API_KEY"
+  },
+  "anthropic": {
+   "free": false,
+   "env": "ANTHROPIC_API_KEY"
+  }
+ },
+ "tasks": {
+  "trivial": {
+   "chain": [
+    "ollama",
+    "groq",
+    "cerebras",
+    "gemini",
+    "freellmapi"
+   ],
+   "quality": "fast"
+  },
+  "chat": {
+   "chain": [
+    "freellmapi",
+    "groq",
+    "gemini",
+    "cerebras",
+    "nvidia",
+    "ollama"
+   ],
+   "quality": "balanced"
+  },
+  "reasoning": {
+   "chain": [
+    "gemini",
+    "nvidia",
+    "freellmapi",
+    "groq",
+    "openrouter"
+   ],
+   "quality": "best"
+  },
+  "long-context": {
+   "chain": [
+    "gemini",
+    "kimi",
+    "freellmapi"
+   ],
+   "quality": "best"
+  },
+  "code": {
+   "chain": [
+    "freellmapi",
+    "groq",
+    "nvidia",
+    "gemini",
+    "anthropic"
+   ],
+   "quality": "best"
+  }
+ }
+}

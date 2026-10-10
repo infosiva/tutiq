@@ -10,6 +10,8 @@ import { computeStats, loadHistory, type DashboardStats, type SessionResult } fr
 import { getStoredUser, isLoggedIn } from '@/lib/shared/useMagicAuth'
 import { isProUser } from '@/lib/pro'
 import { theme, btn } from '@/lib/theme'
+import { TierStrip } from '@/components/TierStrip'
+import { TIERS } from '@/lib/tiers'
 import { STAGGER_CONTAINER, FADE_UP, useMotionVariants } from '@/lib/motion'
 
 function StatCard({ icon, label, value, sub, accent = false }: {
@@ -29,8 +31,8 @@ function StatCard({ icon, label, value, sub, accent = false }: {
         {icon}
       </div>
       <div className={`text-2xl font-black ${accent ? 'text-emerald-300' : 'text-white'}`}>{value}</div>
-      <div className="text-white/50 text-xs font-medium">{label}</div>
-      {sub && <div className="text-white/30 text-[10px]">{sub}</div>}
+      <div className="text-white/70 text-xs font-medium">{label}</div>
+      {sub && <div className="text-white/70 text-[10px]">{sub}</div>}
     </motion.div>
   )
 }
@@ -54,11 +56,11 @@ function SessionRow({ session }: { session: SessionResult }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-white text-sm font-semibold truncate capitalize">{session.subject.replace(/-/g, ' ')}</div>
-        <div className="text-white/40 text-xs">{session.learnerName} · {session.topicsStudied.length} topic{session.topicsStudied.length !== 1 ? 's' : ''}</div>
+        <div className="text-white/70 text-xs">{session.learnerName} · {session.topicsStudied.length} topic{session.topicsStudied.length !== 1 ? 's' : ''}</div>
       </div>
       <div className="text-right shrink-0">
-        <div className={`text-sm font-black ${pct >= 70 ? 'text-green-400' : pct >= 40 ? 'text-yellow-400' : 'text-white/50'}`}>{pct}%</div>
-        <div className="text-white/30 text-[10px]">{ago}</div>
+        <div className={`text-sm font-black ${pct >= 70 ? 'text-green-400' : pct >= 40 ? 'text-yellow-400' : 'text-white/70'}`}>{pct}%</div>
+        <div className="text-white/70 text-[10px]">{ago}</div>
       </div>
     </div>
   )
@@ -74,9 +76,9 @@ const STARTER_SUBJECTS = [
 function EmptyState() {
   return (
     <div className="flex flex-col items-center py-16 text-center px-4">
-      <div className="text-5xl mb-4">🎓</div>
+      <div className="text-5xl mb-4 text-white">🎓</div>
       <h2 className="text-white font-black text-xl mb-2">No sessions yet</h2>
-      <p className="text-white/40 text-sm mb-8 max-w-sm">
+      <p className="text-white/70 text-sm mb-8 max-w-sm">
         Start your first tutoring session and your stats, history, and streak will appear here.
         Tutiq adapts every explanation to your exam board and level — pick a subject below or search for anything.
       </p>
@@ -85,7 +87,7 @@ function EmptyState() {
       </Link>
 
       <div className="w-full max-w-2xl text-left">
-        <h3 className="text-white/50 text-xs font-bold uppercase tracking-widest mb-3">Popular starting points</h3>
+        <h3 className="text-white/70 text-xs font-bold uppercase tracking-widest mb-3">Popular starting points</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {STARTER_SUBJECTS.map(s => (
             <Link
@@ -93,10 +95,10 @@ function EmptyState() {
               href={`/onboard?subject=${s.subject}`}
               className="flex items-start gap-3 px-4 py-3 rounded-xl border border-white/[0.07] bg-white/[0.03] hover:bg-white/[0.06] hover:border-emerald-500/30 transition-colors"
             >
-              <span className="text-xl shrink-0">{s.icon}</span>
+              <span className="text-xl shrink-0 text-white">{s.icon}</span>
               <div className="min-w-0">
                 <div className="text-white text-sm font-semibold">{s.label}</div>
-                <div className="text-white/40 text-xs mt-0.5">{s.desc}</div>
+                <div className="text-white/70 text-xs mt-0.5">{s.desc}</div>
               </div>
             </Link>
           ))}
@@ -166,7 +168,7 @@ export default function DashboardPage() {
             <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">
               {user ? `Hey ${user.username} 👋` : 'Your Dashboard'}
             </h1>
-            <p className="text-white/40 text-sm mt-1">
+            <p className="text-white/70 text-sm mt-1">
               {hasSessions
                 ? `${stats.totalSessions} session${stats.totalSessions !== 1 ? 's' : ''} completed · ${stats.totalTopics} topics studied`
                 : 'Start learning to build your stats'
@@ -178,6 +180,8 @@ export default function DashboardPage() {
             <Play size={14} /> Start Session
           </Link>
         </motion.div>
+
+        <div className="mb-8"><TierStrip tiers={TIERS} /></div>
 
         {!hasSessions ? <EmptyState /> : (
           <>
@@ -242,18 +246,18 @@ export default function DashboardPage() {
               >
                 <h2 className="text-white font-bold text-sm uppercase tracking-widest opacity-50 mb-1">Top Subjects</h2>
                 {stats.topSubjects.length === 0 ? (
-                  <p className="text-white/30 text-xs">Study more subjects to see your favourites here.</p>
+                  <p className="text-white/70 text-xs">Study more subjects to see your favourites here.</p>
                 ) : stats.topSubjects.map((t, i) => (
                   <Link
                     key={t.subject}
                     href={`/onboard?subject=${encodeURIComponent(t.subject)}`}
                     className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] transition-colors group"
                   >
-                    <span className="text-white/30 text-xs font-black w-4 tabular-nums">{i + 1}</span>
+                    <span className="text-white/70 text-xs font-black w-4 tabular-nums">{i + 1}</span>
                     <span className="text-white/70 text-sm capitalize flex-1 truncate group-hover:text-white transition-colors">
                       {t.subject.replace(/-/g, ' ')}
                     </span>
-                    <span className="text-white/30 text-xs shrink-0">{t.count}×</span>
+                    <span className="text-white/70 text-xs shrink-0">{t.count}×</span>
                   </Link>
                 ))}
 
@@ -267,7 +271,7 @@ export default function DashboardPage() {
                       className="flex items-center gap-3 px-4 py-2.5 rounded-xl border border-white/[0.05] hover:border-emerald-500/30 bg-white/[0.02] hover:bg-emerald-500/[0.06] transition-all group mb-2"
                     >
                       <Zap size={13} className="text-emerald-400" />
-                      <span className="text-white/60 text-sm group-hover:text-white transition-colors">{subject}</span>
+                      <span className="text-white/70 text-sm group-hover:text-white transition-colors">{subject}</span>
                     </Link>
                   ))}
                 </div>
@@ -283,8 +287,8 @@ export default function DashboardPage() {
                 className="mt-8 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.06] p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4"
               >
                 <div className="flex-1">
-                  <div className="text-white font-bold mb-1">Unlock unlimited sessions with Pro</div>
-                  <div className="text-white/50 text-sm">Remove the daily limit, unlock all subjects, progress tracking, PDF study guides.</div>
+                  <div className="text-white font-bold mb-1">Unlock more sessions with Pro</div>
+                  <div className="text-white/70 text-sm">Remove the daily limit, unlock all subjects, progress tracking, PDF study guides.</div>
                 </div>
                 <Link href="/pricing" className={`shrink-0 px-6 py-3 rounded-xl bg-gradient-to-r ${theme.gradient} text-white font-bold text-sm hover:opacity-90 transition-opacity`}>
                   Upgrade to Pro →

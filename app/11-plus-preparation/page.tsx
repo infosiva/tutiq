@@ -35,7 +35,7 @@ export default function ElevenPlusPrepPage() {
         </span>
       </h1>
 
-      <div className="space-y-4 text-white/65 leading-relaxed mb-10">
+      <div className="space-y-4 text-white/70 leading-relaxed mb-10">
         <p>
           11+ preparation can feel overwhelming. Tutiq is an AI tutor designed for primary school pupils
           working towards selective secondary school entrance exams. It explains verbal reasoning, non-verbal
@@ -54,7 +54,7 @@ export default function ElevenPlusPrepPage() {
 
       {/* Topic chips */}
       <div className="mb-10">
-        <p className="text-sm font-semibold text-white/40 mb-3 uppercase tracking-wider">Topics covered</p>
+        <p className="text-sm font-semibold text-white/70 mb-3 uppercase tracking-wider">Topics covered</p>
         <div className="flex flex-wrap gap-2">
           {TOPICS.map(topic => (
             <span key={topic}

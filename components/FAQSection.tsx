@@ -10,7 +10,7 @@ export default function FAQSection() {
     <section id="faq" className="py-8 px-4 sm:px-6 max-w-3xl mx-auto border-t border-black/[0.06]">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-black text-slate-900 mb-2">Frequently asked questions</h2>
-        <p className="text-slate-500 text-sm">Everything you need to know</p>
+        <p className="text-slate-600 text-sm">Everything you need to know</p>
       </div>
 
       <Accordion.Root type="single" collapsible className="flex flex-col gap-2">
@@ -29,7 +29,7 @@ export default function FAQSection() {
                 className="text-slate-400 group-data-[state=open]:rotate-180 transition-transform duration-200 shrink-0 ml-3"
               />
             </Accordion.Trigger>
-            <Accordion.Content className="px-5 pb-4 text-sm text-slate-500 leading-relaxed data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
+            <Accordion.Content className="px-5 pb-4 text-sm text-slate-600 leading-relaxed data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
               {item.a}
             </Accordion.Content>
           </Accordion.Item>

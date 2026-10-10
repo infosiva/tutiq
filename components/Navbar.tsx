@@ -25,17 +25,17 @@ export default function Navbar({ showStreak = true }: { showStreak?: boolean }) 
   return (
     <>
       <nav className="sticky top-0 z-50 backdrop-blur-md border-b border-white/[0.05]"
-        style={{ background: 'rgba(8,29,46,0.85)' }}>
+        style={{ background: 'rgb(8,29,46)' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
           {/* Logo — open-book geometric mark + brand + subtitle */}
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="text-white"><Logo /></span>
-            <span className="text-[10px] font-medium leading-none" style={{ color: 'rgba(56,189,248,0.75)' }}>AI Tutor</span>
+            <span className="text-white"><Logo dark /></span>
+            <span className="text-[10px] font-medium leading-none" style={{ color: '#7dd3fc' }}>AI Tutor</span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8 text-sm text-white/50">
+          <div className="hidden md:flex items-center gap-8 text-sm text-white/75">
             <Link href="/"
               className="relative hover:text-sky-300 transition-colors group">
               Home
@@ -68,8 +68,8 @@ export default function Navbar({ showStreak = true }: { showStreak?: boolean }) 
             {showStreak && <StreakPill />}
             {user ? (
               <>
-                <span className="text-sm text-white/60">Hi, {user.username || user.email.split('@')[0]}</span>
-                <button onClick={logout} className="text-xs text-white/40 hover:text-sky-300 transition-colors border border-white/10 rounded-lg px-3 py-1.5">Sign out</button>
+                <span className="text-sm text-white/80">Hi, {user.username || user.email.split('@')[0]}</span>
+                <button onClick={logout} className="text-xs text-white/75 hover:text-sky-300 transition-colors border border-white/10 rounded-lg px-3 py-1.5">Sign out</button>
               </>
             ) : !isUnder13 ? (
               <button onClick={() => setAuthOpen(true)}
@@ -85,23 +85,23 @@ export default function Navbar({ showStreak = true }: { showStreak?: boolean }) 
             </Link>
           </div>
 
-          <button className="md:hidden p-2 text-white/60 hover:text-white" onClick={() => setOpen(!open)}>
+          <button className="md:hidden p-2 text-white/80 hover:text-white" onClick={() => setOpen(!open)}>
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {open && (
           <div className="md:hidden border-t border-white/[0.05] px-6 py-5 flex flex-col gap-4 text-sm"
-            style={{ background: 'rgba(8,29,46,0.97)' }}>
-            <Link href="/" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Home</Link>
-            <Link href="/#features" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Features</Link>
-            <Link href="/exam" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Subjects</Link>
-            <Link href="/pricing" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Pricing</Link>
-            <Link href="/about" className="text-white/70 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>About</Link>
+            style={{ background: 'rgb(8,29,46)' }}>
+            <Link href="/" className="text-white/85 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Home</Link>
+            <Link href="/#features" className="text-white/85 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Features</Link>
+            <Link href="/exam" className="text-white/85 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Subjects</Link>
+            <Link href="/pricing" className="text-white/85 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>Pricing</Link>
+            <Link href="/about" className="text-white/85 hover:text-sky-300 transition-colors" onClick={() => setOpen(false)}>About</Link>
             {user ? (
               <>
-                <span className="text-center text-white/40 text-xs">Signed in as {user.email}</span>
-                <button onClick={() => { logout(); setOpen(false) }} className="text-center rounded-lg py-2.5 text-white/50 border border-white/10">Sign out</button>
+                <span className="text-center text-white/75 text-xs">Signed in as {user.email}</span>
+                <button onClick={() => { logout(); setOpen(false) }} className="text-center rounded-lg py-2.5 text-white/75 border border-white/10">Sign out</button>
               </>
             ) : !isUnder13 ? (
               <button onClick={() => { setAuthOpen(true); setOpen(false) }}
@@ -125,7 +125,7 @@ export default function Navbar({ showStreak = true }: { showStreak?: boolean }) 
         onClose={() => setAuthOpen(false)}
         onSuccess={u => { onSuccess(u); setAuthOpen(false) }}
         site="tutiq"
-        accentColor="#0284c7"
+        accentColor="#0369a1"
       />
     </>
   )

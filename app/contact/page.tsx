@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-16 text-sm leading-relaxed">
       <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
-      <p className="opacity-50 mb-10">Tutiq — https://tutiq.app</p>
+      <p className="text-slate-600 mb-10">Tutiq — https://tutiq.app</p>
 
       <div className="mb-8">
         <p>
@@ -35,10 +35,10 @@ export default function ContactPage() {
       <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
         <p className="font-medium mb-1">Email</p>
         <a href="mailto:info.siva@gmail.com" className="underline opacity-70">info.siva@gmail.com</a>
-        <p className="mt-3 opacity-40 text-xs">We aim to respond within 2 business days.</p>
+        <p className="mt-3 text-slate-600 text-xs">We aim to respond within 2 business days.</p>
       </div>
 
-      <p className="mt-10 opacity-40 text-xs">© 2026 Tutiq. All rights reserved.</p>
+      <p className="mt-10 text-slate-600 text-xs">© 2026 Tutiq. All rights reserved.</p>
     </main>
   );
 }

@@ -34,7 +34,7 @@ export default function GCSEMathsTutorPage() {
         </span>
       </h1>
 
-      <div className="space-y-4 text-white/65 leading-relaxed mb-10">
+      <div className="space-y-4 text-white/70 leading-relaxed mb-10">
         <p>
           Struggling with GCSE Maths? Tutiq is an AI tutor that actually explains — not just tests you with
           flashcards. Ask it why you got a question wrong, and it walks you through the working step by step,
@@ -46,14 +46,14 @@ export default function GCSEMathsTutorPage() {
           schedule. No worksheets to print. Just ask and it teaches.
         </p>
         <p>
-          Free to start — 3 sessions per day with no account required. Upgrade to Pro for unlimited sessions,
+          Free to start — 3 sessions per day with no account required. Upgrade to Pro for more sessions,
           progress tracking, and mock exam mode with mark schemes.
         </p>
       </div>
 
       {/* Topic chips */}
       <div className="mb-10">
-        <p className="text-sm font-semibold text-white/40 mb-3 uppercase tracking-wider">Topics covered</p>
+        <p className="text-sm font-semibold text-white/70 mb-3 uppercase tracking-wider">Topics covered</p>
         <div className="flex flex-wrap gap-2">
           {TOPICS.map(topic => (
             <span key={topic}

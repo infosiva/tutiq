@@ -1,3 +1,4 @@
+import { guarded } from "@/lib/access"
 import { NextRequest, NextResponse } from 'next/server'
 import { aiCached, aiChat } from '@/lib/ai'
 import { AI_LIMITER } from '@/lib/rateLimit'
@@ -212,7 +213,7 @@ const CURRICULA: Record<string, Topic[]> = {
   'interview-law':   [],
 }
 
-export async function POST(req: NextRequest) {
+async function handler(req: NextRequest) {
   const limited = AI_LIMITER.check(req)
   if (limited) return limited
 
@@ -264,3 +265,5 @@ Rules:
     return NextResponse.json({ error: 'Failed to generate learning path' }, { status: 500 })
   }
 }
+
+export const POST = guarded(handler)

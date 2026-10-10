@@ -22,12 +22,12 @@ export default function FinalCTA() {
         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
           {siteConfig.finalCta.headline}
         </h2>
-        <p className="text-slate-500 text-base">{siteConfig.finalCta.subtext}</p>
+        <p className="text-slate-600 text-base">{siteConfig.finalCta.subtext}</p>
 
         <motion.div {...BUTTON_PRESS} transition={SPRING_CINEMATIC}>
           <Link href={siteConfig.finalCta.ctaHref}>
             <ShimmerButton
-              background="rgba(2,132,199,1)"
+              background="rgba(3,105,161,1)"
               shimmerColor="#bae6fd"
               className="cta-pulse px-10 py-4 text-base font-bold min-h-[56px]"
             >

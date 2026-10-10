@@ -35,7 +35,7 @@ export default function StreakPill() {
   }
 
   return (
-    <span className="hidden md:inline text-xs text-white/25 font-medium">
+    <span className="hidden md:inline text-xs text-white/70 font-medium">
       Start your streak →
     </span>
   )

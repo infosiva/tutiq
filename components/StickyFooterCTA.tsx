@@ -56,7 +56,7 @@ export default function StickyFooterCTA() {
           display: 'inline-block',
           padding: '10px 24px',
           minHeight: '44px',
-          background: 'linear-gradient(135deg, #10b981, #34d399)',
+          background: 'linear-gradient(135deg, #065f46, #047857)',
           color: '#fff',
           fontWeight: 700,
           fontSize: '0.9375rem',
@@ -67,7 +67,7 @@ export default function StickyFooterCTA() {
           WebkitTapHighlightColor: 'transparent',
         }}
       >
-        Start Free — No credit card required
+        Try a few questions free — no card needed
       </Link>
       <button
         onClick={dismiss}

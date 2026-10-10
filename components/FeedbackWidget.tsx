@@ -93,7 +93,7 @@ export default function FeedbackWidget({
           ...(position === 'left' ? { left: offset } : { right: offset }),
           display: 'flex', alignItems: 'center', gap: 8,
           padding: '10px 18px', borderRadius: 999,
-          background: gradient, color: '#000',
+          background: gradient, color: '#fff',
           fontWeight: 700, fontSize: 13, border: 'none', cursor: 'pointer',
           boxShadow: `0 4px 20px ${accentColor}55, 0 2px 8px rgba(0,0,0,0.4)`,
           transition: 'transform 0.15s, box-shadow 0.15s',
@@ -163,7 +163,7 @@ export default function FeedbackWidget({
               </p>
               <button onClick={() => { reset(); setOpen(false) }} style={{
                 marginTop: 8, padding: '10px 28px', borderRadius: 12,
-                background: gradient, color: '#000', fontWeight: 800, fontSize: 13, border: 'none', cursor: 'pointer',
+                background: gradient, color: '#fff', fontWeight: 800, fontSize: 13, border: 'none', cursor: 'pointer',
               }}>
                 Close
               </button>

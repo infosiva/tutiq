@@ -4,10 +4,10 @@ import NewsletterForm from '@/components/NewsletterForm'
 
 export const metadata: Metadata = {
   title: 'Pricing — Tutiq | AI Tutor for GCSE, 11+ & Interview Prep',
-  description: 'Start learning free. Upgrade to Pro for $8/mo — unlimited AI tutoring sessions across all subjects, GCSE, 11+, and interview prep.',
+  description: 'Start learning free. Upgrade to Pro for $8/mo — fair-use AI tutoring sessions across all subjects, GCSE, 11+, and interview prep.',
   openGraph: {
     title: 'Tutiq Pricing — Free AI Tutor',
-    description: 'Free forever plan with 3 sessions. Pro at $8/mo for unlimited tutoring in every subject.',
+    description: 'Try free with a few questions, then Pro at $8/mo for full tutoring in every subject.',
   },
 }
 
@@ -20,7 +20,7 @@ const FREE_FEATURES = [
 ]
 
 const PRO_FEATURES = [
-  'Unlimited AI sessions',
+  'AI sessions (fair use)',
   'Progress tracking',
   'All 3 learning tracks',
   'GCSE, A-Level & 11+ prep',
@@ -46,12 +46,12 @@ const FAQ = [
     a: 'Powered by Claude and Groq LLMs — your child asks questions, the AI explains patiently at their level. No time limits, no judgment.',
   },
   {
-    q: 'Is the free plan really free forever?',
-    a: 'Yes. No credit card required. Free plan gives you 3 AI sessions — enough to see how the tutor works before deciding.',
+    q: 'What do I get before paying?',
+    a: 'A free taste: a few AI-marked questions a day, no card needed. Pro unlocks extended practice, full mock papers, the tutor and progress reports.',
   },
   {
     q: 'What is the refund policy?',
-    a: 'We offer a 7-day money-back guarantee. If you\'re not happy, email us and we\'ll refund immediately.',
+    a: 'Cancel any time from your account. Refunds are handled case by case: email us and we will look at it.',
   },
 ]
 
@@ -78,7 +78,7 @@ export default function PricingPage() {
               Start free.
             </span>
           </h1>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
+          <p className="text-white/70 text-lg max-w-xl mx-auto">
             GCSE, 11+ prep, interview coaching. Patient AI that explains at your level. Upgrade only when you need more.
           </p>
         </div>
@@ -87,17 +87,17 @@ export default function PricingPage() {
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-20">
           {/* Free */}
           <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-8">
-            <div className="text-xs font-bold uppercase tracking-widest text-white/25 mb-2">Free</div>
-            <div className="text-5xl font-black text-white/40 mb-1">$0</div>
-            <div className="text-xs text-white/20 mb-8">forever</div>
+            <div className="text-xs font-bold uppercase tracking-widest text-white/70 mb-2">Free</div>
+            <div className="text-5xl font-black text-white/70 mb-1">$0</div>
+            <div className="text-xs text-white/70 mb-8">free taste, no card</div>
             <ul className="space-y-3 mb-8">
               {FREE_FEATURES.map(f => (
-                <li key={f} className="flex items-center gap-2 text-sm text-white/40">
-                  <span className="text-white/20">✓</span> {f}
+                <li key={f} className="flex items-center gap-2 text-sm text-white/70">
+                  <span className="text-white/70">✓</span> {f}
                 </li>
               ))}
             </ul>
-            <Link href="/" className="block w-full py-3 rounded-xl text-center text-sm font-semibold border border-white/10 text-white/40 hover:bg-white/5 transition">
+            <Link href="/" className="block w-full py-3 rounded-xl text-center text-sm font-semibold border border-white/10 text-white/70 hover:bg-white/5 transition">
               Get started free
             </Link>
           </div>
@@ -120,12 +120,12 @@ export default function PricingPage() {
             <Link href="/?upgrade=true" className="block w-full py-3 rounded-xl text-center text-sm font-bold bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 transition text-white">
               Start Pro — $8/mo →
             </Link>
-            <p className="text-[10px] text-center text-white/25 mt-3">7-day money-back guarantee</p>
+            <p className="text-[10px] text-center text-white/70 mt-3">Cancel any time</p>
           </div>
         </div>
 
         {/* Trust bar */}
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/30 mb-20">
+        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/70 mb-20">
           <span>GCSE, 11+ & Interview tracks</span>
           <span>·</span>
           <span>No credit card for free plan</span>
@@ -139,9 +139,9 @@ export default function PricingPage() {
               <details key={q} className="group border-b border-white/[0.06] py-4">
                 <summary className="cursor-pointer font-semibold text-sm text-white/70 group-open:text-white transition list-none flex items-center justify-between">
                   {q}
-                  <span className="text-white/30 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-white/70 group-open:rotate-45 transition-transform">+</span>
                 </summary>
-                <p className="mt-3 text-sm text-white/40 leading-relaxed">{a}</p>
+                <p className="mt-3 text-sm text-white/70 leading-relaxed">{a}</p>
               </details>
             ))}
           </div>
@@ -149,7 +149,7 @@ export default function PricingPage() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-20">
-          <p className="text-white/30 text-sm mb-4">Still not sure? Start free — no credit card needed.</p>
+          <p className="text-white/70 text-sm mb-4">Still not sure? Start free — no credit card needed.</p>
           <Link href="/" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 transition text-white">
             Start learning free →
           </Link>
@@ -157,8 +157,8 @@ export default function PricingPage() {
 
         {/* Newsletter */}
         <div className="border-t border-white/[0.06] mt-20 pt-12 text-center">
-          <p className="text-white/50 text-sm font-medium mb-1">Get study tips and exam strategies</p>
-          <p className="text-white/25 text-xs mb-6">No spam. Unsubscribe anytime.</p>
+          <p className="text-white/70 text-sm font-medium mb-1">Get study tips and exam strategies</p>
+          <p className="text-white/70 text-xs mb-6">No spam. Unsubscribe anytime.</p>
           <NewsletterForm accentClass="from-emerald-600 to-teal-500" />
         </div>
       </div>

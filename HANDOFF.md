@@ -131,3 +131,105 @@ Wake-up cron: ef94696c (session-only; re-create if gone).
 - Resume: run dev, click-test /exam at 375+1280 (needs live model for items), then gates, commit by name, push, e2e-verify, CronDelete ef94696c, owner TODO list.
 
 ## COMPLETE (2026-10-09) pushed 0d942db. Click-tested /exam locally 375+1280 (pick->learn->quiz->back, no overflow/errors). Item/mark/tutor need a live model: untested.
+
+## PLAN v2 — readability + fit-in-page + guest trial (2026-10-10, owner: "plan before impl"; NOT started)
+Evidence: `.claude-scratch/contrast-scan.txt` — contrast gate (`design-system/scripts/contrast-gate.mjs`, new) found 578 text nodes <4.5:1 over 6 routes (/ 125, /pricing 51, /exam 25-32, /study, /onboard, /learn). Cause: legacy dark-theme classes (text-white/30, white-alpha borders, #0b1120 inline bg) on a light-theme body; footer/muted/kicker text.
+Research (WCAG 1.4.3: 4.5:1, large 3:1; WebAIM: gradients must pass at the lowest-contrast point; axe skips gradients as "incomplete" so own gate is needed; APCA not normative). Competitors (vendor-biased sources, unverified prices): Atom £39.99/mo adaptive 11+, 5-day trial; Bond ~£7.50-9.99/mo, parents mark; Seneca free + premium ~£5-8.99, AI tutor with free daily cap. Gap tutiq fills: free guest trial of AI-marked papers.
+Phases (one heavy process at a time):
+1. Tokens: add AA-safe text tokens (--ink, --ink-2 #475569, --ink-3 #64748b on white only) + one dark-surface token set; replace white-alpha/slate-400 text per route; each dark panel sets own bg (§0-BG-CONTRAST).
+2. Re-run contrast gate until 0 on /, /exam, /pricing, /study, /onboard, /learn at 375+1280. Wire into visual-qa pre-push (exit 2).
+3. Fit-in-page: app-shell, no dead bands; pick-page intro panel compact; hero card fills; internal scroll panes; check 1280x800 + 375x812 above-the-fold.
+4. Logo: read Logo.tsx properly, fix Tut|IQ gap.
+5. Guest trial: anonymous guests get N free questions (proposal: 5 generated+marked questions + 1 short lesson per device per day), counted server-side (signed cookie + IP limiter in lib/rateLimit.ts, since localStorage is trivially reset); after limit show promo-code / sign-in prompt. Promo exists already: lib/promoCode.ts + app/api/promo/route.ts (sets promo_unlocked cookie = days unlocked) -> reuse to lift the cap. Open: N, per-day vs lifetime, phone/email gate for more.
+6. Competitor compare (verified, primary pages) -> improvements list.
+7. Shared rules: append to ~/.claude/memory-topics/production-ready-gate.md + design-system MASTER.md: contrast gate = evidence item, no dead gaps, dynamic hero demo, nav links resolve, sticky breadcrumb, chips not dropdown, guest trial cap.
+8. Full live e2e + e2e-verify, apple-audit, impeccable critique, then push.
+Phase 5 revised (owner 2026-10-10): 3-tier access. promo code = full; guest = very limited taste (5 q/day/device, signed cookie + IP); /study, /learn, reports, history = sign in + paid plan (pricing page). Build lib/access.ts getAccess(req) + /api/access; gate exam item/mark/tutor routes; verify what promo_unlocked currently unlocks first.
+
+### Research: how others tier access (2026-10-10; primary pages fetched unless noted)
+- Atom (atomlearning.com/pricing): £39.99/£59.99/£69.99 per month (yearly -20%); "Mock tests not included" on first two, "Unlimited mock tests" only on top tier; "Try for free" button, trial terms not stated on page. Price ladder = content breadth -> exam prep -> mocks.
+- Khanmigo: content "will always remain 100% free"; AI tutor paid for parents, free for verified teachers; no usage caps stated.
+- Seneca (help page, garbled by compression; search snippets): 600+ free courses; Premium adds 800+ courses, AI-marked exam questions, Amelia AI (free tier has daily AI cap). Third-party for the cap, unverified.
+- Bond 11+ Online: £7.50/month, £65/year (search snippet, shop page garbled; re-verify).
+- RevenueCat freemium guide (vendor): taster limits where casual becomes serious use; too low = "a trial with extra steps"; free users should make "meaningful progress toward their goal — but not reach the full solution"; keep upgrade messaging to the few drivers that matter; make premium visible; no surprise paywall; AI apps cap by credits. Hard paywall median 10.7% vs freemium 2.1% conversion (their figure); reverse trial recommended; card-at-signup cuts conversion ~40% (productgrowth.in, loosely sourced).
+- Duolingo CPO (subclub): contextual upgrade prompts at the limit convert better than generic.
+Implications: (1) tutiq's paid ladder should gate MOCK PAPERS + saved reports + unlimited tutor, keep topic quizzes/lessons tasters free; (2) guest cap on AI-marked items (cost driver), not on browsing; (3) show tier strip everywhere (see CLAUDE.md rule); (4) price anchor: Atom £39.99-69.99, Bond £7.50 -> tutiq positioning between, decide with owner; (5) no card at signup.
+Unknown: Seneca exact free AI cap, Atom trial length, Bond free trial. Cheapest test: 10 parent interviews / outreach, count who prefers per-paper vs monthly.
+
+### PLAN v2 addendum — "confidence to buy" (owner 2026-10-10, NOT started)
+Owner: buyers need confidence before paying: show a DEMO of what they get, incl. dashboard for tracking, streaks etc.
+- **Tier strip (at a glance)** on landing, /pricing, and inside the guest-cap prompt: Guest (taste, N free AI-marked Qs/day) | Promo code (full, N days) | Plan (everything). Locked rows shown with a lock, not hidden. Real limits only, no fake numbers.
+- **Interactive sample dashboard** (read-only, clearly labelled "Example data" so it is not passed off as real): progress by topic, streak + calendar heat strip, weak-topic list, mock-paper score trend, spaced-review due count, parent weekly report. Same components the paid dashboard uses, fed by a fixed demo dataset; in the paid app they read the real per-device/account store (`tutiq-exam-v1` + server account later).
+- **Sample report preview**: one full mock-paper report (marks per question, AO breakdown, what to revise) viewable without signup.
+- **Real streak + tracking** built for real (not demo-only): streak count, days practised, topics covered, last score; shown to guests too (local) so they feel progress to lose, then "save it: sign in".
+- **Trust bits on pricing**: cancel anytime, no card for guest/promo, what happens to data, refund wording (owner decides policy), under-13 note (owner-blocked).
+- Order: 1 contrast fixes -> 2 fit-in-page -> 3 logo -> 4 access.ts + guest cap -> 5 dashboard (real, small) -> 6 sample dashboard + tier strip + report preview -> 7 live e2e of all 3 tiers -> 8 gates -> push.
+- Evidence to log: screenshots 375/1280 of tier strip + sample dashboard, click-through of guest->limit->prompt->promo->full.
+
+## Update 2026-10-10 — StickyCrumb adopted
+- [x] `lib/shared/StickyCrumb.tsx` (copy of shared-ui) used on `app/exam/page.tsx` with tone chips as children; tsc clean; 375+1280 screenshots read OK.
+- [ ] Next: lesson page verify (needs onboarding bypass), honest-copy grep, 578 contrast nodes, guest cap/3-tier, tier strip, live e2e.
+- Resume: honest-copy grep + contrast fixes. Nothing committed/pushed yet.
+
+## Owner adds 2026-10-10 (late)
+- [ ] REA (github.com/morluto/rea, MCP, `npx rea-agents setup`): owner wants it installed for reverse-engineering/compare. Installed globally by owner (`npm i -g rea-agents`, 144 pkgs). MCP wiring (`npx rea-agents setup`) NOT run: per MCP hygiene, enable only when a compare task needs it. It targets binaries/apps, not sites; for site comparison use Playwright + network/HAR capture instead.
+- [ ] Do NOT only apply owner's literal asks: research + modernise for easy access and usability (age-appropriate UI, fewer clicks, big targets, plain words, clear next step).
+- [ ] AGE PERSONAS e2e: run live journey as (a) age 9-10 (primary, KS2/11+: big buttons, simple words, parent-gate for sign-in/pay, no open chat risk, friendly tone default) and (b) age 15-17 (GCSE: fast, dense, exam-focused, concise tone default, progress/grades). Check onboarding age choice sets tone, copy reading level, UI density, access tier (under-13 consent/parent flow = owner decision). Read back age in UI + request.
+
+## Update 2026-10-10 — honest-copy sweep DONE
+Removed "unlimited"/"7-day money-back"/"Start Free" claims in pricing, StickyFooterCTA, learn, dashboard, gcse-maths-tutor, social. Owner must confirm refund policy + free limits. tsc clean.
+Resume: contrast-gate fixes (dev server :3111, `.claude-scratch/cg.mjs`).
+
+## Contrast gate (2026-10-10)
+`contrast-gate.mjs --base http://localhost:3111 --paths /,/exam,/pricing,/learn,/onboard,/dashboard,/study` at 375+1280: **PASS: all text meets contrast** (0 failures on all 7 routes).
+Resume: contrast done for these routes; next = 3-tier access (getAccess, guest cap, tier strip), age-persona e2e, then items 4-12.
+
+## 3-tier access (2026-10-10) — server-side DONE, UI partial
+- `lib/access.ts`: HMAC-signed cookies (`tq_promo` full, `tq_plan` paid, `tq_guest` cap), `getAccess`, `gate`, `guarded(handler, mode)`. `GET /api/access` reads tier. `/api/promo` now signs cookie + rate-limits (8/min).
+- Taste (guest cap 5/day, cookie+IP): chat, learn/explain|quiz|path, exam/item|tutor|mark. Members only (401 for guests): learn/mock-exam, exam/cards, study/upload.
+- Evidence: curl /api/access -> guest/5; 5x quiz then 402 `guest_cap`; exam/cards guest -> 401; tsx sign/verify test rejects tampered + forged cookies; TierStrip on /pricing, contrast gate PASS.
+- NOT done: client UI for 402/401 (LimitPrompt with "x left" counter), TierStrip on landing + dashboard, ExampleDashboard, tq_plan issuance (needs Stripe webhook / sign-in), ACCESS_SECRET + PROMO_CODES envs (owner), live click-test of valid code (needs PROMO_CODES), age-persona e2e.
+Resume: wire LimitPrompt on 402/401 in client fetches, tier strip on landing+dashboard, then persona e2e (Playwright MCP failed to connect; use npx playwright).
+
+## 3-tier UI (2026-10-10, later)
+- LimitPrompt via AccessWatcher verified: guest 6th call -> 402, prompt shown at 375 + 1280, no overflow.
+- TierStrip now on landing (PricingSection) + dashboard via lib/tiers.ts. Contrast gate PASS on /, /dashboard, /pricing.
+- NOT done: tsc (dev server blocks), valid-promo unlock (needs PROMO_CODES + ACCESS_SECRET), tq_plan issuance, age-persona e2e, items 4-12.
+Resume: age-persona e2e with plain Playwright from design-system/scripts, then items 4-12.
+
+## Persona e2e (2026-10-10, partial, localhost:3111 /onboard)
+- 16yo (Sam, 1280): name+age filled, Continue -> Step 2 of 4, Back -> name=Sam age=16 kept. PASS for steps 1-2.
+- 9yo (Mia, 375): name+age filled, Continue stays on Step 1 (under-13 parent gate, owner decision pending). Back values kept.
+- NOT run: steps 3-4, finish -> nudge_profile age read-back, /learn request age, copy tone per persona. A full-journey script hung (killed); use per-step timeouts.
+Resume: persona steps 3-4 + finish read-back (parent gate path for 9yo), then items 4-12.
+
+
+## Evidence 2026-10-10 (3-tier, server-side, curl on local dev :3111)
+- Guest: /api/access -> tier guest, 5/5 left; members route (/api/study/upload) -> 401 members_only; taste route past cap -> 402 left 0; AI burst -> 429 rate limit.
+- Bad code -> valid:false (200). TUTIQ-TEST-7D -> valid, 7 days, tier full; same cookie passes guard on upload/path (500/400 are body validation, not access).
+- NOT done: tq_plan (paid) path (needs Stripe/Supabase: owner), browser persona runs 9-10 / 15-17 (Playwright MCP failed to connect), live-URL click-test, prod/security gate, remaining ~20 `[ ]` items.
+
+## Resume from here if interrupted
+3-tier verified server-side locally. Next: browser journey per persona via a playwright script (not MCP), then contrast-gate on tutiq routes, then remaining `[ ]` items.
+
+## Contrast gate 2026-10-10 (local :3111)
+- Contrast gate (local): PASS 375+1280 on /, /pricing, /exam, /learn, /about, /contact, /privacy, /terms (fixed opacity-40/50 footer lines on about/contact/privacy/terms -> text-slate-600).
+- Resume: contrast done for these routes. Next: persona browser journeys (node playwright script), then remaining [ ] items.
+
+## Age-persona e2e 2026-10-10 (local :3111, Playwright, /onboard)
+- Kid age 9, 375+1280: parent gate shown ("Ask a parent or guardian"), "Continue without account" -> /learn, localStorage nudge_profile age=9, no hscroll. GAP: gate path skips subject/level steps -> subject "" (kid lands on /learn with no subject).
+- Teen age 16, 1280: no gate, steps 2-3 ok, summary read back "Age 16", profile age=16 subject=maths-gcse, /learn, no hscroll.
+- Teen 375: step 3 level click timed out (likely cookie banner overlays controls at 375) -> investigate, NOT confirmed.
+- Honest-copy defect: cookie banner says "show relevant ads via Google AdSense" but under-13 gate says "No ads are shown on this platform." Must reconcile (owner decision on ads for <13).
+- Not yet: screenshots read, Continue/Back click-through, live URL (owner-blocked until deploy).
+- Teen 375 timeout = script assumption, not app bug (flow reached step 4 without a level click). Real finding: cookie banner covers ~170px of the 375 viewport on /onboard, hiding the summary and likely the "Build my learning path" CTA until dismissed. Fix: compact banner or delay until after first action (UI edit, pending).
+- FIXED 2026-10-10: CookieConsent compacted at 375 (banner ~170px -> ~120px, 44px buttons, right pad for chat FAB). Screenshot read: form + Continue visible above banner. AdSense copy still pending owner decision.
+
+## Progress 2026-10-10 (autonomous pass)
+- [x] Adaptive picker wired: `app/exam/page.tsx` Report "Learn next" now uses `nextQuestion`/`updateAbility` (lib/exam/adaptive.ts). tsc exit 0, adaptiveDemo ok.
+- Already built (verified in code): Quiz (topic/sofar/mock), Report by topic + AO, print button, journey buttons (Back to lesson / sofar / mock / New topic).
+- Still open: persistence beyond localStorage (needs DB, owner), marker calibration on hand-marked answers (needs owner-marked data), kid path skips subject/level, live click-test + e2e-verify (needs deploy), AdSense copy decision.
+- Resume: persona fix for under-13 path, then rerun teen 375.
+- [x] Kid path fix: `app/onboard/page.tsx` parental gate "Continue without account" now goes to step 2 (subject, level, goal) instead of finishing early. Not yet re-clicked in browser.
+- [x] Teen 375 re-check: final "Build my learning path" button exists, unobstructed (elementFromPoint = self), 149x96px. Earlier timeout was script selector, not an app bug. Kid path re-run reaches wizard steps 2-4; teen 1280 lands on /learn with profile {age 16, maths-gcse, beginner} read back.
+- Resume: owner-blocked list only (AdSense copy decision, VERCEL_TOKEN, commit/push/deploy, live click-test, DB persistence, hand-marked calibration data). Dev server killed.

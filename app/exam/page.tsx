@@ -4,7 +4,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { SUBJECTS, type ExamStage, type Subject } from '@/lib/curriculum'
 import { BLUEPRINTS } from '@/lib/exam/blueprints'
+import { nextQuestion, updateAbility, type Ability } from '@/lib/exam/adaptive'
 import { planQuiz, type Scope, type Slot } from '@/lib/exam/quizPlan'
+import { StickyCrumb } from '@/lib/shared/StickyCrumb'
 import { TONES, type Tone } from '@/lib/exam/tutor'
 
 type Pub = { id: string; type: 'mcq' | 'short' | 'extended'; topic: string; ao: string; marks: number; stem: string; options?: string[] }
@@ -22,8 +24,8 @@ const post = async <T,>(url: string, body: unknown): Promise<T | null> => {
 const KEY = 'tutiq-exam-v1'
 const TONE_HINT: Record<Tone, string> = { friendly: 'Warm and encouraging.', calm: 'Patient and reassuring.', playful: 'Light humour, short analogies.', strict: 'Firm and exam-focused.', concise: 'Short and to the point.' }
 const STEPS = [['Short lesson', 'Plain-English explanation with flashcards.'], ['Topic quiz', 'Check you got this topic.'], ['Mixed quiz', 'Everything you have covered so far.'], ['Mock paper', 'Timed, exam-style, marked with feedback.']]
-const btn = 'min-h-11 rounded-xl px-4 text-sm font-semibold transition-transform active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0284c7] disabled:opacity-50'
-const primary = `${btn} bg-[#0284c7] text-white hover:bg-[#0369a1]`
+const btn = 'min-h-11 rounded-xl px-4 text-sm font-semibold transition-transform active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369a1] disabled:opacity-50'
+const primary = `${btn} bg-[#0369a1] text-white hover:bg-[#0369a1]`
 const ghost = `${btn} border border-[#e2e8f0] bg-white text-[#0f172a] hover:bg-[#f0f9ff]`
 
 export default function ExamPage() {
@@ -61,31 +63,18 @@ export default function ExamPage() {
         .face{backface-visibility:hidden}
         @media print{.noprint{display:none!important}main{height:auto!important}}
       `}</style>
-      <header className="noprint sticky top-0 z-10 flex flex-col gap-2 rounded-2xl border border-[#e2e8f0] bg-white/85 px-3 py-2 backdrop-blur">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-x-1 text-sm text-[#64748b]">
-            <li><a href="/" className="rounded px-1 py-2 hover:text-[#0369a1] focus-visible:outline-2 focus-visible:outline-[#0284c7]">Home</a></li>
-            {crumbs.map((c, i) => (
-              <li key={c.label} className="flex items-center gap-1">
-                <span aria-hidden className="text-[#cbd5e1]">/</span>
-                {c.go && i < crumbs.length - 1
-                  ? <button onClick={c.go} className="rounded px-1 py-2 hover:text-[#0369a1] focus-visible:outline-2 focus-visible:outline-[#0284c7]">{c.label}</button>
-                  : <span aria-current={i === crumbs.length - 1 ? 'page' : undefined} className="px-1 font-semibold text-[#0f172a]">{c.label}</span>}
-              </li>
-            ))}
-          </ol>
-        </nav>
+      <StickyCrumb crumbs={crumbs}>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span id="tone-l" className="text-xs font-semibold text-[#64748b]">Tutor voice</span>
           <div role="radiogroup" aria-labelledby="tone-l" className="flex flex-wrap gap-1 rounded-full bg-[#f0f9ff] p-1">
             {TONES.map(t => (
               <button key={t} role="radio" aria-checked={tone === t} onClick={() => setTone(t)}
-                className={`min-h-11 rounded-full px-3 text-sm font-semibold capitalize transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-[#0284c7] sm:min-h-9 ${tone === t ? 'bg-[#0284c7] text-white shadow-sm' : 'text-[#334155] hover:bg-white'}`}>{t}</button>
+                className={`min-h-11 rounded-full px-3 text-sm font-semibold capitalize transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-[#0369a1] sm:min-h-9 ${tone === t ? 'bg-[#0369a1] text-white shadow-sm' : 'text-[#334155] hover:bg-white'}`}>{t}</button>
             ))}
           </div>
           <span className="hidden text-xs text-[#64748b] md:inline">{TONE_HINT[tone]}</span>
         </div>
-      </header>
+      </StickyCrumb>
 
       <section key={step} className="step min-h-0 flex-1 overflow-y-auto rounded-2xl border border-[#e2e8f0] bg-white p-4">
         {step === 'pick' && (
@@ -120,7 +109,7 @@ function Pick(p: { covered: string[]; stage: ExamStage; setStage: (s: ExamStage)
         <div role="tablist" className="grid grid-cols-2 gap-1 rounded-full bg-[#f0f9ff] p-1">
           {(['11plus', 'gcse'] as const).map(s => (
             <button key={s} role="tab" aria-selected={p.stage === s} onClick={() => p.setStage(s)}
-              className={`min-h-11 rounded-full text-sm font-bold transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-[#0284c7] ${p.stage === s ? 'bg-gradient-to-r from-[#0284c7] to-[#0369a1] text-white shadow-sm' : 'text-[#334155] hover:bg-white'}`}>{s === '11plus' ? '11+' : 'GCSE'}</button>
+              className={`min-h-11 rounded-full text-sm font-bold transition-colors active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-[#0369a1] ${p.stage === s ? 'bg-gradient-to-r from-[#0369a1] to-[#0369a1] text-white shadow-sm' : 'text-[#334155] hover:bg-white'}`}>{s === '11plus' ? '11+' : 'GCSE'}</button>
           ))}
         </div>
         <ul className="flex max-h-[34dvh] flex-col gap-2 overflow-y-auto md:max-h-none">
@@ -129,7 +118,7 @@ function Pick(p: { covered: string[]; stage: ExamStage; setStage: (s: ExamStage)
             const done = s.topics.filter(t => p.covered.includes(t.id)).length
             return (
               <li key={s.id}><button onClick={() => { p.setSubject(s); p.setTopicId('') }} aria-pressed={on}
-                className={`flex min-h-14 w-full items-center justify-between gap-2 rounded-2xl border px-3 text-left transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#0284c7] ${on ? 'border-[#0284c7] bg-[#e0f2fe] shadow-sm' : 'border-[#e2e8f0] bg-white hover:-translate-y-px hover:border-[#7dd3fc]'}`}>
+                className={`flex min-h-14 w-full items-center justify-between gap-2 rounded-2xl border px-3 text-left transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#0369a1] ${on ? 'border-[#0369a1] bg-[#e0f2fe] shadow-sm' : 'border-[#e2e8f0] bg-white hover:-translate-y-px hover:border-[#7dd3fc]'}`}>
                 <span className="text-sm font-semibold">{s.title.replace(/^(11\+|GCSE) /, '')}</span>
                 <span className="shrink-0 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#0369a1] ring-1 ring-[#bae6fd]">{done}/{s.topics.length}</span>
               </button></li>
@@ -147,7 +136,7 @@ function Pick(p: { covered: string[]; stage: ExamStage; setStage: (s: ExamStage)
             <ol className="grid gap-2 sm:grid-cols-2">
               {STEPS.map(([t, d], i) => (
                 <li key={t} className="flex gap-3 rounded-xl border border-[#e2e8f0] bg-white p-3">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#0284c7] text-sm font-bold text-white">{i + 1}</span>
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#0369a1] text-sm font-bold text-white">{i + 1}</span>
                   <span><span className="block text-sm font-semibold">{t}</span><span className="text-xs text-[#64748b]">{d}</span></span>
                 </li>
               ))}
@@ -161,7 +150,7 @@ function Pick(p: { covered: string[]; stage: ExamStage; setStage: (s: ExamStage)
                 const on = p.topicId === t.id
                 return (
                   <li key={t.id}><button onClick={() => p.setTopicId(t.id)} aria-pressed={on}
-                    className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-xl border px-3 text-left text-sm font-medium transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#0284c7] ${on ? 'border-[#0284c7] bg-[#0284c7] text-white shadow-sm' : 'border-[#e2e8f0] bg-white hover:-translate-y-px hover:border-[#7dd3fc]'}`}>
+                    className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-xl border px-3 text-left text-sm font-medium transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-[#0369a1] ${on ? 'border-[#0369a1] bg-[#0369a1] text-white shadow-sm' : 'border-[#e2e8f0] bg-white hover:-translate-y-px hover:border-[#7dd3fc]'}`}>
                     {t.title}{p.covered.includes(t.id) && <span className={`shrink-0 text-xs font-semibold ${on ? 'text-white' : 'text-[#15803d]'}`}>Done</span>}
                   </button></li>
                 )
@@ -215,7 +204,7 @@ function Learn(p: { subject: Subject; topicId: string; title: string; memorise: 
             <div className="flex items-center gap-2">
               <button onClick={() => setFlip(f => !f)} aria-label={flip ? 'Show front' : 'Show back'} className="flip relative h-24 flex-1 rounded-xl" style={{ transform: flip ? 'rotateY(180deg)' : undefined }}>
                 <span className="face absolute inset-0 flex items-center justify-center rounded-xl bg-[#e0f2fe] p-2 text-sm font-medium">{cards[i].front}</span>
-                <span className="face absolute inset-0 flex items-center justify-center rounded-xl bg-[#0284c7] p-2 text-sm font-medium text-white" style={{ transform: 'rotateY(180deg)' }}>{cards[i].back}</span>
+                <span className="face absolute inset-0 flex items-center justify-center rounded-xl bg-[#0369a1] p-2 text-sm font-medium text-white" style={{ transform: 'rotateY(180deg)' }}>{cards[i].back}</span>
               </button>
               <div className="flex flex-col gap-1">
                 <button onClick={() => { setI(n => (n + 1) % cards.length); setFlip(false) }} className={ghost}>Again</button>
@@ -274,7 +263,7 @@ function Quiz(p: { scope: Scope; blueprintId: string; topics: string[]; minutes:
       <div className="flex items-center gap-3">
         <button onClick={p.onBack} className={ghost}>Back</button>
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#e2e8f0]" role="progressbar" aria-valuemin={0} aria-valuemax={plan.length} aria-valuenow={n}>
-          <div className="grow h-full bg-[#0284c7]" style={{ width: `${(n / plan.length) * 100}%` }} />
+          <div className="grow h-full bg-[#0369a1]" style={{ width: `${(n / plan.length) * 100}%` }} />
         </div>
         <span className="text-sm tabular-nums text-[#64748b]">{n + 1}/{plan.length}{p.minutes ? ` · ${mm}:${ss}` : ''}</span>
       </div>
@@ -288,7 +277,7 @@ function Quiz(p: { scope: Scope; blueprintId: string; topics: string[]; minutes:
             <div role="radiogroup" className="flex flex-col gap-2">
               {item.options?.map((o, k) => {
                 const L = String.fromCharCode(65 + k)
-                return <button key={L} role="radio" aria-checked={answer === L} disabled={!!marked} onClick={() => setAnswer(L)} className={`${btn} text-left ${answer === L ? 'bg-[#0284c7] text-white' : 'border border-[#e2e8f0] hover:bg-[#f0f9ff]'}`}>{L}. {o}</button>
+                return <button key={L} role="radio" aria-checked={answer === L} disabled={!!marked} onClick={() => setAnswer(L)} className={`${btn} text-left ${answer === L ? 'bg-[#0369a1] text-white' : 'border border-[#e2e8f0] hover:bg-[#f0f9ff]'}`}>{L}. {o}</button>
               })}
             </div>
           ) : (
@@ -321,12 +310,15 @@ function Report(p: { results: Result[]; subject: Subject; scope: Scope; covered:
   const title = (id: string) => p.subject.topics.find(t => t.id === id)?.title ?? id
   const A = rs.reduce((s, r) => s + r.awarded, 0), O = rs.reduce((s, r) => s + r.of, 0)
   const byTopic = group('topic'), byAo = group('ao')
+  // ponytail: item difficulty not carried in Result, so Elo update assumes medium; add difficulty to Result to sharpen.
+  const ability = rs.reduce<Ability>((a, r) => updateAbility(a, r.topic, 2, r.of > 0 && r.awarded / r.of >= 0.5), {})
+  const next = rs.length ? nextQuestion(ability, [...new Set(rs.map(r => r.topic))]) : null
   const Bars = ({ rows, label }: { rows: ReturnType<typeof group>; label: (s: string) => string }) => (
     <ul className="flex flex-col gap-2">
       {rows.map(r => (
         <li key={r.name} className="text-sm">
           <div className="flex justify-between"><span>{label(r.name)}</span><span className="tabular-nums">{r.a}/{r.o}</span></div>
-          <div className="h-2 overflow-hidden rounded-full bg-[#e2e8f0]"><div className="grow h-full bg-[#0284c7]" style={{ width: `${r.pct}%` }} /></div>
+          <div className="h-2 overflow-hidden rounded-full bg-[#e2e8f0]"><div className="grow h-full bg-[#0369a1]" style={{ width: `${r.pct}%` }} /></div>
         </li>
       ))}
     </ul>
@@ -336,7 +328,7 @@ function Report(p: { results: Result[]; subject: Subject; scope: Scope; covered:
       <h2 className="text-xl font-bold">{A}/{O} marks{O ? ` · ${Math.round((A / O) * 100)}%` : ''}</h2>
       {rs.some(r => r.proposed) && <p className="text-sm text-[#64748b]">Extended answers show proposed marks until a teacher checks the marker.</p>}
       {rs.length > 0 && <div className="grid gap-4 md:grid-cols-2"><div><h3 className="mb-2 font-semibold">By topic</h3><Bars rows={byTopic} label={title} /></div><div><h3 className="mb-2 font-semibold">By skill (AO)</h3><Bars rows={byAo} label={s => s} /></div></div>}
-      {byTopic[0] && <p className="rounded-xl bg-[#e0f2fe] p-3 text-sm">Learn next: <strong>{title(byTopic[0].name)}</strong> is your weakest topic here.</p>}
+      {next && <p className="rounded-xl bg-[#e0f2fe] p-3 text-sm">Learn next: <strong>{title(next.topic)}</strong> is your weakest topic here (next practice: {['easy', 'medium', 'hard'][next.difficulty - 1]}).</p>}
       <div className="noprint flex flex-wrap gap-2">
         <button onClick={() => p.onNext('topic')} className={ghost}>Back to lesson</button>
         <button onClick={() => p.onNext('sofar')} className={primary}>Quiz on what I have covered ({p.covered.length})</button>

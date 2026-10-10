@@ -37,6 +37,7 @@
  *   const plan  = await aiChat(messages, system, 2048, 'best')
  */
 import config from '@/vertical.config'
+import { routeChain, type SiteAI } from '@/lib/shared/ai-route'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export type Quality = 'fast' | 'balanced' | 'best'
@@ -371,11 +372,14 @@ export async function callAI(
   messages: Msg[],
   maxTokens = 1024,
   quality: Quality = 'balanced',
+  task = 'chat',
 ): Promise<AIResponse> {
   const ec = await getEdgeConfig()
 
-  // Provider order: Edge Config → default
-  const order: string[] = (ec.fallback_order ?? DEFAULT_ORDER) as string[]
+  // Provider order: hub theme_tutiq.ai (model router) → Edge Config fallback_order → default
+  const hubAi = (ec['theme_tutiq'] as { ai?: SiteAI } | undefined)?.ai
+  const routed = hubAi ? routeChain(task, hubAi) : []
+  const order: string[] = routed.length ? routed : (ec.fallback_order ?? DEFAULT_ORDER) as string[]
   const disabled = new Set<string>((ec.disabled_providers ?? []) as string[])
 
   const tried: string[] = []

@@ -144,18 +144,18 @@ export default function LearnPage() {
                 <p className={`text-sm ${theme.textAccent} font-medium mb-1`}>Welcome back</p>
                 <h1 className="text-2xl font-extrabold text-white">{profile.name} 👋</h1>
                 <div className="flex flex-wrap items-center gap-3 mt-2">
-                  <span className="text-white/50 text-sm flex items-center gap-1.5">
+                  <span className="text-white/70 text-sm flex items-center gap-1.5">
                     <span>{subject?.icon}</span> {subject?.label}
                   </span>
-                  <span className="text-white/30">·</span>
-                  <span className="text-white/50 text-sm">{levelLabel}</span>
-                  <span className="text-white/30">·</span>
-                  <span className="text-white/50 text-sm">Age {profile.age}</span>
+                  <span className="text-white/70">·</span>
+                  <span className="text-white/70 text-sm">{levelLabel}</span>
+                  <span className="text-white/70">·</span>
+                  <span className="text-white/70 text-sm">Age {profile.age}</span>
                 </div>
               </div>
               <div className="text-right">
                 <div className={`text-2xl font-extrabold ${theme.gradientText}`}>{progressPct}%</div>
-                <div className="text-white/40 text-xs">{completed.length}/{topics.length} topics done</div>
+                <div className="text-white/70 text-xs">{completed.length}/{topics.length} topics done</div>
               </div>
             </div>
           </div>
@@ -165,17 +165,17 @@ export default function LearnPage() {
             <div className="rounded-2xl p-4 text-center" style={{ background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.2)' }}>
               <Flame size={20} className="mx-auto mb-1" style={{ color: '#fbbf24' }} />
               <div className="text-xl font-black text-white">{streak}</div>
-              <div className="text-xs text-white/40">day streak</div>
+              <div className="text-xs text-white/70">day streak</div>
             </div>
             <div className="rounded-2xl p-4 text-center" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)' }}>
               <Trophy size={20} className="mx-auto mb-1" style={{ color: '#10b981' }} />
               <div className="text-xl font-black text-white">{totalDone}</div>
-              <div className="text-xs text-white/40">topics done</div>
+              <div className="text-xs text-white/70">topics done</div>
             </div>
             <div className="rounded-2xl p-4 text-center" style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}>
               <Target size={20} className="mx-auto mb-1" style={{ color: '#818cf8' }} />
               <div className="text-xl font-black text-white">{progressPct}%</div>
-              <div className="text-xs text-white/40">complete</div>
+              <div className="text-xs text-white/70">complete</div>
             </div>
           </div>
 
@@ -184,7 +184,7 @@ export default function LearnPage() {
             <div className={`${theme.card} border ${theme.border} p-6 ${theme.glow}`}>
               <p className={`text-xs font-bold ${theme.textAccent} uppercase tracking-widest mb-3`}>▶ Continue Learning</p>
               <h2 className="text-xl font-bold text-white mb-2">{nextTopic.title}</h2>
-              <p className="text-white/50 text-sm mb-5">{nextTopic.desc}</p>
+              <p className="text-white/70 text-sm mb-5">{nextTopic.desc}</p>
               <div className="flex flex-wrap gap-3">
                 <Link href={`/learn/${nextTopic.id}`} className={btn.primary}>
                   Start lesson <ArrowRight size={16} />
@@ -201,7 +201,7 @@ export default function LearnPage() {
             <div className={`${theme.card} p-6 text-center`}>
               <div className="text-4xl mb-3">🎉</div>
               <h2 className="text-xl font-bold text-white mb-2">You&apos;ve completed this path!</h2>
-              <p className="text-white/50 text-sm mb-5">You finished all {topics.length} topics in {subject?.label}. Ready for the next challenge?</p>
+              <p className="text-white/70 text-sm mb-5">You finished all {topics.length} topics in {subject?.label}. Ready for the next challenge?</p>
               <Link href="/onboard" className={btn.primary}>
                 Start a new subject <ArrowRight size={16} />
               </Link>
@@ -211,7 +211,7 @@ export default function LearnPage() {
           {loading && (
             <div className={`${theme.card} p-8 flex flex-col items-center gap-4`}>
               <Loader2 size={32} className={`${theme.textAccent} animate-spin`} />
-              <p className="text-white/50 text-sm">Building your personalised learning path…</p>
+              <p className="text-white/70 text-sm">Building your personalised learning path…</p>
             </div>
           )}
 
@@ -222,7 +222,7 @@ export default function LearnPage() {
           {/* Goal reminder */}
           {profile.goal && (
             <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-              <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-1">Your goal</p>
+              <p className="text-white/70 text-xs font-medium uppercase tracking-widest mb-1">Your goal</p>
               <p className="text-white/70 text-sm italic">&ldquo;{profile.goal}&rdquo;</p>
             </div>
           )}
@@ -234,7 +234,7 @@ export default function LearnPage() {
           {/* XP / Level card */}
           <div className="rounded-2xl p-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-white/50 uppercase tracking-widest">Your Level</span>
+              <span className="text-xs font-bold text-white/70 uppercase tracking-widest">Your Level</span>
               <span className="text-xs font-black" style={{ color: '#fbbf24' }}>
                 {totalDone < 3 ? '🌱 Seedling' : totalDone < 8 ? '📘 Explorer' : totalDone < 15 ? '🔥 Achiever' : '🏆 Master'}
               </span>
@@ -243,14 +243,14 @@ export default function LearnPage() {
               <div className="h-full rounded-full transition-all duration-700"
                 style={{ width: `${Math.min(100, (totalDone % 5) * 20)}%`, background: 'linear-gradient(90deg,#10b981,#34d399)' }} />
             </div>
-            <p className="text-[11px] text-white/30 mt-1.5">{totalDone % 5}/5 topics to next level</p>
+            <p className="text-[11px] text-white/70 mt-1.5">{totalDone % 5}/5 topics to next level</p>
           </div>
 
           <div className={`${theme.card} p-5`}>
             <div className="flex items-center gap-2 mb-5">
               <BookOpen size={16} className={theme.textAccent} />
               <span className="font-semibold text-white text-sm">Learning Path</span>
-              <span className="ml-auto text-xs text-white/30">{completed.length}/{topics.length}</span>
+              <span className="ml-auto text-xs text-white/70">{completed.length}/{topics.length}</span>
             </div>
 
             {loading && (
@@ -272,8 +272,8 @@ export default function LearnPage() {
                     <div key={topic.id}>
                       {isLocked ? (
                         <div className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.04] opacity-40 cursor-not-allowed">
-                          <Lock size={14} className="text-white/40 flex-shrink-0" />
-                          <span className="text-white/50 text-sm truncate">{topic.title}</span>
+                          <Lock size={14} className="text-white/70 flex-shrink-0" />
+                          <span className="text-white/70 text-sm truncate">{topic.title}</span>
                         </div>
                       ) : (
                         <Link
@@ -288,7 +288,7 @@ export default function LearnPage() {
                             ? <CheckCircle size={14} className={`${theme.textAccent} flex-shrink-0`} />
                             : <div className={`w-3.5 h-3.5 rounded-full border-2 flex-shrink-0 ${isNext ? 'border-emerald-400' : 'border-white/30'}`} />
                           }
-                          <span className={`text-sm truncate ${isDone ? theme.textAccentBold : isNext ? 'text-white' : 'text-white/60'}`}>
+                          <span className={`text-sm truncate ${isDone ? theme.textAccentBold : isNext ? 'text-white' : 'text-white/70'}`}>
                             {topic.title}
                           </span>
                         </Link>
@@ -301,7 +301,7 @@ export default function LearnPage() {
           </div>
 
           {/* Change subject */}
-          <Link href="/onboard" className="block mt-2 text-center text-white/30 hover:text-white/60 text-xs transition-colors">
+          <Link href="/onboard" className="block mt-2 text-center text-white/70 hover:text-white/70 text-xs transition-colors">
             Change subject →
           </Link>
 

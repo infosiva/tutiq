@@ -1,5 +1,6 @@
 import { get } from "@vercel/edge-config";
 import { unstable_cache } from "next/cache";
+import type { SiteAI } from "@/lib/shared/ai-route";
 
 export interface SiteWidgets {
   chatbot?: boolean;
@@ -57,6 +58,7 @@ export interface SiteTheme {
   layout?: SiteLayout;
   copy?: SiteCopy;
   font?: SiteFont;
+  ai?: SiteAI; // model router override from hub
 }
 
 /**

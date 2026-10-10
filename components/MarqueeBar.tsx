@@ -12,7 +12,7 @@ export default function MarqueeBar() {
           {items.map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-2 text-sm text-slate-500 font-medium whitespace-nowrap select-none px-3"
+              className="flex items-center gap-2 text-sm text-slate-600 font-medium whitespace-nowrap select-none px-3"
             >
               {item}
             </span>

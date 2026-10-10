@@ -1,10 +1,11 @@
+import { guarded } from "@/lib/access"
 import { NextRequest, NextResponse } from 'next/server'
 import { aiCached, aiChat } from '@/lib/ai'
 import { AI_LIMITER } from '@/lib/rateLimit'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST(req: NextRequest) {
+async function handler(req: NextRequest) {
   const limited = AI_LIMITER.check(req)
   if (limited) return limited
 
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     // VR/NVR: no cache — always fresh examples so practice never repeats
     const cacheKey = (isVR || isNVR)
       ? `learn_explain_nocache_${Date.now()}`
-      : `learn_explain_v3_${subject}_${level}_${age}_${topic}`
+      : `learn_explain_v4_${subject}_${level}_${age}_${topic}`
     const isInterview = subject?.includes('interview')
 
     const examSection = isGcse
@@ -98,3 +99,5 @@ Do not say "in conclusion". Output lesson content only.`,
     return NextResponse.json({ error: 'Failed to generate explanation' }, { status: 500 })
   }
 }
+
+export const POST = guarded(handler)

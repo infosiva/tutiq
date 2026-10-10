@@ -1,3 +1,4 @@
+import { guarded } from "@/lib/access"
 /**
  * POST /api/study/upload
  * Accepts: multipart/form-data with field "file" (PDF or text)
@@ -38,7 +39,7 @@ async function extractText(file: File): Promise<string> {
   return await file.text()
 }
 
-export async function POST(req: NextRequest) {
+async function handler(req: NextRequest) {
   const limited = AI_LIMITER.check(req); if (limited) return limited
 
   try {
@@ -121,3 +122,5 @@ Rules:
     return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
   }
 }
+
+export const POST = guarded(handler, "members")

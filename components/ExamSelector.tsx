@@ -94,7 +94,7 @@ export default function ExamSelector({ onSelect }: Props) {
     <div className="flex flex-col gap-3">
       {/* Row 1 — Exam level */}
       <div className="flex flex-wrap gap-2 items-center">
-        <span className="text-[11px] text-white/35 font-semibold shrink-0">Exam:</span>
+        <span className="text-[11px] text-white/70 font-semibold shrink-0">Exam:</span>
         {EXAM_LEVELS.map(level => (
           <button
             key={level}
@@ -123,7 +123,7 @@ export default function ExamSelector({ onSelect }: Props) {
       {/* Row 2 — Subject (appears after exam selected) */}
       {exam && (
         <div className="flex flex-wrap gap-2 items-center">
-          <span className="text-[11px] text-white/35 font-semibold shrink-0">Subject:</span>
+          <span className="text-[11px] text-white/70 font-semibold shrink-0">Subject:</span>
           {SUBJECTS[exam].map(sub => (
             <button
               key={sub}
@@ -153,7 +153,7 @@ export default function ExamSelector({ onSelect }: Props) {
       {/* Row 3 — Topic chips (appears after subject selected) */}
       {topicChips.length > 0 && (
         <div className="flex flex-wrap gap-2 items-center">
-          <span className="text-[11px] text-white/35 font-semibold shrink-0">Topic:</span>
+          <span className="text-[11px] text-white/70 font-semibold shrink-0">Topic:</span>
           {topicChips.map(topic => (
             <button
               key={topic}

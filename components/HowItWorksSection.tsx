@@ -18,7 +18,7 @@ export default function HowItWorksSection() {
       >
         <motion.div variants={itemVars as Parameters<typeof motion.div>[0]['variants']} className="text-center mb-10">
           <h2 className="text-2xl font-black text-slate-900 mb-2">How Tutiq works</h2>
-          <p className="text-slate-500 text-sm">From stuck to confident in three steps</p>
+          <p className="text-slate-600 text-sm">From stuck to confident in three steps</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
@@ -43,25 +43,25 @@ export default function HowItWorksSection() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black shrink-0"
                   style={
                     idx === 1
-                      ? { background: 'rgba(2,132,199,0.12)', border: '1.5px solid rgba(2,132,199,0.45)', color: '#0284c7' }
-                      : { background: 'rgba(15,23,42,0.04)', border: '1px solid rgba(15,23,42,0.08)', color: 'rgba(15,23,42,0.35)' }
+                      ? { background: 'rgba(2,132,199,0.12)', border: '1.5px solid rgba(2,132,199,0.45)', color: '#0369a1' }
+                      : { background: 'rgba(15,23,42,0.04)', border: '1px solid rgba(15,23,42,0.08)', color: '#475569' }
                   }
                 >
                   {step.icon}
                 </div>
                 <span className="text-3xl font-black tabular-nums leading-none"
-                  style={{ color: idx === 1 ? 'rgba(2,132,199,0.30)' : 'rgba(15,23,42,0.10)' }}>
+                  style={{ color: idx === 1 ? '#0369a1' : '#475569' }}>
                   {String(step.step).padStart(2, '0')}
                 </span>
               </div>
 
               <h3 className="text-slate-900 font-bold text-sm">{step.title}</h3>
-              <p className="text-slate-500 text-xs leading-relaxed">{step.desc}</p>
+              <p className="text-slate-600 text-xs leading-relaxed">{step.desc}</p>
 
               {/* Highlight badge for middle step */}
               {idx === 1 && (
                 <span className="absolute -top-2.5 left-4 text-[9px] font-bold px-2 py-0.5 rounded-full"
-                  style={{ background: '#0284c7', color: '#fff' }}>
+                  style={{ background: '#0369a1', color: '#fff' }}>
                   AI-powered
                 </span>
               )}
@@ -78,7 +78,7 @@ export default function HowItWorksSection() {
           <span className="text-2xl shrink-0">🏆</span>
           <div>
             <p className="text-sm font-bold text-slate-900">Small wins every session</p>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5">
               Tutiq celebrates each concept you master — XP points, topic badges, and streak milestones keep you motivated.
             </p>
           </div>

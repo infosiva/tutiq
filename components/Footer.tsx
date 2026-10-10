@@ -51,11 +51,11 @@ export default function Footer({
               </div>
             )}
             {tagline && (
-              <p className="text-slate-500 text-xs max-w-xs">{tagline}</p>
+              <p className="text-slate-600 text-xs max-w-xs">{tagline}</p>
             )}
           </div>
 
-          <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+          <nav aria-label="Footer navigation" className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
             {allLinks.map((link) => (
               <Link key={link.href} href={link.href} className="hover:text-slate-900 transition-colors">
                 {link.label}
@@ -65,7 +65,7 @@ export default function Footer({
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 pt-6 border-t border-black/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+        <div className="mt-8 pt-6 border-t border-black/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
           <span>© {year} {siteName}. All rights reserved.</span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />

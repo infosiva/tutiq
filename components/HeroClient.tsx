@@ -110,7 +110,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
               textDecoration: 'none', display: 'inline-block',
             }}>Browse Subjects</a>
           </div>
-          <p style={{ fontSize: 12, opacity: 0.4, marginTop: 12 }}>
+          <p style={{ fontSize: 12, opacity: 0.72, marginTop: 12 }}>
             Have a promo code? <a href="#promo" style={{ textDecoration: 'underline' }}>Apply here</a>
           </p>
         </div>
@@ -127,7 +127,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, paddingBottom: 14, borderBottom: '1px solid #e2e8f0' }}>
               <span style={{
                 width: 28, height: 28, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: 'linear-gradient(135deg, var(--accent-2), var(--accent))', fontSize: 14,
+                background: 'linear-gradient(135deg, var(--accent-2), var(--accent))', fontSize: 14, color: '#fff',
               }}>🎓</span>
               <span style={{ fontSize: 13, fontWeight: 700, color: '#0f172a' }}>Tutiq AI Tutor</span>
               <span style={{
@@ -170,12 +170,12 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
                   fontSize: 13, lineHeight: 1.6,
                 }}>
                   {typed}
-                  {phase === 'typing' && <span style={{ opacity: 0.4 }}>▍</span>}
+                  {phase === 'typing' && <span style={{ opacity: 0.8 }}>▍</span>}
                 </div>
               )}
             </div>
 
-            <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#475569', textAlign: 'center' }}>
               Real tutoring exchange · Try it free below
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
           {([['All', 'GCSE Subjects'], ['A-Level', 'Support'], ['Instant', 'Explanations'], ['Free', 'No card needed']] as [string, string][]).map(([v, l]) => (
             <div key={l} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)' }}>{v}</div>
-              <div style={{ fontSize: 12, opacity: 0.55 }}>{l}</div>
+              <div style={{ fontSize: 12, opacity: 0.85 }}>{l}</div>
             </div>
           ))}
         </div>

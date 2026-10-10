@@ -1,3 +1,4 @@
+import { guarded } from "@/lib/access"
 import { sanitizeUserInput } from '@/lib/guard'
 import Groq from 'groq-sdk'
 import { NextRequest, NextResponse } from 'next/server'
@@ -25,7 +26,7 @@ function getGroq() {
   return _groq
 }
 
-export async function POST(req: NextRequest) {
+async function handler(req: NextRequest) {
   const limited = CHAT_LIMITER.check(req)
   if (limited) return limited
 
@@ -113,3 +114,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Chat failed' }, { status: 500 })
   }
 }
+
+export const POST = guarded(handler)

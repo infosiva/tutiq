@@ -141,9 +141,9 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
         <div className={`${theme.card} p-8 text-center mb-6`}>
           <Trophy size={40} className={`${theme.textAccent} mx-auto mb-4`} />
           <h1 className="text-2xl font-extrabold text-white mb-1">Exam Complete</h1>
-          <p className="text-white/45 text-sm mb-4">{paper.title}</p>
+          <p className="text-white/70 text-sm mb-4">{paper.title}</p>
           <div className={`text-5xl font-extrabold ${theme.gradientText} mb-1`}>{earned}/{total}</div>
-          <p className="text-white/50 text-sm mb-6">
+          <p className="text-white/70 text-sm mb-6">
             {pct >= 80 ? '🎉 Excellent! Grade A/A* territory' : pct >= 60 ? '👍 Good — Grade B/C territory' : pct >= 40 ? '📚 Keep practising — Grade D/E territory' : '💪 More revision needed — review the mark schemes'}
           </p>
           <div className="h-3 bg-white/[0.06] rounded-full overflow-hidden mb-8 mx-auto max-w-xs">
@@ -164,23 +164,23 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
             return (
               <div key={q.id} className={`${theme.card} p-5 border-l-2 ${isCorrect ? 'border-emerald-500' : 'border-red-500/60'}`}>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-white/40 text-xs uppercase tracking-widest font-medium">Q{q.id} · {q.marks} mark{q.marks > 1 ? 's' : ''} · {q.type.replace(/_/g, ' ')}</span>
+                  <span className="text-white/70 text-xs uppercase tracking-widest font-medium">Q{q.id} · {q.marks} mark{q.marks > 1 ? 's' : ''} · {q.type.replace(/_/g, ' ')}</span>
                   <span className={isCorrect ? 'text-emerald-400 text-xs font-bold' : 'text-red-400 text-xs font-bold'}>
                     {isCorrect ? `+${q.marks}` : '0'}
                   </span>
                 </div>
                 <p className="text-white font-medium mb-2 text-sm leading-relaxed">{q.question}</p>
                 {answers[q.id] && (
-                  <p className="text-white/50 text-xs mb-2">Your answer: <span className="text-white/70">{answers[q.id]}</span></p>
+                  <p className="text-white/70 text-xs mb-2">Your answer: <span className="text-white/70">{answers[q.id]}</span></p>
                 )}
                 {!isCorrect && (
                   <p className="text-emerald-300 text-xs mb-2">Correct: <span className="font-medium">{q.answer}</span></p>
                 )}
                 <div className="bg-amber-500/8 border border-amber-500/20 rounded-lg p-3 mt-2">
                   <p className="text-amber-300/80 text-xs font-bold uppercase tracking-wide mb-1">Mark Scheme</p>
-                  <p className="text-white/60 text-xs leading-relaxed">{q.markScheme}</p>
+                  <p className="text-white/70 text-xs leading-relaxed">{q.markScheme}</p>
                 </div>
-                <p className="text-white/45 text-xs mt-2 leading-relaxed">{q.explanation}</p>
+                <p className="text-white/70 text-xs mt-2 leading-relaxed">{q.explanation}</p>
               </div>
             )
           })}
@@ -196,11 +196,11 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
         {/* Header with timer */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <p className="text-white/40 text-xs uppercase tracking-widest">{examLabel}</p>
+            <p className="text-white/70 text-xs uppercase tracking-widest">{examLabel}</p>
             <h1 className="text-white font-bold text-lg">{paper.title}</h1>
           </div>
           <div className={`flex items-center gap-2 px-4 py-2 rounded-xl ${timeLeft < 300 ? 'bg-red-500/15 border border-red-500/30' : 'bg-white/[0.05] border border-white/10'}`}>
-            <Clock size={15} className={timeLeft < 300 ? 'text-red-400' : 'text-white/50'} />
+            <Clock size={15} className={timeLeft < 300 ? 'text-red-400' : 'text-white/70'} />
             <span className={`font-mono font-bold text-sm ${timeLeft < 300 ? 'text-red-400' : 'text-white'}`}>{formatTime(timeLeft)}</span>
           </div>
         </div>
@@ -209,8 +209,8 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
           {paper.questions.map(q => (
             <div key={q.id} className={`${theme.card} p-5`}>
               <div className="flex justify-between items-start mb-3">
-                <span className="text-white/40 text-xs uppercase tracking-widest font-medium">Q{q.id} · {q.marks} mark{q.marks > 1 ? 's' : ''}</span>
-                <span className="text-white/30 text-xs">{q.type.replace(/_/g, ' ')}</span>
+                <span className="text-white/70 text-xs uppercase tracking-widest font-medium">Q{q.id} · {q.marks} mark{q.marks > 1 ? 's' : ''}</span>
+                <span className="text-white/70 text-xs">{q.type.replace(/_/g, ' ')}</span>
               </div>
               <p className="text-white font-medium mb-4 leading-relaxed">{q.question}</p>
 
@@ -262,7 +262,7 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
           <FileText size={12} /> Mock Exam Paper
         </div>
         <h1 className="text-3xl font-extrabold text-white mb-3">Past Paper Mode</h1>
-        <p className="text-white/50 max-w-sm mx-auto">
+        <p className="text-white/70 max-w-sm mx-auto">
           AI-generated exam paper styled for{' '}
           <span className={theme.textAccent}>{examLabel}</span>.
           Timed, marked, with full mark scheme feedback.
@@ -280,7 +280,7 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
               <div key={item.label} className="text-center">
                 <div className="text-2xl mb-1">{item.icon}</div>
                 <p className="text-white font-bold text-sm">{item.label}</p>
-                <p className="text-white/40 text-xs">{item.desc}</p>
+                <p className="text-white/70 text-xs">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -294,14 +294,14 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
       {loading && (
         <div className={`${theme.card} p-10 flex flex-col items-center gap-4`}>
           <Loader2 size={28} className={`${theme.textAccent} animate-spin`} />
-          <p className="text-white/40 text-sm">Generating your exam paper…</p>
+          <p className="text-white/70 text-sm">Generating your exam paper…</p>
         </div>
       )}
 
       {paper && !started && (
         <div className={`${theme.card} p-8`}>
           <h2 className="text-white font-bold text-xl mb-1">{paper.title}</h2>
-          <p className="text-white/40 text-sm mb-6">{examLabel} style · {paper.duration} minutes · {paper.totalMarks} marks total</p>
+          <p className="text-white/70 text-sm mb-6">{examLabel} style · {paper.duration} minutes · {paper.totalMarks} marks total</p>
 
           <div className="space-y-3 mb-8">
             {[
@@ -312,7 +312,7 @@ export default function MockExamPage({ params }: { params: Promise<{ topicId: st
             ].map(rule => (
               <div key={rule} className="flex items-start gap-3">
                 <CheckCircle size={14} className={`${theme.textAccent} mt-0.5 flex-shrink-0`} />
-                <p className="text-white/60 text-sm">{rule}</p>
+                <p className="text-white/70 text-sm">{rule}</p>
               </div>
             ))}
           </div>

@@ -59,7 +59,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <p className="mt-10 opacity-40 text-xs">© 2026 Tutiq. All rights reserved.</p>
+      <p className="mt-10 text-slate-600 text-xs">© 2026 Tutiq. All rights reserved.</p>
     </main>
   );
 }

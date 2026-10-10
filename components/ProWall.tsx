@@ -40,14 +40,14 @@ export default function ProWall({ sessionsCompleted, learnerName, topicsStudied,
         {/* Recap — celebrate what they learned */}
         <div className={`${theme.card} p-6 text-center`}>
           <div className="text-4xl mb-3">🎓</div>
-          <p className="text-white/50 text-sm mb-1">
+          <p className="text-white/70 text-sm mb-1">
             Great work, <span className="text-white font-bold">{learnerName}</span>!
           </p>
           <p className={`text-5xl font-black ${theme.textAccentBold}`}>
-            {sessionsCompleted}<span className="text-white/30 text-2xl"> sessions</span>
+            {sessionsCompleted}<span className="text-white/70 text-2xl"> sessions</span>
           </p>
-          <p className="text-white/40 text-sm mt-1">{topicsStudied} topic{topicsStudied !== 1 ? 's' : ''} studied today</p>
-          <p className="text-white/30 text-xs mt-2">{siteConfig.freeTier.gateHeadline}</p>
+          <p className="text-white/70 text-sm mt-1">{topicsStudied} topic{topicsStudied !== 1 ? 's' : ''} studied today</p>
+          <p className="text-white/70 text-xs mt-2">{siteConfig.freeTier.gateHeadline}</p>
         </div>
 
         {/* Upgrade pitch */}
@@ -62,7 +62,7 @@ export default function ProWall({ sessionsCompleted, learnerName, topicsStudied,
               {siteConfig.pricing.pro.price}{siteConfig.pricing.pro.period}
             </span>
           </div>
-          <p className="text-white/50 text-sm mb-4">{siteConfig.freeTier.gateSubtext}</p>
+          <p className="text-white/70 text-sm mb-4">{siteConfig.freeTier.gateSubtext}</p>
           <ul className="flex flex-col gap-2 mb-4">
             {siteConfig.pricing.pro.features.filter(f => f.included).slice(0, 4).map(f => (
               <li key={f.text} className="flex items-center gap-2 text-sm text-white/70">
@@ -93,7 +93,7 @@ export default function ProWall({ sessionsCompleted, learnerName, topicsStudied,
           >
             <RotateCcw size={14} /> {siteConfig.freeTier.gateSecondaryText}
           </motion.button>
-          <Link href="/" className="text-center text-white/30 text-xs hover:text-white/50 transition-colors py-2">
+          <Link href="/" className="text-center text-white/70 text-xs hover:text-white/70 transition-colors py-2">
             Back to home
           </Link>
         </div>

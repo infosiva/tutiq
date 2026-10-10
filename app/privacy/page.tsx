@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-16 text-sm leading-relaxed">
       <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
-      <p className="opacity-50 mb-10">Last updated: 13 May 2026</p>
+      <p className="text-slate-600 mb-10">Last updated: 13 May 2026</p>
 
       <Section title="1. Who We Are">
         <p>Tutiq (https://tutiq.app) is operated by an independent developer. AI personal tutor — personalised learning plans and practice for students of all levels.</p>
@@ -118,7 +118,7 @@ export default function PrivacyPolicyPage() {
         </p>
       </Section>
 
-      <p className="mt-10 opacity-40 text-xs">© 2026 Tutiq. All rights reserved.</p>
+      <p className="mt-10 text-slate-600 text-xs">© 2026 Tutiq. All rights reserved.</p>
     </main>
   );
 }

@@ -12,7 +12,7 @@ export default function AffiliateBanner() {
       >
         Get Hostinger →
       </a>
-      <p className="mt-1 text-xs text-gray-500">Sponsored · We earn a commission</p>
+      <p className="mt-1 text-xs text-slate-600">Sponsored · We earn a commission</p>
     </div>
   );
 }

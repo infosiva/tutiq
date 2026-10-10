@@ -107,12 +107,12 @@ function OnboardInner() {
   const progress = (step / totalSteps) * 100
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16" style={{ background: "#0b1120" }}>
       <div className="w-full max-w-xl">
 
         {/* Progress bar */}
         <div className="mb-8">
-          <div className="flex justify-between text-xs text-white/40 mb-2">
+          <div className="flex justify-between text-xs text-white/70 mb-2">
             <span>Step {step} of {totalSteps}</span>
             <span>{Math.round(progress)}% complete</span>
           </div>
@@ -129,7 +129,7 @@ function OnboardInner() {
           <div className={`${theme.card} p-8 md:p-10 text-center`}>
             <div className="text-5xl mb-4">👨‍👩‍👧</div>
             <h2 className="text-xl font-extrabold text-white mb-3">Ask a parent or guardian to help</h2>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
+            <p className="text-white/70 text-sm leading-relaxed mb-6">
               Tutiq is designed for learners of all ages. For users under 13, we need a parent or guardian to set up the account to keep your learning safe.
             </p>
             <div className={`rounded-xl p-5 mb-6 text-left text-sm text-white/70 space-y-2`}
@@ -142,7 +142,7 @@ function OnboardInner() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
-                onClick={() => { setParentalBlocked(false); finish() }}
+                onClick={() => { setParentalBlocked(false); setErrors({}); setStep(2) }}
                 className={`${btn.primary} px-6 py-3`}
               >
                 Continue without account (device only)
@@ -164,7 +164,7 @@ function OnboardInner() {
           {step === 1 && (
             <div className="fade-up">
               <h1 className="text-2xl font-extrabold text-white mb-2">Let&apos;s get to know you</h1>
-              <p className="text-white/50 mb-8">Tutiq uses your age to tailor every lesson to your level.</p>
+              <p className="text-white/70 mb-8">Tutiq uses your age to tailor every lesson to your level.</p>
 
               <div className="space-y-5">
                 <div>
@@ -205,7 +205,7 @@ function OnboardInner() {
           {step === 2 && (
             <div className="fade-up">
               <h1 className="text-2xl font-extrabold text-white mb-2">What do you want to learn?</h1>
-              <p className="text-white/50 mb-6">Tap a subject — we&apos;ll jump straight in.</p>
+              <p className="text-white/70 mb-6">Tap a subject — we&apos;ll jump straight in.</p>
 
               {/* Group subjects by category */}
               {[
@@ -234,7 +234,7 @@ function OnboardInner() {
                 if (!groupSubjects.length) return null
                 return (
                   <div key={group.label} className="mb-5">
-                    <p className="text-xs font-bold text-white/35 uppercase tracking-widest mb-2">{group.label}</p>
+                    <p className="text-xs font-bold text-white/70 uppercase tracking-widest mb-2">{group.label}</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {groupSubjects.map(s => (
                         <button
@@ -249,7 +249,7 @@ function OnboardInner() {
                           <span className="text-xl shrink-0">{s.icon}</span>
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-white text-sm leading-tight">{s.label}</div>
-                            <div className="text-white/40 text-xs mt-0.5 leading-snug truncate">{s.desc}</div>
+                            <div className="text-white/70 text-xs mt-0.5 leading-snug truncate">{s.desc}</div>
                           </div>
                           {subject === s.id && <CheckCircle size={14} className={`${theme.textAccent} shrink-0`} />}
                         </button>
@@ -267,7 +267,7 @@ function OnboardInner() {
           {step === 3 && (
             <div className="fade-up">
               <h1 className="text-2xl font-extrabold text-white mb-2">What&apos;s your current level?</h1>
-              <p className="text-white/50 mb-6">Be honest — Tutiq adapts either way. Tap to continue.</p>
+              <p className="text-white/70 mb-6">Be honest — Tutiq adapts either way. Tap to continue.</p>
 
               <div className="space-y-3">
                 {LEVELS.map(lv => (
@@ -283,7 +283,7 @@ function OnboardInner() {
                     <span className="text-2xl">{lv.emoji}</span>
                     <div className="flex-1">
                       <div className="font-semibold text-white">{lv.label}</div>
-                      <div className="text-white/50 text-sm">{lv.desc}</div>
+                      <div className="text-white/70 text-sm">{lv.desc}</div>
                     </div>
                     {level === lv.id && <CheckCircle size={16} className={theme.textAccent} />}
                   </button>
@@ -295,8 +295,8 @@ function OnboardInner() {
           {/* ── Step 4: Goal ── */}
           {step === 4 && (
             <div className="fade-up">
-              <h1 className="text-2xl font-extrabold text-white mb-2">Any specific goal? <span className="text-white/30 font-normal text-lg">(optional)</span></h1>
-              <p className="text-white/50 mb-6">This helps Nudge focus your path. Skip it if you&apos;re just exploring.</p>
+              <h1 className="text-2xl font-extrabold text-white mb-2">Any specific goal? <span className="text-white/70 font-normal text-lg">(optional)</span></h1>
+              <p className="text-white/70 mb-6">This helps Nudge focus your path. Skip it if you&apos;re just exploring.</p>
 
               <textarea
                 className="input-dark min-h-[120px] resize-none"
@@ -306,12 +306,12 @@ function OnboardInner() {
               />
 
               <div className="mt-6 p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-3">Your profile summary</p>
+                <p className="text-white/70 text-xs font-medium uppercase tracking-widest mb-3">Your profile summary</p>
                 <div className="space-y-1 text-sm">
-                  <div className="flex gap-2"><span className="text-white/40 w-16">Name</span><span className="text-white">{name}</span></div>
-                  <div className="flex gap-2"><span className="text-white/40 w-16">Age</span><span className="text-white">{age}</span></div>
-                  <div className="flex gap-2"><span className="text-white/40 w-16">Subject</span><span className="text-white">{config.subjects.find(s => s.id === subject)?.label}</span></div>
-                  <div className="flex gap-2"><span className="text-white/40 w-16">Level</span><span className="text-white">{LEVELS.find(l => l.id === level)?.label}</span></div>
+                  <div className="flex gap-2"><span className="text-white/70 w-16">Name</span><span className="text-white">{name}</span></div>
+                  <div className="flex gap-2"><span className="text-white/70 w-16">Age</span><span className="text-white">{age}</span></div>
+                  <div className="flex gap-2"><span className="text-white/70 w-16">Subject</span><span className="text-white">{config.subjects.find(s => s.id === subject)?.label}</span></div>
+                  <div className="flex gap-2"><span className="text-white/70 w-16">Level</span><span className="text-white">{LEVELS.find(l => l.id === level)?.label}</span></div>
                 </div>
               </div>
             </div>
@@ -346,7 +346,7 @@ function OnboardInner() {
 
 export default function OnboardPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-white/40">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-300" style={{ background: "#0b1120" }}>Loading...</div>}>
       <OnboardInner />
     </Suspense>
   )

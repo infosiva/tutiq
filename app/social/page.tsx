@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Tutiq — Free AI Tutor for GCSE, 11+ & Interview Prep',
-  description: 'AI tutoring that adapts to your level. GCSE, 11+ prep, and interview coaching. Free to start, no credit card.',
+  description: 'AI tutoring that adapts to your level. GCSE, 11+ prep, and interview coaching. Try free first, no credit card.',
   openGraph: {
     title: 'Tutiq — Patient AI tutor for every student',
     description: 'GCSE, 11+ prep, interview coaching. AI that explains at your level. Free to start.',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Tutiq — AI Tutor for GCSE & 11+',
-    description: 'Patient AI tutoring for GCSE, 11+, and interview prep. Free, no credit card.',
+    description: 'Patient AI tutoring for GCSE, 11+, and interview prep. Try free, no credit card.',
     images: ['/og-social.png'],
   },
 }
@@ -82,17 +82,17 @@ export default function SocialPage() {
               No judgement.
             </span>
           </h1>
-          <p className="text-white/50 text-lg max-w-lg mx-auto mb-8">
+          <p className="text-white/70 text-lg max-w-lg mx-auto mb-8">
             GCSE, 11+ prep, and interview coaching. The AI adapts to your level and explains until you get it.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8 text-xs text-white/30">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8 text-xs text-white/70">
             <span>GCSE · 11+ · Interview · 3 free sessions to start</span>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/" className="px-8 py-3.5 rounded-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 transition text-white text-sm">
               Start learning free →
             </Link>
-            <Link href="/pricing" className="px-8 py-3.5 rounded-xl font-semibold border border-white/10 text-white/60 hover:bg-white/5 transition text-sm">
+            <Link href="/pricing" className="px-8 py-3.5 rounded-xl font-semibold border border-white/10 text-white/70 hover:bg-white/5 transition text-sm">
               See pricing
             </Link>
           </div>
@@ -103,14 +103,14 @@ export default function SocialPage() {
           {STATS.map(s => (
             <div key={s.label} className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 text-center">
               <div className="text-xl font-black text-white mb-1">{s.value}</div>
-              <div className="text-xs text-white/30">{s.label}</div>
+              <div className="text-xs text-white/70">{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* Social feed */}
         <div className="mb-12">
-          <h2 className="text-sm font-black text-white/40 uppercase tracking-widest mb-6 text-center">What parents & students are saying</h2>
+          <h2 className="text-sm font-black text-white/70 uppercase tracking-widest mb-6 text-center">What parents & students are saying</h2>
           <div className="space-y-4">
             {POSTS.map((post, i) => (
               <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
@@ -120,11 +120,11 @@ export default function SocialPage() {
                   </span>
                   <div>
                     <div className="text-sm font-semibold text-white/80">{post.handle}</div>
-                    <div className="text-xs text-white/25">{post.platform} · {post.time} ago</div>
+                    <div className="text-xs text-white/70">{post.platform} · {post.time} ago</div>
                   </div>
                 </div>
-                <p className="text-sm text-white/60 leading-relaxed whitespace-pre-line mb-4">{post.text}</p>
-                <div className="flex gap-6 text-xs text-white/25">
+                <p className="text-sm text-white/70 leading-relaxed whitespace-pre-line mb-4">{post.text}</p>
+                <div className="flex gap-6 text-xs text-white/70">
                   <span>♡ {post.likes}</span>
                   {post.reposts > 0 && <span>↺ {post.reposts}</span>}
                   <span>💬 {post.replies}</span>
@@ -137,7 +137,7 @@ export default function SocialPage() {
         {/* Bottom CTA */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-8 text-center">
           <h3 className="text-2xl font-black mb-2">3 free sessions — no account needed.</h3>
-          <p className="text-white/40 text-sm mb-6">Pick a track, ask your first question, get a real answer.</p>
+          <p className="text-white/70 text-sm mb-6">Pick a track, ask your first question, get a real answer.</p>
           <Link href="/" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 transition text-white">
             Start learning free →
           </Link>

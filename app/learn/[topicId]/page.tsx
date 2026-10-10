@@ -1,4 +1,5 @@
 'use client'
+import LessonMarkdown from '@/components/LessonMarkdown'
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -197,23 +198,23 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${theme.badge} text-xs mb-3`}>
           {subject?.icon} {subject?.label}
         </div>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-white">{topicTitle}</h1>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900">{topicTitle}</h1>
       </div>
 
       {/* ── LESSON ───────────────────────────────────────────── */}
       {!showQuiz && (
         <>
-          <div className={`${theme.card} p-6 md:p-8 mb-6`}>
+          <div className="rounded-2xl bg-white border border-sky-200 shadow-sm p-5 md:p-8 mb-6">
             {loadingExplain ? (
               <div className="flex flex-col items-center gap-4 py-8">
                 <Loader2 size={28} className={`${theme.textAccent} animate-spin`} />
-                <p className="text-white/40 text-sm">Nudge is preparing your lesson…</p>
+                <p className="text-slate-600 text-sm">Nudge is preparing your lesson…</p>
               </div>
             ) : explainError ? (
               <div className="text-red-300 text-sm">{explainError}</div>
             ) : (
-              <div className="text-lg space-y-1 leading-relaxed">
-                {renderText(explanation)}
+              <div className="text-base md:text-lg">
+                <LessonMarkdown text={explanation} />
               </div>
             )}
           </div>
@@ -225,11 +226,11 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
               {['maths-gcse','english-gcse','science-gcse','history-gcse','geography-gcse'].includes(profile.subject) && (
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 4 }}>
                   {['AQA', 'Edexcel', 'OCR'].map(b => (
-                    <span key={b} style={{ fontSize: 10, fontWeight: 800, padding: '3px 10px', borderRadius: 99, background: 'rgba(16,185,129,0.12)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
+                    <span key={b} style={{ fontSize: 10, fontWeight: 800, padding: '3px 10px', borderRadius: 99, background: 'rgba(16,185,129,0.12)', color: '#065f46', border: '1px solid rgba(16,185,129,0.25)' }}>
                       {b}
                     </span>
                   ))}
-                  <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', marginLeft: 4 }}>
+                  <span style={{ fontSize: 10, color: '#475569', display: 'flex', alignItems: 'center', marginLeft: 4 }}>
                     Aligned with all major exam boards
                   </span>
                 </div>
@@ -238,13 +239,13 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
               {/* Examiner tip box */}
               {['maths-gcse','english-gcse','science-gcse','history-gcse','geography-gcse'].includes(profile.subject) && (
                 <div style={{ padding: '14px 16px', borderRadius: 14, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.22)' }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#fbbf24', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: '#92400e', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     📋 Examiner Tips
                   </div>
-                  <ul style={{ margin: 0, padding: '0 0 0 14px', color: 'rgba(255,255,255,0.6)', fontSize: 12, lineHeight: 1.7 }}>
-                    <li>Use command words correctly — <strong style={{ color: '#fbbf24' }}>describe</strong> vs <strong style={{ color: '#fbbf24' }}>explain</strong> vs <strong style={{ color: '#fbbf24' }}>analyse</strong></li>
+                  <ul style={{ margin: 0, padding: '0 0 0 14px', color: '#334155', fontSize: 12, lineHeight: 1.7 }}>
+                    <li>Use command words correctly — <strong style={{ color: '#92400e' }}>describe</strong> vs <strong style={{ color: '#92400e' }}>explain</strong> vs <strong style={{ color: '#92400e' }}>analyse</strong></li>
                     <li>Show working for maths — method marks are available even with a wrong answer</li>
-                    <li>Use PEEL structure for extended answers: <strong style={{ color: '#fbbf24' }}>Point → Evidence → Explain → Link</strong></li>
+                    <li>Use PEEL structure for extended answers: <strong style={{ color: '#92400e' }}>Point → Evidence → Explain → Link</strong></li>
                     <li>Time yourself — 1 mark ≈ 1–1.5 minutes in most GCSE papers</li>
                   </ul>
                 </div>
@@ -253,11 +254,11 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
               {/* Interview tips box */}
               {['interview-tech','interview-gen','interview-nurse','interview-law'].includes(profile.subject) && (
                 <div style={{ padding: '14px 16px', borderRadius: 14, background: 'rgba(96,165,250,0.08)', border: '1px solid rgba(96,165,250,0.22)' }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#93c5fd', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: '#1e40af', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     🎯 Interview Coach Tips
                   </div>
-                  <ul style={{ margin: 0, padding: '0 0 0 14px', color: 'rgba(255,255,255,0.6)', fontSize: 12, lineHeight: 1.7 }}>
-                    <li><strong style={{ color: '#93c5fd' }}>STAR method:</strong> Situation → Task → Action → Result — always quantify results</li>
+                  <ul style={{ margin: 0, padding: '0 0 0 14px', color: '#334155', fontSize: 12, lineHeight: 1.7 }}>
+                    <li><strong style={{ color: '#1e40af' }}>STAR method:</strong> Situation → Task → Action → Result — always quantify results</li>
                     <li>Pause before answering — interviewers respect thoughtful responses</li>
                     <li>Research the company: values, recent news, role responsibilities</li>
                     <li>Prepare 2–3 questions to ask at the end — shows genuine interest</li>
@@ -267,16 +268,16 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
 
               {/* Pro upsell — shown after free sessions consumed */}
               {gateCount >= 2 && (
-                <div style={{ padding: '16px 18px', borderRadius: 16, background: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(20,184,166,0.06))', border: '1px solid rgba(16,185,129,0.3)' }}>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: '#fff', marginBottom: 6 }}>
+                <div style={{ padding: '16px 18px', borderRadius: 16, background: '#ecfdf5', border: '1px solid rgba(16,185,129,0.3)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>
                     🚀 You&apos;re doing great — unlock everything
                   </div>
-                  <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', marginBottom: 12, lineHeight: 1.6 }}>
-                    This is your {gateCount === 2 ? 'last free session' : 'free session'}. Pro gives you unlimited topics, past paper mode, mock interviews, progress tracking & PDF study guides.
+                  <p style={{ fontSize: 12, color: '#334155', marginBottom: 12, lineHeight: 1.6 }}>
+                    This is your {gateCount === 2 ? 'last free session' : 'free session'}. Pro gives you all topics, past paper mode, mock interviews, progress tracking & PDF study guides.
                   </p>
                   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    {['✓ Unlimited sessions', '✓ Mock interviews', '✓ PDF study guides', '✓ Progress tracking', '✓ Past paper mode'].map(f => (
-                      <span key={f} style={{ fontSize: 10, fontWeight: 700, color: '#6ee7b7', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', padding: '2px 8px', borderRadius: 99 }}>{f}</span>
+                    {['✓ More sessions (fair use)', '✓ Mock interviews', '✓ PDF study guides', '✓ Progress tracking', '✓ Past paper mode'].map(f => (
+                      <span key={f} style={{ fontSize: 10, fontWeight: 700, color: '#065f46', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', padding: '2px 8px', borderRadius: 99 }}>{f}</span>
                     ))}
                   </div>
                 </div>
@@ -327,7 +328,7 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
           {loadingQuiz && (
             <div className={`${theme.card} p-8 flex flex-col items-center gap-4`}>
               <Loader2 size={28} className={`${theme.textAccent} animate-spin`} />
-              <p className="text-white/40 text-sm">Generating your quiz…</p>
+              <p className="text-slate-600 text-sm">Generating your quiz…</p>
             </div>
           )}
 
@@ -343,7 +344,7 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
           {!loadingQuiz && !quizError && !quizDone && q && (
             <div className="space-y-5">
               {/* Quiz progress + voice toggle */}
-              <div className="flex justify-between items-center text-xs text-white/40">
+              <div className="flex justify-between items-center text-xs text-white/70">
                 <span>Question {qIndex + 1} of {questions.length}</span>
                 <div className="flex items-center gap-3">
                   <span>{score} correct</span>
@@ -369,7 +370,7 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
 
               {/* Question */}
               <div className={`${theme.card} p-6`}>
-                <p className="text-sm text-white/40 uppercase tracking-widest font-medium mb-3">
+                <p className="text-sm text-white/70 uppercase tracking-widest font-medium mb-3">
                   {q.type === 'true_false' ? 'True or False' : q.type === 'fill_blank' ? 'Fill in the blank' : 'Multiple choice'}
                 </p>
                 <p className="text-white text-lg font-semibold leading-snug">{q.question}</p>
@@ -407,7 +408,7 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
                   <summary style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', cursor: 'pointer', userSelect: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                     💡 Show hint
                   </summary>
-                  <div style={{ marginTop: 8, padding: '10px 14px', borderRadius: 10, background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.2)', fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>
+                  <div style={{ marginTop: 8, padding: '10px 14px', borderRadius: 10, background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.2)', fontSize: 13, color: '#334155', lineHeight: 1.6 }}>
                     {q.explanation.slice(0, Math.min(120, q.explanation.indexOf('.') + 1) || 80)}…
                   </div>
                 </details>
@@ -421,7 +422,7 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
                     <p className="font-semibold text-white text-sm mb-1">
                       {wasCorrect ? '✅ Correct!' : `❌ Not quite — the answer is: ${q.answer}`}
                     </p>
-                    <p className="text-white/65 text-sm leading-relaxed">{q.explanation}</p>
+                    <p className="text-white/70 text-sm leading-relaxed">{q.explanation}</p>
                   </div>
                 )
               })()}
@@ -440,7 +441,7 @@ export default function TopicPage({ params }: { params: Promise<{ topicId: strin
               <div className="text-5xl mb-4">{score >= 4 ? '🎉' : score >= 3 ? '👍' : '💪'}</div>
               <h2 className="text-2xl font-extrabold text-white mb-2">Quiz complete!</h2>
               <div className={`text-4xl font-extrabold ${theme.gradientText} mb-2`}>{score}/{questions.length}</div>
-              <p className="text-white/50 text-sm mb-8">
+              <p className="text-white/70 text-sm mb-8">
                 {score === questions.length ? 'Perfect score — you nailed it!'
                   : score >= 4 ? 'Great job! You really understood this topic.'
                   : score >= 3 ? 'Good effort — review the explanations above if anything felt tricky.'
@@ -480,7 +481,7 @@ function renderOption(
   } else if (isSelected && !isCorrect) {
     cls += 'border-red-500/50 bg-red-500/10 text-red-300 cursor-default'
   } else {
-    cls += 'border-white/[0.04] bg-white/[0.02] text-white/30 cursor-default'
+    cls += 'border-white/[0.04] bg-white/[0.02] text-white/70 cursor-default'
   }
 
   return (

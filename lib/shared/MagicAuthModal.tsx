@@ -17,7 +17,7 @@ type Step = 'email' | 'code' | 'done'
 export default function MagicAuthModal({
   isOpen, onClose, onSuccess, site,
   accentColor = '#6366f1',
-  title = 'Sign in — it\'s free',
+  title = 'Sign in to save your progress',
   subtitle = 'No password. We\'ll email you a one-time code.',
 }: Props) {
   const [step, setStep]       = useState<Step>('email')
@@ -112,7 +112,7 @@ export default function MagicAuthModal({
 
               {/* Perks */}
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
-                {['Free forever', 'No password', 'Instant access'].map(p => (
+                {['Saves your progress', 'No password', 'Instant access'].map(p => (
                   <span key={p} style={{
                     fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 99,
                     background: `${accent}15`, border: `1px solid ${accent}40`, color: accent,

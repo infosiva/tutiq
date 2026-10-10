@@ -21,7 +21,7 @@ export default function NewsletterForm({ accentClass = 'from-sky-600 to-sky-500'
   }
 
   if (state === 'done') {
-    return <p className="text-sm text-slate-500">You&apos;re subscribed! 🎉</p>
+    return <p className="text-sm text-slate-600">You&apos;re subscribed! 🎉</p>
   }
 
   return (

@@ -48,7 +48,7 @@ export default function StudyModes() {
     <section className="px-4 sm:px-6 py-8 max-w-6xl mx-auto">
       <div className="mb-5">
         <h2 className="text-lg font-black text-slate-900">Study Mode</h2>
-        <p className="text-sm text-slate-500 mt-1">Choose how you want to practise</p>
+        <p className="text-sm text-slate-600 mt-1">Choose how you want to practise</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -73,9 +73,9 @@ export default function StudyModes() {
             >
               {mode.title}
             </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">{mode.desc}</p>
+            <p className="text-xs text-slate-600 leading-relaxed">{mode.desc}</p>
             <div
-              className="mt-3 text-[11px] font-bold flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity"
+              className="mt-3 text-[11px] font-bold flex items-center gap-1 underline-offset-2 group-hover:underline"
               style={{ color: `rgba(${mode.textRgb},1)` }}
             >
               Start →

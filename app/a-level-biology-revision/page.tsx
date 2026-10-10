@@ -35,7 +35,7 @@ export default function ALevelBiologyPage() {
         </span>
       </h1>
 
-      <div className="space-y-4 text-white/65 leading-relaxed mb-10">
+      <div className="space-y-4 text-white/70 leading-relaxed mb-10">
         <p>
           A-Level Biology demands deep understanding, not just memorisation. Tutiq is an AI tutor that explains
           complex concepts conversationally — whether you&apos;re confused about meiosis vs mitosis, struggling
@@ -54,7 +54,7 @@ export default function ALevelBiologyPage() {
 
       {/* Topic chips */}
       <div className="mb-10">
-        <p className="text-sm font-semibold text-white/40 mb-3 uppercase tracking-wider">Topics covered</p>
+        <p className="text-sm font-semibold text-white/70 mb-3 uppercase tracking-wider">Topics covered</p>
         <div className="flex flex-wrap gap-2">
           {TOPICS.map(topic => (
             <span key={topic}

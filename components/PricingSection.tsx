@@ -2,6 +2,8 @@
 import { siteConfig } from '@/site.config'
 import { theme } from '@/lib/theme'
 import Link from 'next/link'
+import { TierStrip } from '@/components/TierStrip'
+import { TIERS } from '@/lib/tiers'
 
 export default function PricingSection() {
   const { free, pro } = siteConfig.pricing
@@ -10,7 +12,11 @@ export default function PricingSection() {
     <section id="pricing" className="py-8 px-4 sm:px-6 max-w-4xl mx-auto border-t border-black/[0.06]">
       <div className="text-center mb-10">
         <h2 className="text-2xl font-black text-slate-900 mb-2">Free vs Pro</h2>
-        <p className="text-slate-500 text-sm">Transparent pricing — no surprises</p>
+        <p className="text-slate-600 text-sm">Transparent pricing — no surprises</p>
+      </div>
+
+      <div className="mb-6">
+        <TierStrip tiers={TIERS} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

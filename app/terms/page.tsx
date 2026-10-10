@@ -10,7 +10,7 @@ export default function TermsPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-16 text-sm leading-relaxed">
       <h1 className="text-3xl font-bold mb-2">Terms of Service</h1>
-      <p className="opacity-50 mb-10">Last updated: 13 May 2026</p>
+      <p className="text-slate-600 mb-10">Last updated: 13 May 2026</p>
 
       <Section title="1. Acceptance of Terms">
         <p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <p className="mt-10 opacity-40 text-xs">© 2026 Tutiq. All rights reserved.</p>
+      <p className="mt-10 text-slate-600 text-xs">© 2026 Tutiq. All rights reserved.</p>
     </main>
   );
 }

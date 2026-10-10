@@ -23,7 +23,7 @@ export default function FeaturesGrid() {
       {/* Section header */}
       <div className="text-center mb-10">
         <h2 className="text-2xl font-black text-slate-900 mb-2">Everything you need to level up</h2>
-        <p className="text-slate-500 text-sm">Built for students who want to understand, not just pass</p>
+        <p className="text-slate-600 text-sm">Built for students who want to understand, not just pass</p>
       </div>
 
       {/* Feature bento */}
@@ -50,7 +50,7 @@ export default function FeaturesGrid() {
             >
               <span className={`${isLarge ? 'text-4xl' : 'text-3xl'}`}>{f.icon}</span>
               <div className={`font-bold text-slate-900 ${isLarge ? 'text-lg' : 'text-sm'}`}>{f.title}</div>
-              <div className={`text-slate-500 leading-relaxed ${isLarge ? 'text-sm' : 'text-xs'}`}>{f.desc}</div>
+              <div className={`text-slate-600 leading-relaxed ${isLarge ? 'text-sm' : 'text-xs'}`}>{f.desc}</div>
             </motion.div>
           )
         })}
@@ -59,7 +59,7 @@ export default function FeaturesGrid() {
       {/* Subjects section */}
       <div className="mb-5">
         <h3 className="text-lg font-black text-slate-900 mb-1">Subjects covered</h3>
-        <p className="text-slate-500 text-xs mb-5">Tap a subject to start your personalised path</p>
+        <p className="text-slate-600 text-xs mb-5">Tap a subject to start your personalised path</p>
 
         <motion.div
           variants={containerVars as Parameters<typeof motion.div>[0]['variants']}
@@ -85,7 +85,7 @@ export default function FeaturesGrid() {
                     <div>
                       <div className="text-sm font-bold text-slate-900">{s.label}</div>
                       <div className="text-[9px] font-semibold uppercase tracking-wider"
-                        style={{ color: s.border }}>
+                        style={{ color: '#334155' }}>
                         {s.tag}
                       </div>
                     </div>
@@ -101,8 +101,8 @@ export default function FeaturesGrid() {
             <Link href="/onboard" className="block">
               <div className="rounded-2xl border border-dashed border-black/[0.12] p-4 flex flex-col items-center justify-center gap-2 cursor-pointer h-full min-h-[90px] transition-all hover:border-sky-500/40 hover:bg-black/[0.02]">
                 <span className="text-2xl">➕</span>
-                <p className="text-xs font-bold text-slate-500 text-center">+ 15 more subjects</p>
-                <p className="text-[10px] text-slate-400 text-center">History, Languages, Finance & more</p>
+                <p className="text-xs font-bold text-slate-600 text-center">+ 15 more subjects</p>
+                <p className="text-[10px] text-slate-600 text-center">History, Languages, Finance & more</p>
               </div>
             </Link>
           </motion.div>

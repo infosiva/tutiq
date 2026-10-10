@@ -38,7 +38,7 @@ function FlashcardsTab({ cards }: { cards: Flashcard[] }) {
 
   return (
     <div>
-      <p className="text-xs text-white/30 mb-4">{Object.keys(done).length}/{cards.length} reviewed · click card to flip</p>
+      <p className="text-xs text-white/70 mb-4">{Object.keys(done).length}/{cards.length} reviewed · click card to flip</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {cards.map((card, i) => (
           <div key={i}
@@ -92,7 +92,7 @@ function QuizTab({ questions }: { questions: QuizQ[] }) {
           <span className="text-2xl">🎯</span>
           <div>
             <p className="font-black text-white">{score}/{questions.length} correct</p>
-            <p className="text-xs text-white/40">{score === questions.length ? 'Perfect score!' : score >= questions.length / 2 ? 'Good job — review wrong answers below' : 'Keep studying — you\'ve got this!'}</p>
+            <p className="text-xs text-white/70">{score === questions.length ? 'Perfect score!' : score >= questions.length / 2 ? 'Good job — review wrong answers below' : 'Keep studying — you\'ve got this!'}</p>
           </div>
         </div>
       )}
@@ -130,7 +130,7 @@ function QuizTab({ questions }: { questions: QuizQ[] }) {
               })}
             </div>
             {show && q.explanation && (
-              <p className="text-xs italic px-1" style={{ color: 'rgba(255,255,255,0.35)' }}>💡 {q.explanation}</p>
+              <p className="text-xs italic px-1" style={{ color: 'rgba(255,255,255,0.7)' }}>💡 {q.explanation}</p>
             )}
           </div>
         )
@@ -200,12 +200,12 @@ export default function StudyPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-black text-white tracking-tight">Study Buddy</h1>
-          <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.7)' }}>
             Upload notes → get quiz, flashcards &amp; summary instantly
           </p>
         </div>
         <Link href="/" className="text-sm font-semibold flex items-center gap-1"
-          style={{ color: 'rgba(255,255,255,0.3)' }}>
+          style={{ color: 'rgba(255,255,255,0.7)' }}>
           ← Home
         </Link>
       </div>
@@ -244,7 +244,7 @@ export default function StudyPage() {
               </div>
               <div>
                 <p className="font-bold text-white text-sm">Drop your study material here</p>
-                <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.7)' }}>
                   PDF, TXT, or Markdown · max 5 MB
                 </p>
               </div>
@@ -317,7 +317,7 @@ export default function StudyPage() {
             style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.15)' }}>
             <div>
               <p className="text-sm font-bold text-white/80">Want deeper help?</p>
-              <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.7)' }}>
                 Chat with your AI tutor on any topic
               </p>
             </div>

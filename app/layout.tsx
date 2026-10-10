@@ -12,6 +12,7 @@ import ChatBot from '@/components/ChatBot'
 import { getSiteFlags } from '@/lib/flags'
 import Providers from '@/components/Providers'
 import FeedbackWidget from '@/components/FeedbackWidget'
+import AccessWatcher from '@/components/AccessWatcher'
 import BackToTop from '@/components/BackToTop'
 import CookieConsent from "../components/CookieConsent";
 import Footer from "../components/Footer";
@@ -96,8 +97,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </Providers>
 
         {flags.chatbot && <ChatBot />}
-        <FeedbackWidget siteName="Tutiq" accentColor="#0284c7" accentColor2="#0369a1" position={flags.chatbot ? 'left' : 'right'} />
-        <BackToTop accentColor="#0284c7" />
+        <AccessWatcher />
+        <FeedbackWidget siteName="Tutiq" accentColor="#0369a1" accentColor2="#0369a1" position={flags.chatbot ? 'left' : 'right'} />
+        <BackToTop accentColor="#0369a1" />
 
         <FooterExtras />
         <Footer siteName={config.name} />

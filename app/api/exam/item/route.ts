@@ -1,3 +1,4 @@
+import { guarded } from "@/lib/access"
 import { NextRequest, NextResponse } from 'next/server'
 import { AI_LIMITER } from '@/lib/rateLimit'
 import { BLUEPRINTS } from '@/lib/exam/blueprints'
@@ -7,7 +8,7 @@ import { sealItem } from '@/lib/exam/ticket'
 export const dynamic = 'force-dynamic'
 
 // POST {blueprintId, sectionIndex, topic, slot} -> one validated question (answer withheld; marking is server-side).
-export async function POST(req: NextRequest) {
+async function handler(req: NextRequest) {
   const limited = AI_LIMITER.check(req)
   if (limited) return limited
   const b = await req.json().catch(() => null) as { blueprintId?: string; sectionIndex?: number; topic?: string; slot?: string } | null
@@ -21,3 +22,5 @@ export async function POST(req: NextRequest) {
   const { answer: _a, markScheme: _m, ...pub } = item
   return NextResponse.json({ item: pub, ticket: sealItem(item) })
 }
+
+export const POST = guarded(handler)

@@ -28,10 +28,10 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-[9998] p-4 md:p-6 bg-zinc-950/95 border-t border-white/10 backdrop-blur-sm"
+      className="fixed bottom-0 left-0 right-0 z-[9998] px-4 py-2.5 md:p-6 bg-zinc-950/95 border-t border-white/10 backdrop-blur-sm"
     >
-      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="flex-1 text-sm text-white/70">
+      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+        <div className="flex-1 text-xs sm:text-sm text-white/70 leading-snug">
           <p>
             We use cookies to improve your experience and show relevant ads via{" "}
             <strong className="text-white">Google AdSense</strong>. By clicking
@@ -45,16 +45,16 @@ export default function CookieConsent() {
             </Link>
           </p>
         </div>
-        <div className="flex gap-3 shrink-0">
+        <div className="flex gap-2 sm:gap-3 shrink-0 w-full sm:w-auto pr-14 sm:pr-0">
           <button
             onClick={decline}
-            className="px-4 py-2 text-xs rounded-lg border border-white/20 text-white/60 hover:border-white/40 hover:text-white/80 transition-colors"
+            className="min-h-11 px-4 py-2 text-xs rounded-lg border border-white/20 text-white/70 hover:border-white/40 hover:text-white/80 transition-colors"
           >
             Decline
           </button>
           <button
             onClick={accept}
-            className="px-4 py-2 text-xs rounded-lg bg-white text-black font-medium hover:bg-white/90 transition-colors"
+            className="min-h-11 px-4 py-2 text-xs rounded-lg bg-white text-black font-medium hover:bg-white/90 transition-colors"
           >
             Accept all cookies
           </button>

@@ -1,3 +1,4 @@
+import { guarded } from "@/lib/access"
 import { NextRequest, NextResponse } from 'next/server'
 import { AI_LIMITER } from '@/lib/rateLimit'
 import { examLlm } from '@/lib/exam/llm'
@@ -7,7 +8,7 @@ import { isTone, tutorSystem } from '@/lib/exam/tutor'
 export const dynamic = 'force-dynamic'
 
 // POST {tone, age, topic, message} -> {reply}. Guarded tutor; learner text moderated, only verdicts logged.
-export async function POST(req: NextRequest) {
+async function handler(req: NextRequest) {
   const limited = AI_LIMITER.check(req)
   if (limited) return limited
   const b = await req.json().catch(() => null) as { tone?: string; age?: string; topic?: string; message?: string } | null
@@ -20,3 +21,5 @@ export async function POST(req: NextRequest) {
   if (!moderate(text).ok) return NextResponse.json({ error: 'could not answer, try again' }, { status: 503 })
   return NextResponse.json({ reply: text })
 }
+
+export const POST = guarded(handler)
