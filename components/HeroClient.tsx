@@ -20,12 +20,28 @@ const EXCHANGES = [
     q: "Can you explain Newton's Third Law simply?",
     a: 'Every action has an equal and opposite reaction. When you push on a wall, the wall pushes back on you with the same force — that\'s why you don\'t fall through it.',
   },
+  {
+    subject: 'Maths', level: '11+',
+    q: 'How do I work out 3/4 of 80?',
+    a: 'Divide 80 by the bottom number (4) to get 20 — that is one quarter. You want three quarters, so 20 × 3 = 60.',
+  },
+  {
+    subject: 'Verbal Reasoning', level: '11+',
+    q: 'What is the odd one out: happy, joyful, glad, angry?',
+    a: 'Angry. The other three all mean pleased. Spot the shared meaning first, then find the word that breaks it.',
+  },
+  {
+    subject: 'Biology', level: 'GCSE',
+    q: 'What is the difference between mitosis and meiosis?',
+    a: 'Mitosis makes two identical cells for growth and repair. Meiosis makes four different sex cells (gametes) with half the chromosomes.',
+  },
 ] as const
 
 const TYPE_SPEED_MS = 14
 
 export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown }) {
   const [idx, setIdx] = useState(0)
+  useEffect(() => setIdx(Math.floor(Math.random() * EXCHANGES.length)), []) // different opener each visit
   const [phase, setPhase] = useState<'question' | 'typing' | 'answer' | 'pause'>('question')
   const [typed, setTyped] = useState('')
   const timers = useRef<ReturnType<typeof setTimeout>[]>([])
@@ -88,7 +104,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
               background: 'var(--accent)', color: '#fff', padding: '14px 28px',
               borderRadius: 10, fontWeight: 700, fontSize: 15, textDecoration: 'none', display: 'inline-block',
             }}><MagneticButton tabIndex={-1} style={{ all: 'unset', cursor: 'pointer' }}>Ask a Question Free →</MagneticButton></a>
-            <a href="#subjects" style={{
+            <a href="/exam" style={{
               border: '1.5px solid rgba(2,132,199,0.3)', color: 'var(--accent)',
               padding: '14px 28px', borderRadius: 10, fontWeight: 600, fontSize: 15,
               textDecoration: 'none', display: 'inline-block',
@@ -103,7 +119,7 @@ export default function HeroClient({ overrides: _ = {} }: { overrides?: unknown 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={{
             background: '#fff', border: '1px solid rgba(2,132,199,0.15)',
-            borderRadius: 20, padding: 24, width: '100%', maxWidth: 420, minHeight: 340,
+            borderRadius: 20, padding: 24, width: '100%', maxWidth: 420, minHeight: 300,
             boxShadow: '0 8px 40px rgba(2,132,199,0.08)',
             display: 'flex', flexDirection: 'column',
           }}>
